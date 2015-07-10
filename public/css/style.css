@@ -1,0 +1,41 @@
+body {
+  padding-top: 55px;
+  padding-bottom:55px;
+}
+
+ul.form-error {
+	list-style: none;
+	margin:0;
+	padding:0;
+}
+
+ul.form-error li {
+	color:#d9534f;
+}
+
+.centered {
+	text-align:center;
+}
+
+.mealfield {
+	cursor:pointer;
+}
+
+.orderedmealfield {
+	background-color:#DFF0D8 !important;
+}
+
+.mealfieldhilighted
+{
+	background-color:#DFF0D8 !important;
+}
+
+.orderedmealfield.orderedmealfieldhilighted
+{
+	background-color:#f2dede !important;
+}
+
+td.mealfield.mealfieldhovered
+{
+	background-color:#d9edf7 !important;
+}

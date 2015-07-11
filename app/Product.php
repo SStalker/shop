@@ -28,6 +28,17 @@ class Product extends Model
         return $this->belongsTo('App\Category');
     }*/
 
+    protected $fillable =
+        [   'product_name',
+            'description',
+            'quantity',
+            'image_path',
+            'price',
+            'times_ordered',
+            'category_id',
+            'manufacturers_id'
+        ];
+
     //Rules
     public static $rules = array(
         'product_name' => 'required|min:2',

@@ -34,6 +34,7 @@ class Product extends Model
             'quantity',
             'image_path',
             'price',
+            'status',
             'times_ordered',
             'category_id',
             'manufacturers_id'

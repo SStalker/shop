@@ -32,7 +32,10 @@
             <li><a href="#">One more separated link</a></li>-->
           </ul>
         </li>
-        <!--<li><a href="{!! url('/posts') !!}">Post</a></li>
+        @if(Auth::user())
+          <li><a href="{!! url('/permissions') !!}">Permissions</a></li>
+        @endif
+        <!--
         <li><a href="{!! url('/messages') !!}">Messages</a></li>-->
       </ul>
       <!--@if(Auth::user())

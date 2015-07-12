@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use Auth;
 
 class AdminController extends Controller
@@ -14,13 +13,14 @@ class AdminController extends Controller
     public function __construct()
     {
     	$this->middleware('auth');
+    	if(!Auth::user() || !Auth::user()->hasRole('admin'))
+    	{
+    		return "Not admin or unvalid session";
+    	}
     }
 
     public function getIndex()
-    {
-    	if(Auth::user()->hasRole('admin'))
-    	{
-    		return view('backend.index');
-    	}
+    {    	
+    	return view('backend.index');
     }
 }

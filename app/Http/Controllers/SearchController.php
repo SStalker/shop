@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Validator;
 use App\Http\Controllers\Controller;
 
-class ProductController extends Controller
+class SearchController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +17,6 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products = Product::all();
-        return view('products.index')->with('products', $products);
     }
 
     /**
@@ -30,8 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // ToDo: Auth. check
-        return view('products.new');
+        //
     }
 
     /**
@@ -41,21 +36,7 @@ class ProductController extends Controller
      */
     public function store()
     {
-        //ToDo : Error Handling, Auth. check
-        $validator = Validator::make(Request::all(), Product::$rules);
-
-        if($validator->passes())
-        {
-            $product = Product::create(Request::all());
-            $product->save();
-
-            return redirect('products');
-        }
-        else
-        {
-            return redirect('products');
-        }
-
+        //
     }
 
     /**
@@ -88,21 +69,7 @@ class ProductController extends Controller
      */
     public function update($id)
     {
-        //ToDo : Error Handling
-        $validator = Validator::make(Request::all(), Product::$rules);
-
-        if($validator->passes())
-        {
-            $product = Product::update(Request::all());
-            $product->save();
-
-            return redirect('products');
-        }
-        else
-        {
-            return redirect('products');
-        }
-
+        //
     }
 
     /**

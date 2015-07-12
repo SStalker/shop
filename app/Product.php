@@ -24,9 +24,9 @@ class Product extends Model
     */
 
     //Belongs to One Category
-    /*public function category(){
+    public function category(){
         return $this->belongsTo('App\Category');
-    }*/
+    }
 
     protected $fillable =
         [   'product_name',
@@ -34,6 +34,7 @@ class Product extends Model
             'quantity',
             'image_path',
             'price',
+            'status',
             'times_ordered',
             'category_id',
             'manufacturers_id'

@@ -6,8 +6,7 @@
         @foreach($products as $product)
             @if($product->status)
 
-
-                {{--ToDo: create decent output--}}
+                <!--ToDo: create decent output-->
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {!! $product->product_name !!}

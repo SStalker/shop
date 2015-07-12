@@ -30,7 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        // ToDo: Auth. check
         return view('products.new');
     }
 
@@ -41,7 +41,7 @@ class ProductController extends Controller
      */
     public function store()
     {
-        //ToDo : Error Handling
+        //ToDo : Error Handling, Auth. check
         $validator = Validator::make(Request::all(), Product::$rules);
 
         if($validator->passes())

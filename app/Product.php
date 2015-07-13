@@ -29,7 +29,7 @@ class Product extends Model
     }
 
     protected $fillable =
-        [   'product_name',
+        [   'name',
             'description',
             'quantity',
             'image_path',
@@ -42,7 +42,7 @@ class Product extends Model
 
     //Rules
     public static $rules = array(
-        'product_name' => 'required|min:2',
+        'name' => 'required|min:2',
         'quantity' => 'required|numeric',
         'price' => 'required|numeric',
         'status' => 'required|boolean',

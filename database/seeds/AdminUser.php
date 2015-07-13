@@ -25,6 +25,16 @@ class AdminUser extends Seeder
             'updated_at' => Carbon::now(),
         ]);
 
+        // + normal user
+
+        DB::table('users')->insert([
+            'name' => 'normal',
+            'email' => 'normal@mail.com',
+            'password' => bcrypt('normal'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
         $admin = new Role();
 		$admin->name         = 'admin';
 		$admin->display_name = 'User Administrator'; // optional

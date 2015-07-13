@@ -9,7 +9,7 @@ class Category extends Model
 
     /*
      *      $table->increments('id');
-            $table->string('category_name');
+            $table->string('name');
             $table->integer('parent_id');
             $table->boolean('status');
     */
@@ -19,14 +19,14 @@ class Category extends Model
     }
 
     protected $fillable =
-        [   'category_name',
+        [   'name',
             'parent_id',
             'status'
         ];
 
     //Rules
     public static $rules = array(
-        'category_name' => 'required|min:2',
+        'name' => 'required|min:2',
         'parent_id' => 'required|numeric',
         'status' => 'required|boolean'
     );

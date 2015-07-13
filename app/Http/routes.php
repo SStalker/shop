@@ -11,13 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-});
-
 Route::controllers([
 	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController'
+	'password' => 'Auth\PasswordController',
+	'/' => 'StartController'
 ]);
 
 Route::resource('products', 'ProductController');

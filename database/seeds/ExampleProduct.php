@@ -31,7 +31,7 @@ class ExampleProduct extends Seeder
     public function run()
     {
         DB::table('products')->insert([
-            'product_name' => 'Test Produkt',
+            'name' => 'Test Produkt',
             'description' => 'test',
             'quantity' => '42',
             'image_path' => 'test_img.jpg',

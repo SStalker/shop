@@ -15,7 +15,7 @@ class CreateCategoriesTable extends Migration
         //Schema for products table
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('category_name')->unique();
+            $table->string('name')->unique();
             $table->integer('parent_id');
             $table->boolean('status'); //The status of the product. Can be set to false (disabled) or true (enabled).
             $table->timestamps();

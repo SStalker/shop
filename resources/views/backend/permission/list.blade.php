@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+	<h1>Permissions</h1>
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<th>ID</th>

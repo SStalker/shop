@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Product;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\User;
+use Request;
 use Validator;
+use Auth;
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except'=>'index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,8 +36,23 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // ToDo: Auth. check
-        return view('products.new');
+        if(Auth::user()->hasRole('admin'))
+        {
+            $categoriyArray = Category::orderBy('category_name', 'asc')->get();
+            $categories = array('0' => '--- bitte wählen ---');
+            foreach($categoriyArray as $category)
+            {
+                $categories[$category->id] = $category->category_name;
+            }
+
+            return view('products.create')->with('categories' ,$categories);
+        }
+        else
+        {
+            return redirect('products');
+        }
+
+
     }
 
     /**
@@ -41,21 +62,34 @@ class ProductController extends Controller
      */
     public function store()
     {
-        //ToDo : Error Handling, Auth. check
-        $validator = Validator::make(Request::all(), Product::$rules);
-
-        if($validator->passes())
+        //ToDo : Error Handling
+        if(Auth::user()->hasRole('admin'))
         {
-            $product = Product::create(Request::all());
-            $product->save();
 
-            return redirect('products');
+            $request = Request::all();
+
+//            dd($request);
+
+            $validator = Validator::make($request, Product::$rules);
+
+            if ($validator->passes()) {
+                $product = Product::create($request);
+                $product->save();
+
+                return redirect('products');
+
+            } else {
+
+//                dd($validator);
+                return redirect('products/create')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
         }
         else
         {
             return redirect('products');
         }
-
     }
 
     /**
@@ -89,17 +123,28 @@ class ProductController extends Controller
     public function update($id)
     {
         //ToDo : Error Handling
-        $validator = Validator::make(Request::all(), Product::$rules);
-
-        if($validator->passes())
+        if(Auth::user()->hasRole('admin'))
         {
-            $product = Product::update(Request::all());
-            $product->save();
+            $request = Request::all();
+            $validator = Validator::make($request, Product::$rules);
 
-            return redirect('products');
+            if($validator->passes())
+            {
+                $product = Product::update($request);
+                $product->save();
+
+                return redirect('products');
+            }
+            else
+            {
+                return redirect('products')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
         }
         else
         {
+//
             return redirect('products');
         }
 

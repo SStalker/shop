@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class ExampleCategory extends Seeder
 {
@@ -11,7 +12,7 @@ class ExampleCategory extends Seeder
      */
     public function run()
     {
-        DB::table('products')->insert([
+        DB::table('categories')->insert([
             'category_name' => 'Tetskategorie',
             'parent_id' => 0,
             'status' => 1,

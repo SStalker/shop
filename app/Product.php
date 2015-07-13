@@ -46,7 +46,6 @@ class Product extends Model
         'quantity' => 'required|numeric',
         'price' => 'required|numeric',
         'status' => 'required|boolean',
-        'category_id' => 'required|numeric',
-        'manufacturers_id' => 'required|numeric'
+        'category_id' => 'required|numeric|min:1'
     );
 }

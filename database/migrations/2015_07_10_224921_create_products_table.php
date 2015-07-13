@@ -15,15 +15,15 @@ class CreateProductsTable extends Migration
         //Schema for products table
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('product_name');
-            $table->longText('description');
+            $table->string('product_name')->unique();
+            $table->longText('description')->nullable();
             $table->integer('quantity');
-            $table->string('image_path');
+            $table->string('image_path')->nullable();
             $table->float('price');
             $table->boolean('status'); //The status of the product. Can be set to false (disabled) or true (enabled).
-            $table->integer('times_ordered');
+            $table->integer('times_ordered')->nullable();
             $table->integer('category_id');
-            $table->integer('manufacturers_id');
+            $table->integer('manufacturers_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

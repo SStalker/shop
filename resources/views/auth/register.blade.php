@@ -1,4 +1,4 @@
-@extends('auth.temp')
+@extends('layouts.simple')
 
 @section('content')
 <div class="container-fluid">

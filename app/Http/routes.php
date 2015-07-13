@@ -11,10 +11,15 @@
 |
 */
 
+/*
+,
+	'/' => 'StartController'
+*/
+Route::get('/','StartController@getIndex');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-	'/' => 'StartController'
+	'password' => 'Auth\PasswordController'
 ]);
 
 Route::resource('products', 'ProductController');

@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.simple')
 
 @section('content')
 	<h1>Roles</h1>

@@ -14,11 +14,10 @@ class PermissionController extends Controller
 {
     public function __construct()
     {
+        $user = Auth::user();
+
         $this->middleware('auth');
-        if(!Auth::user() || !Auth::user()->hasRole('admin'))
-        {
-            return "Not admin or unvalid session";
-        }
+        $this->middleware('admin');
     }
     /**
      * Display a listing of the resource.

@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
-
 class ExampleProduct extends Seeder
 {
 

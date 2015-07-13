@@ -34,6 +34,7 @@
         </li>
         @if(Auth::user())
           <li><a href="{!! url('/permissions') !!}">Permissions</a></li>
+          <li><a href="{!! url('/roles') !!}">Roles</a></li>
         @endif
         <!--
         <li><a href="{!! url('/messages') !!}">Messages</a></li>-->

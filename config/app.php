@@ -145,7 +145,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Zizaco\Entrust\EntrustServiceProvider::class,
-        Illuminate\Html\HtmlServiceProvider::class
+        Illuminate\Html\HtmlServiceProvider::class,
+        App\Providers\ViewComposerServiceProvider::class
     ],
 
     /*

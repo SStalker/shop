@@ -19,7 +19,10 @@ class SettingController extends Controller
     public function getAccount()
     {
     	$user = Auth::user();
-    	return view('settings.account')->with('user', $user);
+  
+    	return view('settings.account')
+    		->with('user', $user)
+    		->with('addresses', $user->addresses);
     }
 
     public function getOrder()

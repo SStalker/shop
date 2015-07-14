@@ -20,7 +20,8 @@ class CreateAddressesTable extends Migration
             $table->string('state');
             $table->string('country');
             $table->integer('user_id');
-
+            $table->timestamps();
+            
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

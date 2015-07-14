@@ -38,9 +38,9 @@ class ProductController extends Controller
     {
         if(Auth::user()->hasRole('admin'))
         {
-            $categoriyArray = Category::orderBy('category_name', 'asc')->get();
+            $categoryArray = Category::orderBy('category_name', 'asc')->get();
             $categories = array('0' => '--- bitte wählen ---');
-            foreach($categoriyArray as $category)
+            foreach($categoryArray as $category)
             {
                 $categories[$category->id] = $category->category_name;
             }
@@ -100,7 +100,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        //ToDo: create show function and view
     }
 
     /**
@@ -112,6 +112,24 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
+        if(Auth::user()->hasRole('admin'))
+        {
+            $product = Product::find($id);
+            $categoryArray = Category::orderBy('category_name', 'asc')->get();
+            $categories = array('0' => '--- bitte wählen ---');
+            foreach($categoryArray as $category)
+            {
+                $categories[$category->id] = $category->category_name;
+            }
+
+            return view('products.edit')
+                    ->with('product', $product)
+                    ->with('categories' ,$categories);
+        }
+        else
+        {
+            return redirect('products');
+        }
     }
 
     /**
@@ -122,7 +140,6 @@ class ProductController extends Controller
      */
     public function update($id)
     {
-        //ToDo : Error Handling
         if(Auth::user()->hasRole('admin'))
         {
             $request = Request::all();
@@ -137,7 +154,7 @@ class ProductController extends Controller
             }
             else
             {
-                return redirect('products')
+                return redirect('products.edit')
                     ->withErrors($validator)
                     ->withInput();
             }
@@ -158,6 +175,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //ToDo: Create destroy function
     }
 }

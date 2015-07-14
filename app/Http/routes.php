@@ -27,3 +27,4 @@ Route::controller('admin', 'AdminController');
 Route::resource('permissions', 'PermissionController');
 Route::resource('roles', 'RoleController');
 Route::controller('settings', 'SettingController');
+Route::ressource('categories', 'CategoryController');

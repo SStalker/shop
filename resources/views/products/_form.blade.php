@@ -1,5 +1,5 @@
-    {!! Form::label('product_name', '* Produktname')!!}
-    {!! Form::text('product_name', null, ['class' => 'form-control']) !!}
+    {!! Form::label('name', '* Produktname')!!}
+    {!! Form::text('name', null, ['class' => 'form-control']) !!}
 
     {!! Form::label('description', 'Beschreibung')!!}
     {!! Form::textarea('description', null, ['class' => 'form-control']) !!}

@@ -35,8 +35,10 @@
         </li>
         @if(Auth::user())
           @if(Auth::user()->hasRole('admin'))
-            <li><a href="{!! url('/permissions') !!}">Permissions</a></li>
-            <li><a href="{!! url('/roles') !!}">Roles</a></li>
+            <li><a href="{!! url('/permissions') !!}">Rechte</a></li>
+            <li><a href="{!! url('/roles') !!}">Rollen</a></li>
+            <li><a href="{!! url('/categories') !!}">Kategorien</a></li>
+            <li><a href="{!! url('/products') !!}">Produkte</a></li>
           @endif
         @endif
         <!--

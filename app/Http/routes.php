@@ -24,4 +24,4 @@ Route::resource('products', 'ProductController');
 Route::resource('permissions', 'PermissionController');
 Route::resource('roles', 'RoleController');
 Route::resource('addresses', 'AddressController');
-Route::ressource('categories', 'CategoryController');
+Route::resource('categories', 'CategoryController');

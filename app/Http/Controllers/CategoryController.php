@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class CategoryController extends Controller
 {
@@ -70,7 +71,8 @@ class CategoryController extends Controller
 
             if ($validator->passes()) {
                 $category = Category::create($request);
-                $category->save();
+                // create speichert automatisch den datensatz schon ab
+                //$category->save();
 
                 return redirect('categories');
 
@@ -143,7 +145,8 @@ class CategoryController extends Controller
             if($validator->passes())
             {
                 $category = Category::update($request);
-                $category->save();
+                // update macht das selbe wie create
+                //$category->save();
 
                 return redirect('categories');
             }

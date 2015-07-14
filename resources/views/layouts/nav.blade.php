@@ -17,6 +17,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kunde <span class="caret"></span></a>
           <ul class="dropdown-menu">
             @if(Auth::user())
+              <li><a href="{!! url('/settings') !!}">Konto</a></li>  
               <li><a href="{!! url('/auth/logout') !!}">Logout</a></li>
               @if(Auth::user()->hasRole('admin'))
                 <li><a href="{!! url('/admin/index') !!}">Backend</a></li>

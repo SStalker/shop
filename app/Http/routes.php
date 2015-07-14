@@ -11,10 +11,6 @@
 |
 */
 
-/*
-,
-	'/' => 'StartController'
-*/
 Route::get('/','StartController@getIndex');
 
 Route::controllers([
@@ -27,6 +23,5 @@ Route::controllers([
 Route::resource('products', 'ProductController');
 Route::resource('permissions', 'PermissionController');
 Route::resource('roles', 'RoleController');
-Route::controller('settings', 'SettingController');
 Route::resource('addresses', 'AddressController');
 Route::ressource('categories', 'CategoryController');

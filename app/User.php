@@ -13,7 +13,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
-    use EntrustUserTrait; // add this trait to your user model
+    use EntrustUserTrait;
     
     /**
      * The database table used by the model.

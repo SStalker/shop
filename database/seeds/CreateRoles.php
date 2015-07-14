@@ -24,10 +24,10 @@ class CreateRoles extends Seeder
 		$seller->description  = 'Seller is allowed to manage and edit his products'; // optional
 		$seller->save();
 
-		$costumer = new Role();
-		$costumer->name         = 'costumer';
-		$costumer->display_name = 'User Costumer'; // optional
-		$costumer->description  = 'Costumers are allowed to create new shoppingcart and orders'; // optional
-		$costumer->save();
+		$customer = new Role();
+		$customer->name         = 'customer';
+		$customer->display_name = 'User Customer'; // optional
+		$customer->description  = 'Customers are allowed to create new shoppingcart and orders'; // optional
+		$customer->save();
     }
 }

@@ -16,9 +16,13 @@ class AdminUser extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'admin',
+            'username' => 'admin',
             'email' => 'admin@mail.com',
             'password' => bcrypt('admin'),
+            'lastname' => 'Nicko',
+            'firstname' => 'Nicki',
+            'telephone' => '0123/45678',
+            'birthday' => Carbon::now(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -26,14 +30,18 @@ class AdminUser extends Seeder
         // + normal user
 
         DB::table('users')->insert([
-            'name' => 'normal',
+            'username' => 'normal',
             'email' => 'normal@mail.com',
             'password' => bcrypt('normal'),
+            'lastname' => 'Nicko',
+            'firstname' => 'Nicki',
+            'telephone' => '0123/45678',
+            'birthday' => Carbon::now(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
-		$user = User::where('name', '=', 'admin')->first();
+		$user = User::where('username', '=', 'admin')->first();
 		$user->roles()->attach(1); // id only
     }
 }

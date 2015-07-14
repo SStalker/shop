@@ -19,11 +19,11 @@ class CreateAddressesTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('country');
-            $table->integer('costumer_id');
+            $table->integer('user_id');
 
-            $table->foreign('costumer_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('costumers')
+                ->on('users')
                 ->onDelete('cascade');
         });
     }

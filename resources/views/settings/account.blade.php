@@ -7,9 +7,9 @@
 			<h3 class="panel-title">Kontodaten ändern</h3>
 		</div>
 		<div class="panel-body">
-			{!! Form::open(['url' => 'settings/update-account', 'method' => 'POST']) !!}
-				{!! Form::label('name', 'Name:')!!}
-				{!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
+			{!! Form::model($user,['url' => 'settings/update-account', 'method' => 'POST']) !!}
+				{!! Form::label('username', 'Name:')!!}
+				{!! Form::text('username', old('username'), ['class' => 'form-control']) !!}
 				
 				{!! Form::label('email', 'Email:')!!}
 				{!! Form::email('email', old('email'), ['class' => 'form-control']) !!}

@@ -62,7 +62,6 @@ class ProductController extends Controller
      */
     public function store()
     {
-        //ToDo : Error Handling
         if(Auth::user()->hasRole('admin'))
         {
 

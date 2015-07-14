@@ -7,9 +7,9 @@
 			<h3 class="panel-title">Kontodaten ändern</h3>
 		</div>
 		<div class="panel-body">
-			{!! Form::open(['url' => 'settings/update-account', 'method' => 'POST']) !!}
-				{!! Form::label('name', 'Name:')!!}
-				{!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
+			{!! Form::model($user,['url' => 'settings/update-account', 'method' => 'POST']) !!}
+				{!! Form::label('username', 'Name:')!!}
+				{!! Form::text('username', old('username'), ['class' => 'form-control']) !!}
 				
 				{!! Form::label('email', 'Email:')!!}
 				{!! Form::email('email', old('email'), ['class' => 'form-control']) !!}
@@ -43,10 +43,32 @@
 			<h3 class="panel-title">Lieferadressen</h3>
 		</div>
 		<div class="panel-body">
-			
+			<div class="row-fluid">
+				@foreach($addresses as $address)					
+					<address class="col-md-6">
+						<strong>{!! $user->firstname !!} {!! $user->lastname !!}</strong><br>
+						{!! $address->street_address !!}<br>
+						{!! $address->postcode !!} {!! $address->city !!}<br>
+						{!! $address->state !!}<br>
+						{!! $address->country !!}<br>
+						{!! Form::open(['url' => 'addresses/'. $address->id.'/edit', 'method' => 'GET']) !!}
+						<button type="submit" style="float:left; margin-right:5px;" class="btn btn-warning">
+							 <span class="glyphicon glyphicon-pencil"></span>
+						</button>
+						{!! Form::close() !!}
 
-			
-			<button href="#" class="btn btn-info">Neue Adresse hinzufügen</button>				
+						{!! Form::open(['url' => 'addresses/'. $address->id, 'method' => 'DELETE']) !!}
+						<button type="submit" style="float:left;" class="btn btn-danger">
+							 <span class="glyphicon glyphicon-remove"></span>
+						</button>
+						{!! Form::close() !!}
+					</address>	
+				@endforeach
+			</div>
+			{!! Form::open(['url' => 'addresses/create', 'method' => 'GET']) !!}
+				{!! Form::submit('Neue Adresse hinzufügen', ['class' => 'btn btn-large btn-primary']) !!}
+			{!! Form::close() !!}
+
 		</div>
 	</div>	
 

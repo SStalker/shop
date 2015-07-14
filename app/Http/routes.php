@@ -19,12 +19,14 @@ Route::get('/','StartController@getIndex');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController'
+	'password' => 'Auth\PasswordController',
+	'admin' => 'AdminController',
+	'settings' => 'SettingController'
 ]);
 
 Route::resource('products', 'ProductController');
-Route::controller('admin', 'AdminController');
 Route::resource('permissions', 'PermissionController');
 Route::resource('roles', 'RoleController');
 Route::controller('settings', 'SettingController');
+Route::resource('addresses', 'AddressController');
 Route::ressource('categories', 'CategoryController');

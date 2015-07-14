@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAddressesTable extends Migration
+class CreateBasketTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,20 +12,19 @@ class CreateAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('addresses', function(Blueprint $table){
+        Schema::create('baskets', function(Blueprint $table)
+        {
             $table->increments('id');
-            $table->string('street_address');
-            $table->integer('postcode');
-            $table->string('city');
-            $table->string('state');
-            $table->string('country');
             $table->integer('user_id');
+            $table->integer('total_price');
+            $table->integer('total_quantity');
+            $table->date('purchaseDate')->nullable();
+            $table->boolean('active');
             $table->timestamps();
-            
+
             $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
         });
     }
 
@@ -36,6 +35,6 @@ class CreateAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('addresses');
+        Schema::drop('baskets');
     }
 }

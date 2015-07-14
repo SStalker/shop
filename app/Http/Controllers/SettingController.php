@@ -18,7 +18,11 @@ class SettingController extends Controller
 
     public function getAccount()
     {
-    	return view('settings.account');
+    	$user = Auth::user();
+  
+    	return view('settings.account')
+    		->with('user', $user)
+    		->with('addresses', $user->addresses);
     }
 
     public function getOrder()
@@ -37,11 +41,10 @@ class SettingController extends Controller
     	$request = Request::all();
 
     	$rules = array(
-	        'name' => 'required|alpha_num|min:3|max:32',
-	        'email' => 'required|email',
+	        'username' => 'required|alpha_num|min:3|max:32',
+	        'email' => 'required|email|unique:users,'.$user->id,
 	        'oldpassword' => 'required',
-	        'newpassword' => 'min:6|confirmed',
-	        'newpassword_confirmation' => 'min:6'
+	        'newpassword' => 'min:6|confirmed'
     	);
 
     	$validator = Validator::make($request, $rules);
@@ -50,16 +53,17 @@ class SettingController extends Controller
     	{
 	    	if (Hash::check($request['oldpassword'], Auth::user()->password))
 	    	{
+	    		// Only when a new password is set
 	    		if($request['newpassword'])
 	    		{
 	    			// update password
 	    			$user->password = bcrypt($request['newpassword']);
 	    		}
 
-	    		$user->name = $request['name'];
+	    		$user->username = $request['username'];
 	    		$user->email = $request['email'];
 
-	    		$user->save();	    		
+	    		$user->update();	    		
 	    	}
 	    	else
 	    	{

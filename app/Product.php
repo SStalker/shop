@@ -48,4 +48,9 @@ class Product extends Model
         'status' => 'required|boolean',
         'category_id' => 'required|numeric|min:1'
     );
+
+    public function baskets()
+    {
+        return $this->belonsToMany('App\Basket')->withTimestamps();
+    }
 }

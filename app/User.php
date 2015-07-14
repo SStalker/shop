@@ -13,7 +13,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
-    use EntrustUserTrait; // add this trait to your user model
+    use EntrustUserTrait;
     
     /**
      * The database table used by the model.
@@ -35,4 +35,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function addresses()
+    {
+        return $this->hasMany('App\Address');
+    }
 }

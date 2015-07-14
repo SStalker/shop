@@ -17,7 +17,8 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 	'admin' => 'AdminController',
-	'settings' => 'SettingController'
+	'settings' => 'SettingController',
+	'baskets' => 'BasketController'
 ]);
 
 Route::resource('products', 'ProductController');

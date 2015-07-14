@@ -47,7 +47,7 @@
 				@foreach($addresses as $address)					
 					<address class="col-md-6">
 						<strong>{!! $user->firstname !!} {!! $user->lastname !!}</strong><br>
-						{!! $address->street_address !!}<br>
+						{!! $address->street !!} {!! $address->housenumber !!}<br>
 						{!! $address->postcode !!} {!! $address->city !!}<br>
 						{!! $address->state !!}<br>
 						{!! $address->country !!}<br>

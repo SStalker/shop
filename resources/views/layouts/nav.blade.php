@@ -33,6 +33,7 @@
             <li><a href="#">One more separated link</a></li>-->
           </ul>
         </li>
+        <li><a href="{!! url('/baskets') !!}">Warenkorb</a></li>
         @if(Auth::user())
           @if(Auth::user()->hasRole('admin'))
             <li><a href="{!! url('/permissions') !!}">Rechte</a></li>
@@ -41,8 +42,6 @@
             <li><a href="{!! url('/products') !!}">Produkte</a></li>
           @endif
         @endif
-        <!--
-        <li><a href="{!! url('/messages') !!}">Messages</a></li>-->
       </ul>
       <!--@if(Auth::user())
         <ul class="nav navbar-nav navbar-right">

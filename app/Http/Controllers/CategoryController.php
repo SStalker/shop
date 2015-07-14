@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,7 +17,15 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        if(Auth::user()->hasRole('admin'))
+        {
+            $categories = Category::all();
+            return view('categories.index')->with('categories', $categories);
+        }
+        else
+        {
+            return redirect('products');
+        }
     }
 
     /**
@@ -26,7 +35,21 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        if(Auth::user()->hasRole('admin'))
+        {
+            $categoryArray = Category::orderBy('category_name', 'asc')->get();
+            $categories = array('0' => '--- bitte wählen ---');
+            foreach($categoryArray as $category)
+            {
+                $categories[$category->id] = $category->category_name;
+            }
+
+            return view('categories.create')->with('categories' ,$categories);
+        }
+        else
+        {
+            return redirect('products');
+        }
     }
 
     /**
@@ -36,7 +59,33 @@ class CategoryController extends Controller
      */
     public function store()
     {
-        //
+        if(Auth::user()->hasRole('admin'))
+        {
+
+            $request = Request::all();
+
+//            dd($request);
+
+            $validator = Validator::make($request, Category::$rules);
+
+            if ($validator->passes()) {
+                $category = Category::create($request);
+                $category->save();
+
+                return redirect('categories');
+
+            } else {
+
+//                dd($validator);
+                return redirect('categories/create')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+        }
+        else
+        {
+            return redirect('products');
+        }
     }
 
     /**
@@ -47,7 +96,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        //ToDo: create show function and view
     }
 
     /**
@@ -58,7 +107,24 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(Auth::user()->hasRole('admin'))
+        {
+            $category = Category::find($id);
+            $categoryArray = Category::orderBy('category_name', 'asc')->get();
+            $categories = array('0' => '--- bitte wählen ---');
+            foreach($categoryArray as $category)
+            {
+                $categories[$category->id] = $category->category_name;
+            }
+
+            return view('products.edit')
+                ->with('category', $category)
+                ->with('categories' ,$categories);
+        }
+        else
+        {
+            return redirect('products');
+        }
     }
 
     /**
@@ -69,7 +135,30 @@ class CategoryController extends Controller
      */
     public function update($id)
     {
-        //
+        if(Auth::user()->hasRole('admin'))
+        {
+            $request = Request::all();
+            $validator = Validator::make($request, Category::$rules);
+
+            if($validator->passes())
+            {
+                $category = Category::update($request);
+                $category->save();
+
+                return redirect('categories');
+            }
+            else
+            {
+                return redirect('products.edit')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+        }
+        else
+        {
+//
+            return redirect('products');
+        }
     }
 
     /**
@@ -80,6 +169,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ////ToDo: Create destroy function
     }
 }

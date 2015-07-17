@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.simple')
 
 @section('content')
     <h2>Kategorien</h2>
@@ -12,7 +12,7 @@
                         {!! $category->name !!}
                     </div>
                     <div class="panel-body">
-                        {!! $category->description !!}
+                        
                     </div>
                 </div>
                 {{--create decent output--}}

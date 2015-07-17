@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.simple')
 
 @sectopns('content')
 

@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.silḿple')
 
 @section('content')
     <h2>Neues Kategorie</h2>

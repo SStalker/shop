@@ -38,7 +38,7 @@ class ProductController extends Controller
     {
         if(Auth::user()->hasRole('admin'))
         {
-            $categoryArray = Category::orderBy('category_name', 'asc')->get();
+            $categoryArray = Category::orderBy('name', 'asc')->get();
             $categories = array('0' => '--- bitte wählen ---');
             foreach($categoryArray as $category)
             {
@@ -99,7 +99,15 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //ToDo: create show function and view
+        $product = Product::findOrFail($id);
+        if ($product->status) 
+        {
+            return view('products.show')->with('product', $product);
+        }
+        else
+        {
+            return redirect('products');
+        }
     }
 
     /**
@@ -113,8 +121,8 @@ class ProductController extends Controller
         //
         if(Auth::user()->hasRole('admin'))
         {
-            $product = Product::find($id);
-            $categoryArray = Category::orderBy('category_name', 'asc')->get();
+            $product = Product::findOrFail($id);
+            $categoryArray = Category::orderBy('name', 'asc')->get();
             $categories = array('0' => '--- bitte wählen ---');
             foreach($categoryArray as $category)
             {
@@ -174,6 +182,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //ToDo: Create destroy function
+        if (Auth::user()->hasRole('admin')) 
+        {
+            $product = Product::findOrFail($id);
+            $product->delete();
+            return redirect('products');
+        }
+        else
+        {
+            return redirect('products');
+        }
     }
 }

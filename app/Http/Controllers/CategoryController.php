@@ -11,6 +11,11 @@ use Auth;
 
 class CategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except'=>'index', 'show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,15 +23,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->hasRole('admin'))
-        {
-            $categories = Category::all();
-            return view('categories.index')->with('categories', $categories);
-        }
-        else
-        {
-            return redirect('products');
-        }
+        $categories = Category::all();
+        return view('categories.index')->with('categories', $categories);
     }
 
     /**
@@ -38,7 +36,7 @@ class CategoryController extends Controller
     {
         if(Auth::user()->hasRole('admin'))
         {
-            $categoryArray = Category::orderBy('category_name', 'asc')->get();
+            $categoryArray = Category::orderBy('name', 'asc')->get();
             $categories = array('0' => '--- bitte wählen ---');
             foreach($categoryArray as $category)
             {
@@ -97,8 +95,16 @@ class CategoryController extends Controller
      * @return Response
      */
     public function show($id)
-    {
-        //ToDo: create show function and view
+    {    
+
+        $category = Category::findOrFail($id);
+        if ($category->status) {
+            return view('categories.show')->with('category', $category);
+        }
+        else
+        {
+            return redirect('categories');
+        }
     }
 
     /**
@@ -111,8 +117,8 @@ class CategoryController extends Controller
     {
         if(Auth::user()->hasRole('admin'))
         {
-            $category = Category::find($id);
-            $categoryArray = Category::orderBy('category_name', 'asc')->get();
+            $category = Category::findOrFail($id);
+            $categoryArray = Category::orderBy('name', 'asc')->get();
             $categories = array('0' => '--- bitte wählen ---');
             foreach($categoryArray as $category)
             {
@@ -172,6 +178,15 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        ////ToDo: Create destroy function
+        if (Auth::user()->hasRole('admin')) 
+        {
+            $category = Category::findOrFail($id);
+            $category->delete();
+            return redirect('categories');
+        }
+        else
+        {
+            return redirect('products');
+        }
     }
 }

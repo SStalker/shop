@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.simple')
 
 @section('content')
     <h2>{!! $category->name !!} Ändern</h2>

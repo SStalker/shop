@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.simple')
 
 @section('content')
     <h2>{!! $product->product_name!!} Ändern</h2>

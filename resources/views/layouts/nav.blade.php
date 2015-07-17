@@ -39,8 +39,23 @@
             <li><a href="{!! url('/permissions') !!}">Rechte</a></li>
             <li><a href="{!! url('/roles') !!}">Rollen</a></li>
             <li><a href="{!! url('/categories') !!}">Kategorien</a></li>
+          @endif
+        @endif
+
+        @if(Auth::user())
+          @if(Auth::user()->hasRole('admin'))
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Produkte <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a href="{!! url('/products') !!}">Produktübersicht</a></li>
+                  <li><a href="{!! url('/products/create') !!}">Neues Produkt</a></li>
+              </ul>
+            </li>
+          @else
             <li><a href="{!! url('/products') !!}">Produkte</a></li>
           @endif
+        @else
+            <li><a href="{!! url('/products') !!}">Produkte</a></li>
         @endif
       </ul>
       <!--@if(Auth::user())

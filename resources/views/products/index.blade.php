@@ -9,7 +9,7 @@
                 <!--ToDo: create decent output-->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        {!! $product->product_name !!}
+                        {!! $product->name !!}
                     </div>
                     <div class="panel-body">
                         {!! $product->description !!}

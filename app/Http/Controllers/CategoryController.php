@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Illuminate\Http\Request;
+use Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
+use Validator;
+
 
 class CategoryController extends Controller
 {
@@ -20,7 +22,8 @@ class CategoryController extends Controller
     {
         if(Auth::user()->hasRole('admin'))
         {
-            $categories = Category::all();
+            $categories = Category::roots()->get();
+            //dd($categories);
             return view('categories.index')->with('categories', $categories);
         }
         else

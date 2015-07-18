@@ -9,7 +9,7 @@
                 <!--ToDo: create decent output-->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        {!! $category->name !!}
+                        {!! HTML::link('categories/'. $category->id, $category->name) !!}
                     </div>
                     <div class="panel-body">
                         {!! $category->description !!}

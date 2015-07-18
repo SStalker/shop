@@ -101,7 +101,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //ToDo: create show function and view
+        $category = Category::findOrFail($id);
+
+        $categories = $category->ancestorsAndSelf()->get();
+        return view('categories.index')->with('categories', $categories);
     }
 
     /**

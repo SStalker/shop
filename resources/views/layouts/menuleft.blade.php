@@ -1,5 +1,10 @@
+<?php
+
+?>
+
 <div class="list-group">
 	@foreach($categories as $category)
-		<a href="{!! url('/categories/'. $category->id) !!}" class="list-group-item">{!! $category->name !!}</a>
+		{!! HTML::printNodes($category) !!}
+
 	@endforeach
 </div>

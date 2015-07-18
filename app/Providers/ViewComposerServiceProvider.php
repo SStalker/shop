@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Category;
 use Request;
 use Input;
+use Illuminate\Support\Facades\Session;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -21,46 +22,60 @@ class ViewComposerServiceProvider extends ServiceProvider
 
             if(Request::segment(1) == 'categories'){
                 
-                if(is_numeric(Request::segment(2)))
+                if(is_numeric(Request::segment(2))){
                     $id = Request::segment(2);
-                else
+                    Session::put('category_id', $id);
+                }                
+                else{
                     $id = 1;
-
-                $category = NULL;
-                try {
-                    $category = Category::findOrFail($id);
-                    // ->whereNull('parent_id')
-                    //$des = $category->getDescendants()->withoutRoot();
-
-                    //dd($des);
-
-                    //$categories = $category->ancestorsAndSelf()->get();
-                    $categories = Category::roots()->get()->toArray();
-                    $ancestors = $category->getAncestorsAndSelfWithoutRoot()->toArray();
-                    $ancestorRoot = $category->getRoot();
-                    //dd($ancestors);
-                    //$ancestors->merge($roots);
-                    //$roots->get($an)
-                    for ($i = 0; $i < count($categories); $i++) {
-                        if($categories[$i]['id'] == $ancestorRoot['id'])
-                        {
-                            
-                            $categories[$i]['children'] = $ancestors;
-                            
-                        }
-                    }
-
-                    //dd($roots);
-                    //$categories->merge(Category::roots()->get()->toArray());            
-                }
-                catch(ModelNotFoundException $e) {
-                    //$categories = Category::where('parent_id', '=', 1);
-                    $categories = Category::roots()->get();
+                    Session::put('category_id', $id);
                 }
 
-                $view->with('categories', $categories);
+                $categories = $this->getCategories($id);
             }
+            else
+            {
+                $categories = $this->getCategories(Session::get('category_id'));
+            }
+
+            $view->with('categories', $categories);
+
         });       
+    }
+
+    public function getCategories($id)
+    {
+        try {
+            $category = Category::findOrFail($id);
+
+            $ancestors = $category->getAncestorsAndSelf();
+            
+            $categories = new \Baum\Extensions\Eloquent\Collection;
+
+            // Collection as Model
+            foreach ($ancestors as $key => $ancestor) {
+                //echo 'Node: ' . $ancestor->name . '<br>';
+                $categories[] = $ancestor;
+                foreach ($ancestor->getSiblings() as $sibling) {
+                    //echo 'Geschwister: ' . $sibling->name . '<br>';
+                    $categories[] = $sibling;
+                }
+                    
+                if($ancestor->id == $category->id) {
+                    foreach ($ancestor->children as $child) {
+                        //echo 'Kind: ' . $child->name . '<br>';
+                        $categories[] = $child;
+                    }
+                }
+            }
+
+            $categories = $categories->toHierarchy()->toArray();
+            return $categories;
+
+        } catch(ModelNotFoundException $e) {
+            $categories = Category::roots()->get()->toArray();
+            return $categories;
+        }  
     }
 
     /**

@@ -20,8 +20,9 @@ class ExampleCategory extends Seeder
             ['id' => 4, 'name' => 'Laptops', 'status' => 1, 'children' => [
               ['id' => 5, 'name' => 'PC Laptops', 'status' => 1],
               ['id' => 6, 'name' => 'Macbooks (Air/Pro)', 'status' => 1]
-            ]],
-            ['id' => 7, 'name' => 'Desktops', 'status' => 1, 'children' => [
+            ]
+          ],
+          ['id' => 7, 'name' => 'Desktops', 'status' => 1, 'children' => [
               // These will be created
               ['name' => 'Towers Only', 'status' => 1],
               ['name' => 'Desktop Packages', 'status' => 1],

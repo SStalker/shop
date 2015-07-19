@@ -40,7 +40,7 @@ class CategoryController extends Controller
             $categories = array('0' => '--- bitte wählen ---');
             foreach($categoryArray as $category)
             {
-                $categories[$category->id] = $category->category_name;
+                $categories[$category->id] = $category->name;
             }
 
             return view('categories.create')->with('categories' ,$categories);
@@ -96,10 +96,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {    
-
         $category = Category::findOrFail($id);
-        if ($category->status) {
-            return view('categories.show')->with('category', $category);
+        if ($category->status) 
+        {
+            return view('categories.show')
+                ->with('category', $category);
         }
         else
         {
@@ -122,7 +123,7 @@ class CategoryController extends Controller
             $categories = array('0' => '--- bitte wählen ---');
             foreach($categoryArray as $category)
             {
-                $categories[$category->id] = $category->category_name;
+                $categories[$category->id] = $category->name;
             }
 
             return view('products.edit')

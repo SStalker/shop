@@ -42,7 +42,7 @@ class ProductController extends Controller
             $categories = array('0' => '--- bitte wählen ---');
             foreach($categoryArray as $category)
             {
-                $categories[$category->id] = $category->category_name;
+                $categories[$category->id] = $category->name;
             }
 
             return view('products.create')->with('categories' ,$categories);
@@ -126,7 +126,7 @@ class ProductController extends Controller
             $categories = array('0' => '--- bitte wählen ---');
             foreach($categoryArray as $category)
             {
-                $categories[$category->id] = $category->category_name;
+                $categories[$category->id] = $category->name;
             }
 
             return view('products.edit')

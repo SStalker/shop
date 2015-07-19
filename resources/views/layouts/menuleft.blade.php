@@ -1,5 +1,6 @@
 <div class="list-group">
 	@foreach($categories as $category)
-		<a href="{!! url('/categories/'. $category->id) !!}" class="list-group-item">{!! $category->name !!}</a>
+		{!! HTML::link('/categories/'.$category->id.'/edit', 'Bearbeiten' !!}
+		<!--a href="{!! url('/categories/'.$category->id.'/show/' ) !!}" class="list-group-item">{!! $category->name !!}</a-->
 	@endforeach
 </div>

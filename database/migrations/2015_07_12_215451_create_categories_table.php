@@ -16,8 +16,8 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
-            $table->integer('parent_id');
-            $table->boolean('status'); //The status of the product. Can be set to false (disabled) or true (enabled).
+            $table->integer('parent_id') ->nullable();
+            $table->boolean('status'); //The status of the category. Can be set to false (disabled) or true (enabled).
             $table->timestamps();
             $table->softDeletes();
         });

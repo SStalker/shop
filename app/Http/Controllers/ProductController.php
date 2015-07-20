@@ -14,7 +14,8 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except'=>'index', 'show']);
+        $this->middleware('auth', ['except'=> ['index', 'show']]);
+        $this->middleware('admin', ['except' => ['index','show']]);
     }
 
     /**
@@ -36,23 +37,14 @@ class ProductController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->hasRole('admin'))
-        {
-            $categoryArray = Category::orderBy('category_name', 'asc')->get();
-            $categories = array('0' => '--- bitte wählen ---');
-            foreach($categoryArray as $category)
-            {
-                $categories[$category->id] = $category->category_name;
-            }
+        $categoryArray = Category::orderBy('name', 'asc')->get();
+        $categories = array('0' => '--- bitte wählen ---');
 
-            return view('products.create')->with('categories' ,$categories);
-        }
-        else
-        {
-            return redirect('products');
-        }
+        foreach($categoryArray as $category)        
+            $categories[$category->id] = $category->name;
+        
 
-
+        return view('products.create')->with('categories' ,$categories);
     }
 
     /**
@@ -62,32 +54,20 @@ class ProductController extends Controller
      */
     public function store()
     {
-        if(Auth::user()->hasRole('admin'))
-        {
+        $request = Request::all();
+        $validator = Validator::make($request, Product::$rules);
 
-            $request = Request::all();
+        if ($validator->passes()) {
+            $product = Product::create($request);
+            //$product->save();
 
-//            dd($request);
-
-            $validator = Validator::make($request, Product::$rules);
-
-            if ($validator->passes()) {
-                $product = Product::create($request);
-                $product->save();
-
-                return redirect('products');
-
-            } else {
-
-//                dd($validator);
-                return redirect('products/create')
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-        }
-        else
-        {
             return redirect('products');
+
+        } else {
+
+            return redirect('products/create')
+                ->withErrors($validator)
+                ->withInput();
         }
     }
 
@@ -100,6 +80,7 @@ class ProductController extends Controller
     public function show($id)
     {
         //ToDo: create show function and view
+        return view('products.show');
     }
 
     /**
@@ -110,25 +91,17 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
-        if(Auth::user()->hasRole('admin'))
-        {
-            $product = Product::find($id);
-            $categoryArray = Category::orderBy('category_name', 'asc')->get();
-            $categories = array('0' => '--- bitte wählen ---');
-            foreach($categoryArray as $category)
-            {
-                $categories[$category->id] = $category->category_name;
-            }
+        $product = Product::find($id);
+        $categoryArray = Category::orderBy('name', 'asc')->get();
+        $categories = array('0' => '--- bitte wählen ---');
 
-            return view('products.edit')
-                    ->with('product', $product)
-                    ->with('categories' ,$categories);
-        }
-        else
-        {
-            return redirect('products');
-        }
+        foreach($categoryArray as $category)        
+            $categories[$category->id] = $category->name;
+        
+
+        return view('products.edit')
+                ->with('product', $product)
+                ->with('categories' ,$categories);
     }
 
     /**
@@ -139,31 +112,22 @@ class ProductController extends Controller
      */
     public function update($id)
     {
-        if(Auth::user()->hasRole('admin'))
+        $request = Request::all();
+        $validator = Validator::make($request, Product::$rules);
+
+        if($validator->passes())
         {
-            $request = Request::all();
-            $validator = Validator::make($request, Product::$rules);
+            $product = Product::update($request);
+            //$product->save();
 
-            if($validator->passes())
-            {
-                $product = Product::update($request);
-                $product->save();
-
-                return redirect('products');
-            }
-            else
-            {
-                return redirect('products.edit')
-                    ->withErrors($validator)
-                    ->withInput();
-            }
+            return redirect('products');
         }
         else
         {
-//
-            return redirect('products');
+            return redirect('products.edit')
+                ->withErrors($validator)
+                ->withInput();
         }
-
     }
 
     /**

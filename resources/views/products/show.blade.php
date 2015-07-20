@@ -1,5 +1,5 @@
 @extends('app')
 
-@sectopns('content')
-
+@section('content')
+	Blaa
 @stop

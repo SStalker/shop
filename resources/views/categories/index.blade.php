@@ -3,12 +3,12 @@
 @section('content')
     <h2>Kategorien</h2>
     <h3>Komplette Liste</h3>
-        {!! HTML::link('/categories/create', 'Neu', array('class'=>'btn btn-primary')) !!}
-
+        <div class="col-md-6">
             @foreach($Hlist as $item)
                 {!! HTML::printNodes($item, 'plain') !!}
             @endforeach
-
+        </div>
+        <div class="col-md-6">
             <table>
                 <tr>
                     <th>Name</th>
@@ -28,26 +28,6 @@
                     
                 @endforeach
             </table>
-        
-    {{--<div class="table-responsive">
-        @foreach($categories as $category)
-            @if($category->status)
-
-                <!--ToDo: create decent output-->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        {!! HTML::link('categories/'. $category->id, $category->name) !!}
-                    </div>
-                    <div class="panel-body">
-                        {!! $category->description !!}
-                    </div>
-                </div>
-                
-
-
-            @endif
-        @endforeach
-        
-    </div>
-    --}}
+        </div>
+        {!! HTML::link('/categories/create', 'Neu', array('class'=>'btn btn-primary')) !!}
 @stop

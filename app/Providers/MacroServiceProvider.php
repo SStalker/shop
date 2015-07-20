@@ -15,18 +15,26 @@ class MacroServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        function renderNode($node) {
-            //dd($node);
-              
+        function renderNode($node, $mode) {
+            if($mode == 'plain') {
+                $classLi = '';
+                $classUl = '';
+                $classSpan = '';
+            }                
+            else{
+                $classLi = 'list-group-item';
+                $classUl = 'list-group';
+                $classSpan = 'glyphicon glyphicon-pencil text-primary';
+            }
             if( empty($node['children']) ) {
-                return '<li class="list-group-item"> <span class="glyphicon glyphicon-pencil text-primary"></span><a href="'.url('categories/'. $node['id']).'">'. $node['name'] . '</a></li>';
+                return '<li class="'.$classLi.'"> <span class="'.$classSpan.'"></span><a href="'.url('categories/'. $node['id']).'">'. $node['name'] . '</a></li>';
             } else {
                 //$html = "Anzahl Kinder von:". $node['name'] . ' -> ' . count($node['children']);
-                $html = '<li class="list-group-item"> <span class="glyphicon glyphicon-pencil text-primary"></span><a href="'.url('categories/'. $node['id']).'">'. $node['name'] . '</a>';
-                $html .= '<ul class="list-group">';
+                $html = '<li class="'.$classLi.'"> <span class="'.$classSpan.'"></span><a href="'.url('categories/'. $node['id']).'">'. $node['name'] . '</a>';
+                $html .= '<ul class="'.$classUl.'">';
 
                 foreach($node['children'] as $child)
-                    $html .= renderNode($child);
+                    $html .= renderNode($child, $mode);
 
                 $html .= '</ul>';
                 $html .= '</li>';
@@ -35,8 +43,8 @@ class MacroServiceProvider extends ServiceProvider
             return $html;
     }
 
-  HTML::macro('printNodes', function($nodes) {
-    return renderNode($nodes);
+  HTML::macro('printNodes', function($nodes, $mode) {
+    return renderNode($nodes, $mode);
 });
 }
 

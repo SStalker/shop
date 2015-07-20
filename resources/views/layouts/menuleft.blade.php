@@ -9,7 +9,7 @@
               <div id="collapseOne" class="panel-collapse collapse in">
 			<ul class="list-group">
 				@foreach($categories as $category)	
-				{!! HTML::printNodes($category) !!}
+				{!! HTML::printNodes($category, '') !!}
 				@endforeach
 			</ul>
 		</div>

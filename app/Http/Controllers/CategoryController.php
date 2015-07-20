@@ -13,6 +13,10 @@ use Validator;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin', ['except'=> ['show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,16 +24,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->hasRole('admin'))
-        {
-            $categories = Category::roots()->get();
-            //dd($categories);
-            return view('categories.index')->with('categories', $categories);
-        }
-        else
-        {
-            return redirect('products');
-        }
+        $list = Category::all();
+        //dd($list);
+        return view('categories.index')
+            ->with('Hlist', $list->toHierarchy())
+            ->with('list', $list);
     }
 
     /**
@@ -38,22 +37,12 @@ class CategoryController extends Controller
      * @return Response
      */
     public function create()
-    {
-        if(Auth::user()->hasRole('admin'))
-        {
-            $categoryArray = Category::orderBy('category_name', 'asc')->get();
-            $categories = array('0' => '--- bitte wählen ---');
-            foreach($categoryArray as $category)
-            {
-                $categories[$category->id] = $category->category_name;
-            }
+    {        
+        //$categories[] = '--- bitte wählen ---';
 
-            return view('categories.create')->with('categories' ,$categories);
-        }
-        else
-        {
-            return redirect('products');
-        }
+        $categories = Category::getNestedList('name', null, '**');
+            
+        return view('categories.create')->with('categories' ,$categories);
     }
 
     /**
@@ -63,33 +52,43 @@ class CategoryController extends Controller
      */
     public function store()
     {
-        if(Auth::user()->hasRole('admin'))
-        {
+        $request = Request::all();
+        $choosedCategory = Category::findOrFail( $request['parent_id'] );
 
-            $request = Request::all();
+        $validator = Validator::make($request, Category::$rules);
+        //dd($request);
+        if ($validator->passes()) {
+            
+            $category = new Category();
+            $category->name = $request['name'];
+            $category->status = $request['status'];
+            $category->save();
 
-//            dd($request);
-
-            $validator = Validator::make($request, Category::$rules);
-
-            if ($validator->passes()) {
-                $category = Category::create($request);
-                // create speichert automatisch den datensatz schon ab
-                //$category->save();
-
-                return redirect('categories');
-
-            } else {
-
-//                dd($validator);
-                return redirect('categories/create')
-                    ->withErrors($validator)
-                    ->withInput();
+            switch ($request['type']) {
+                case 'root':
+                    $category->makeRoot();
+                    break;
+                case 'child':
+                    $category->makeChildof($choosedCategory);
+                    break;
+                case 'sibling':
+                    $category->makeSiblingof($choosedCategory);
+                    break;
+                default:
+                    // todo
+                    break;
             }
-        }
-        else
-        {
-            return redirect('products');
+            
+            // create speichert automatisch den datensatz schon ab
+            //$category->save();
+
+            return redirect('categories');
+
+        } else {
+
+            return redirect('categories/create')
+                ->withErrors($validator)
+                ->withInput();
         }
     }
 
@@ -103,8 +102,9 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        $categories = $category->ancestorsAndSelf()->get();
-        return view('categories.index')->with('categories', $categories);
+        $products = $category->products()->get();
+        
+        return view('products.index')->with('products', $products);
     }
 
     /**
@@ -115,24 +115,13 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        if(Auth::user()->hasRole('admin'))
-        {
-            $category = Category::find($id);
-            $categoryArray = Category::orderBy('category_name', 'asc')->get();
-            $categories = array('0' => '--- bitte wählen ---');
-            foreach($categoryArray as $category)
-            {
-                $categories[$category->id] = $category->category_name;
-            }
+        $category = Category::find($id);
+        $categories = Category::getNestedList('name', null, '**');
 
-            return view('products.edit')
-                ->with('category', $category)
-                ->with('categories' ,$categories);
-        }
-        else
-        {
-            return redirect('products');
-        }
+
+        return view('categories.edit')
+            ->with('category', $category)
+            ->with('categories' ,$categories);
     }
 
     /**
@@ -143,30 +132,23 @@ class CategoryController extends Controller
      */
     public function update($id)
     {
-        if(Auth::user()->hasRole('admin'))
+        $request = Request::all();
+        $validator = Validator::make($request, Category::$rules);
+
+        if($validator->passes())
         {
-            $request = Request::all();
-            $validator = Validator::make($request, Category::$rules);
-
-            if($validator->passes())
-            {
-                $category = Category::update($request);
-                // update macht das selbe wie create
-                //$category->save();
-
-                return redirect('categories');
-            }
-            else
-            {
-                return redirect('products.edit')
-                    ->withErrors($validator)
-                    ->withInput();
-            }
+            $category = Category::findOrFail($id);
+            $category->name = $request['name'];
+            $category->status = $request['status'];
+            $category->save();
+            
+            return redirect('categories');
         }
         else
         {
-//
-            return redirect('products');
+            return redirect('products.edit')
+                ->withErrors($validator)
+                ->withInput();
         }
     }
 
@@ -178,6 +160,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        ////ToDo: Create destroy function
+        Category::findOrFail($id)->delete();
+
+        return redirect('categories');
     }
 }

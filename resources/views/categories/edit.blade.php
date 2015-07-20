@@ -5,6 +5,6 @@
 
     @include('errors.list')
     {!! Form::model($category, array('method' => 'PATCH', 'route' => array('categories.update', $category->id))) !!}
-    @include ('products/_form', ['submitButtonText' => 'Aktualisieren'])
+    @include ('categories/_form', ['submitButtonText' => 'Aktualisieren'])
 
 @stop

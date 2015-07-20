@@ -23,7 +23,7 @@ class Category extends Baum\Node
     // guard attributes from mass-assignment
     protected $guarded = array('id', 'parent_id', 'lft', 'rft', 'depth');
 
-    //Rules
+    //Rules 
     public static $rules = array(
         'name' => 'required|min:2',
         'parent_id' => 'required|numeric',

@@ -16,6 +16,7 @@ class CreateBasketTable extends Migration
         {
             $table->increments('id');
             $table->integer('user_id');
+            $table->string('session_id');
             $table->integer('total_price');
             $table->integer('total_quantity');
             $table->date('purchaseDate')->nullable();

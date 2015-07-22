@@ -14,6 +14,7 @@ class CreateBasketAndItems extends Seeder
      */
     public function run()
     {
+        /*
     	$customer = User::find(1);
         $basket = new Basket();
 		$basket->user_id  = $customer->id;
@@ -24,5 +25,6 @@ class CreateBasketAndItems extends Seeder
 		$basket->save();
 
 		$basket->products()->attach(1, ['quantity' => 1, 'price' => 1]);
+        */
     }
 }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Session;
+use App\Basket;
 
 class BasketController extends Controller
 {
@@ -15,7 +17,10 @@ class BasketController extends Controller
 	}
 
     public function getIndex()
-    {
-    	return view('baskets.index');
+    {	$basket_id = Session::get('basket_id');
+    	$products = Basket::findOrFail($basket_id)->products;
+
+    	return view('baskets.index')
+    			->with('products', $products);
     }
 }

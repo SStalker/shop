@@ -1,5 +1,11 @@
 @extends('app')
 
 @section('content')
-	Basket
+	@foreach($products as $product)
+		{!! $product->name !!}
+	@endforeach
+
+	@if($products->isEmpty())
+		Sie haben keine Produkte im Warenkorb
+	@endif
 @stop

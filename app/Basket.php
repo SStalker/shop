@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Basket extends Model
 {
     protected $fillable = [
-        'customer_id',
+        'user_id',
+        'session_id',
         'total_price',
         'total_quantity',
         'active'

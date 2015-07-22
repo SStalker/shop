@@ -10,6 +10,11 @@ use App\Category;
 
 class StartController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('basket');
+	}
+	
     public function getIndex()
     {    	
     	$categories = Category::all();

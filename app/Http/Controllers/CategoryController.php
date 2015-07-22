@@ -16,6 +16,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('admin', ['except'=> ['show']]);
+        $this->middleware('basket');
     }
     /**
      * Display a listing of the resource.

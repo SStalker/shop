@@ -16,6 +16,7 @@ class ProductController extends Controller
     {
         $this->middleware('auth', ['except'=> ['index', 'show']]);
         $this->middleware('admin', ['except' => ['index','show']]);
+        $this->middleware('basket');
     }
 
     /**

@@ -30,6 +30,11 @@ class BasketController extends Controller
                 ->with('products', $products);
     }
 
+    /**
+     * This function add/update a product with the given id
+     * @param  integer $product_id ID of the product
+     * @return redirect to basket/index
+     */
     public function postAddProduct($product_id)
     {
         // Update a already inserted product
@@ -37,16 +42,21 @@ class BasketController extends Controller
 
         $product = Product::findOrFail($product_id);
         $basket = Basket::findOrFail($this->id);
+        $productsOfBasket = $basket->products();
 
-        if($basket->products()->find($product_id)) {
+        if($productsOfBasket->find($product_id)) {
 
             //dd('This product is already in the basket. Update it.');
-            $basket->products()->updateExistingPivot($product_id, ['quantity' => $product->quantity, 'price' => $product->price]);
+            $productsOfBasket->updateExistingPivot($product_id, ['quantity' => 1, 'price' => $product->price]);
 
-        } else{
+        } else {
 
             //dd('This product is not in the basket. Simply add it.');
-            $basket->products()->attach($product_id, ['quantity' => $product->quantity, 'price' => $product->price]);
+            $productsOfBasket->attach($product_id, ['quantity' => 1, 'price' => $product->price]);
+            //  change the baskets price and quantity
+            $basket->total_price += $product->price;
+            $basket->total_quantity += 1;
+            $basket->update();
         }
 
         return redirect('baskets/index');
@@ -60,7 +70,16 @@ class BasketController extends Controller
     public function postDeleteProduct($product_id)
     {
         $basket = Basket::findOrFail($this->id);
-        $basket->products()->detach($product_id);
+        $productsOfBasket = $basket->products();
+        $productMN = $productsOfBasket->find($product_id)->pivot;
+        //dd($productMN->pivot->price);
+        // change the baskets price and quantity
+        
+        $basket->total_price -= $productMN->quantity * $productMN->price;
+        $basket->total_quantity -= $productMN->quantity;
+        $basket->save();
+
+        $productsOfBasket->detach($product_id);        
 
         return redirect('baskets/index');
     }

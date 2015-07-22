@@ -16,8 +16,11 @@
 				<tr>
 					<td>{!! $product->image_path !!}</td>
 					<td>{!! $product->name !!}</td>
-					<td>{!! $product->price !!}</td>
-					<td>{!! $product->quantity !!}</td>
+					<td>{!! $product->pivot->price !!}</td>
+					<td>
+						{!! Form::input('number', 'bla', $product->pivot->quantity, array('min' => 1, 'max' => 100)) !!}
+						
+					</td>
 					<td>
 						<div class="btn-group">
 						{!! Form::open(['method' => 'POST', 'url' => ['baskets/delete-product/'. $product->id]]) !!}

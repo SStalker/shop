@@ -26,8 +26,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
         $products = Product::all();
+        if(Auth::user()->hasRole('admin'))
+            return view('products.list')->with('products', $products);
+
         return view('products.index')->with('products', $products);
     }
 
@@ -118,7 +120,8 @@ class ProductController extends Controller
 
         if($validator->passes())
         {
-            $product = Product::update($request);
+            $product = Product::findOrFail($id);
+            $product->update($request);
             //$product->save();
 
             return redirect('products');

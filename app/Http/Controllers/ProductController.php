@@ -117,7 +117,7 @@ class ProductController extends Controller
      * @return Response
      */
     public function edit($id)
-    {
+    {   
         //
         if(Auth::user()->hasRole('admin'))
         {

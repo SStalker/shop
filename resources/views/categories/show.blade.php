@@ -1,19 +1,20 @@
 @extends('layouts.simple')
 
-@sectopns('content')
+@section('content')
 
 	<div class="panel panel-default">
 	   <div class="panel-heading">
-	      <h3 class="panel-title">
-	         {!! $category->name !!}
-	      </h3>
+	        <h3 class="panel-title">
+	            {!! $category->name !!}
+	        </h3>
+	        @if($category->parent_id != null)
+		   		<div>		   			
+		   			<a href="{!! url('/categories/$category->parent_id') !!}">Übergeordnete Kategorie</a>
+		   		</div>
+		    @endif
 	   </div>
 	   <div class="panel-body">
-		   	@if($parent_id != null)
-		   		<div>
-		   			<a href="{!! url=('/categories/show/$parent_id')!!}">Übergeordnete Kategorie</a>
-		   		</div>
-		   	@endif
+		   	
 			<div class="table-responsive">	
 		   		@foreach($category->products as $product)
 		   			@if($product->status)

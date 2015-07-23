@@ -126,7 +126,7 @@ class CategoryController extends Controller
                 $categories[$category->id] = $category->name;
             }
 
-            return view('products.edit')
+            return view('categories.edit')
                 ->with('category', $category)
                 ->with('categories' ,$categories);
         }

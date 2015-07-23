@@ -14,7 +14,9 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except'=>'index', 'show']);
+        $this->middleware('auth', ['except'=> ['index', 'show']]);
+        $this->middleware('admin', ['except' => ['index','show']]);
+        $this->middleware('basket');
     }
 
     /**
@@ -24,8 +26,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
         $products = Product::all();
+        if(Auth::user()->hasRole('admin'))
+            return view('products.list')->with('products', $products);
+
         return view('products.index')->with('products', $products);
     }
 
@@ -36,6 +40,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+
         if(Auth::user()->hasRole('admin'))
         {
             $categoryArray = Category::orderBy('name', 'asc')->get();
@@ -51,8 +56,7 @@ class ProductController extends Controller
         {
             return redirect('products');
         }
-
-
+        return view('products.create')->with('categories' ,$categories);
     }
 
     /**
@@ -62,32 +66,20 @@ class ProductController extends Controller
      */
     public function store()
     {
-        if(Auth::user()->hasRole('admin'))
-        {
+        $request = Request::all();
+        $validator = Validator::make($request, Product::$rules);
 
-            $request = Request::all();
+        if ($validator->passes()) {
+            $product = Product::create($request);
+            //$product->save();
 
-//            dd($request);
-
-            $validator = Validator::make($request, Product::$rules);
-
-            if ($validator->passes()) {
-                $product = Product::create($request);
-                $product->save();
-
-                return redirect('products');
-
-            } else {
-
-//                dd($validator);
-                return redirect('products/create')
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-        }
-        else
-        {
             return redirect('products');
+
+        } else {
+
+            return redirect('products/create')
+                ->withErrors($validator)
+                ->withInput();
         }
     }
 
@@ -147,31 +139,23 @@ class ProductController extends Controller
      */
     public function update($id)
     {
-        if(Auth::user()->hasRole('admin'))
+        $request = Request::all();
+        $validator = Validator::make($request, Product::$rules);
+
+        if($validator->passes())
         {
-            $request = Request::all();
-            $validator = Validator::make($request, Product::$rules);
+            $product = Product::findOrFail($id);
+            $product->update($request);
+            //$product->save();
 
-            if($validator->passes())
-            {
-                $product = Product::update($request);
-                $product->save();
-
-                return redirect('products');
-            }
-            else
-            {
-                return redirect('products.edit')
-                    ->withErrors($validator)
-                    ->withInput();
-            }
+            return redirect('products');
         }
         else
         {
-//
-            return redirect('products');
+            return redirect('products.edit')
+                ->withErrors($validator)
+                ->withInput();
         }
-
     }
 
     /**

@@ -13,8 +13,7 @@
 		   		</div>
 		    @endif
 	   </div>
-	   <div class="panel-body">
-		   	
+	   <div class="panel-body">	
 			<div class="table-responsive">	
 		   		@foreach($category->products as $product)
 		   			@if($product->status)

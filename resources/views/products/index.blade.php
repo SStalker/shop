@@ -9,15 +9,19 @@
                 <!--ToDo: create decent output-->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        {!! $product->name !!}
+                        <a href="{!! url('products/' .$product->id) !!}">{!! $product->name !!}</a>
                     </div>
                     <div class="panel-body">
-                        {!! $product->description !!}
+                        <div class="col-md-9">
+                            {!! $product->description !!}
+                        </div>
+                        <div class="col-md-3">
+                            {!! Form::open(['method' => 'POST', 'url' => 'baskets/add-product/'. $product->id, 'class' => 'pull-right' ]) !!}
+                                {!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger']) !!}
+                            {!! Form::close() !!}
+                        </div>
                     </div>
                 </div>
-                {{--create decent output--}}
-
-
             @endif
         @endforeach
     </div>

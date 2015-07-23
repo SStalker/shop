@@ -1,5 +1,5 @@
 @extends('layouts.simple')
 
-@sectopns('content')
-
+@section('content')
+	Blaa
 @stop

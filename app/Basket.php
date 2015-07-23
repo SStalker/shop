@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Basket extends Model
 {
     protected $fillable = [
-        'customer_id',
+        'user_id',
+        'session_id',
         'total_price',
         'total_quantity',
         'active'
@@ -15,7 +16,7 @@ class Basket extends Model
 
     public function products()
     {
-    	return $this->belongsToMany('App\Product')->withTimestamps();
+    	return $this->belongsToMany('App\Product')->withPivot('quantity', 'price')->withTimestamps();
     }
 
     /*public static $rules = [    	

@@ -146,7 +146,9 @@ return [
 
         Zizaco\Entrust\EntrustServiceProvider::class,
         Illuminate\Html\HtmlServiceProvider::class,
-        App\Providers\ViewComposerServiceProvider::class
+        App\Providers\ViewComposerServiceProvider::class,
+        Baum\Providers\BaumServiceProvider::class,
+        App\Providers\MacroServiceProvider::class
     ],
 
     /*

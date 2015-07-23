@@ -104,6 +104,7 @@ class CategoryController extends Controller
     public function show($id)
     {    
         $category = Category::findOrFail($id);
+        /*
         if ($category->status) 
         {
             return view('categories.show')
@@ -113,6 +114,10 @@ class CategoryController extends Controller
         {
             return redirect('categories');
         }
+        */
+       $products = $category->products()->get();
+        
+        return view('products.index')->with('products', $products);
     }
 
     /**

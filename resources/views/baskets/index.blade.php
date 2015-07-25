@@ -4,7 +4,7 @@
 	@if($products->isEmpty())
 		Sie haben keine Produkte im Warenkorb
 	@else
-		<table class="table table-striped table-bordered table-hover">
+		<table class="table table-striped table-hover">
 			<thead>
 				<th></th>
 				<th></th>
@@ -17,15 +17,19 @@
 					<td>{!! $product->image_path !!}</td>
 					<td>{!! $product->name !!}</td>
 					<td>{!! $product->pivot->price !!}</td>
-					<td>
-						{!! Form::input('number', 'bla', $product->pivot->quantity, array('min' => 1, 'max' => 100)) !!}
-						
+					<td>									
+						<div class="form-group">
+							{!! Form::input('number','quantity', $product->pivot->quantity, ['class' => 'form-control', 'form' => 'form-quantity'.$product->id]) !!}
+						</div>
 					</td>
 					<td>
 						<div class="btn-group">
-						{!! Form::open(['method' => 'POST', 'url' => ['baskets/delete-product/'. $product->id]]) !!}
-							<button type='submit'><span class="glyphicon glyphicon-remove"></span></button>
-						{!! Form::close() !!}
+							{!! Form::open(['method' => 'POST', 'url' => ['baskets/change-quantity/'. $product->id],'id' => 'form-quantity'.$product->id, 'class' => '']) !!}
+								<button type='submit'><span class="glyphicon glyphicon-ok"></span></button>
+							{!! Form::close() !!}
+							{!! Form::open(['method' => 'POST', 'url' => ['baskets/delete-product/'. $product->id], 'class' => 'pull-left']) !!}
+								<button type='submit'><span class="glyphicon glyphicon-remove"></span></button>
+							{!! Form::close() !!}
 						</div>
 					</td>
 				</tr>

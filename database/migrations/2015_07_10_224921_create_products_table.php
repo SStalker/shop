@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->longText('description')->nullable();
             $table->integer('quantity');
             $table->string('image_path')->nullable();
-            $table->float('price');
+            $table->decimal('price', 5, 2);
             $table->boolean('status'); //The status of the product. Can be set to false (disabled) or true (enabled).
             $table->integer('times_ordered')->nullable();
             $table->integer('category_id');

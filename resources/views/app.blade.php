@@ -27,7 +27,6 @@
 		<div class="row">
 			<div class="col-md-3">
 				@yield('leftmenu', View::make('layouts.menuleft')->render())
-				
 			</div>
 			<div class="col-md-9">
 				@yield('content')	

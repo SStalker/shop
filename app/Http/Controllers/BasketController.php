@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use Request;
+use Input;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Session;
@@ -47,7 +47,8 @@ class BasketController extends Controller
         if($productsOfBasket->find($product_id)) {
 
             //dd('This product is already in the basket. Update it.');
-            $productsOfBasket->updateExistingPivot($product_id, ['quantity' => 1, 'price' => $product->price]);
+            // Thinking... this would override the previous quantity..not good
+            //$productsOfBasket->updateExistingPivot($product_id, ['quantity' => 1, 'price' => $product->price]);
 
         } else {
 
@@ -82,5 +83,34 @@ class BasketController extends Controller
         $productsOfBasket->detach($product_id);        
 
         return redirect('baskets/index');
+    }
+
+    public function postChangeQuantity($product_id)
+    {
+        //dd(Request::all());
+        $product = Product::findOrFail($product_id);
+        $basket = Basket::findOrFail($this->id);
+        $productsOfBasket = $basket->products();
+        $productsOfBasket->updateExistingPivot($product_id, ['quantity' => Input::get('quantity')]);
+
+        $this->recalcCart();
+        return redirect('baskets/index');
+    }
+
+    private function recalcCart()
+    {
+      $basket = Basket::findOrFail($this->id);
+      $productsOfBasket = $basket->products;
+      $total_quantity = 0;
+      $total_price = 0;
+      
+      foreach ($productsOfBasket as $product) {
+        $total_quantity += $product->pivot->quantity;
+        $total_price += $product->pivot->quantity*$product->pivot->price;  
+      }
+
+      $basket->total_quantity = $total_quantity;
+      $basket->total_price = $total_price;
+      $basket->save();
     }
 }

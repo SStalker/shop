@@ -57,18 +57,30 @@
         @else
             <li><a href="{!! url('/products') !!}">Produkte</a></li>
         @endif
+
+
       </ul>
-      <!--@if(Auth::user())
-        <ul class="nav navbar-nav navbar-right">
-          <form action="{!! url('/users/search') !!}" method="POST" class="navbar-form navbar-left" role="search">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <div class="form-group">
-              <input type="text" name="searchtext" class="form-control" placeholder="Search User">
+
+        {!! Form::open(['url' => 'search/search', 'method' => 'GET', 'class' => 'input-group navbar-form navbar-right']) !!}
+            <div class='form-group input-group-btn'>
+                {!! Form::text('searchtext', null, ['class' => 'form-control', 'placeholder' => 'Suche...']) !!}
+                {!! Form::button('Suchen', ['type' => 'submit', 'class' => 'btn btn-default ']) !!}
             </div>
-            <button type="submit" class="btn btn-default">Search</button>
-          </form>
-        </ul>
-      @endif-->
+        {!! Form::close() !!}
+
+
+
+        <!--@if(Auth::user())
+          <ul class="nav navbar-nav navbar-right">
+            <form action="{!! url('/users/search') !!}" method="POST" class="navbar-form navbar-left" role="search">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <div class="form-group">
+                <input type="text" name="searchtext" class="form-control" placeholder="Search User">
+              </div>
+              <button type="submit" class="btn btn-default">Search</button>
+            </form>
+          </ul>
+        @endif    -->
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

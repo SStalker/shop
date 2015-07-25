@@ -71,13 +71,12 @@ class ProductController extends Controller
 
         if ($validator->passes()) {
             $product = Product::create($request);
-            //$product->save();
 
             return redirect('products');
 
         } else {
 
-            return redirect('products/create')
+            return back()
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -146,13 +145,12 @@ class ProductController extends Controller
         {
             $product = Product::findOrFail($id);
             $product->update($request);
-            //$product->save();
 
             return redirect('products');
         }
         else
         {
-            return redirect('products.edit')
+            return back()
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -166,15 +164,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        if (Auth::user()->hasRole('admin')) 
-        {
-            $product = Product::findOrFail($id);
-            $product->delete();
-            return redirect('products');
-        }
-        else
-        {
-            return redirect('products');
-        }
+        $product = Product::findOrFail($id);
+        $product->delete();
+        
+        return redirect('products');
     }
 }

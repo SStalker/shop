@@ -16,12 +16,12 @@ class CreateOrderTable extends Migration
       {
           $table->increments('id');
           $table->integer('user_id');
-          $table->integer('address_id');
-          $table->integer('billing_id');
-          $table->integer('basket_id');          
-          $table->enum('payment_method', ['debit', 'Creditcard']);
+          $table->integer('address_id')->nullable();
+          $table->integer('billing_id')->nullable();
+          $table->integer('basket_id')->nullable();          
+          $table->enum('payment_method', ['debit', 'Creditcard'])->nullable();
           $table->string('coupon_code')->nullable();
-          $table->enum('status', ['Paid','Shipped', 'Arrived']);
+          $table->enum('status', ['Commissioned ','Paid','Shipped', 'Arrived'])->nullable();
           
           $table->timestamps();
 

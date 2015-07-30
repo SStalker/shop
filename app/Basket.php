@@ -19,6 +19,21 @@ class Basket extends Model
     	return $this->belongsToMany('App\Product')->withPivot('quantity', 'price')->withTimestamps();
     }
 
+    public function order()
+    {
+        return $this->hasOne('App\Order');
+    }
+
+    public function hasProducts()
+    {
+        return !$this->products->isEmpty();
+    }
+
+    public function hasOrder()
+    {
+        return $this->order == null;
+    }
+
     /*public static $rules = [    	
         'total_price' => 'required',
         'total_quantity' => 'required',

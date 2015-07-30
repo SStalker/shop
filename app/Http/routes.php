@@ -19,7 +19,8 @@ Route::controllers([
 	'admin' => 'AdminController',
 	'settings' => 'SettingController',
 	'baskets' => 'BasketController',
-    'search' => 'SearchController'
+  'search' => 'SearchController',
+  'orders' => 'OrderController'
 ]);
 
 Route::resource('products', 'ProductController');

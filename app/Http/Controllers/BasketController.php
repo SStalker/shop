@@ -12,7 +12,7 @@ use App\Product;
 
 class BasketController extends Controller
 {
-    private $id;
+  private $id;
 
 	public function __construct()
 	{
@@ -25,9 +25,9 @@ class BasketController extends Controller
         $basket = Basket::findOrFail($this->id);
         $products = $basket->products;
 
-            return view('baskets.index')
-                ->with('basket', $basket)
-                ->with('products', $products);
+        return view('baskets.index')
+            ->with('basket', $basket)
+            ->with('products', $products);
     }
 
     /**

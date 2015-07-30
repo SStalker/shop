@@ -42,7 +42,7 @@
 			</div>
 			<div class="col-md-8"></div>
 			<div class="col-md-2">
-				{!! Form::open(['method' => 'POST', 'route' => ['products.destroy', $product->id], 'class' => 'pull-right']) !!}
+				{!! Form::open(['method' => 'POST', 'url' => 'orders/transaction/'. $basket->id, 'class' => 'pull-right']) !!}
 					{!! Form::submit('Zur Kasse', ['class' => 'btn btn-danger']) !!}
 				{!! Form::close() !!}
 			</div>

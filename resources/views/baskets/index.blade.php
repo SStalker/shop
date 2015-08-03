@@ -6,23 +6,32 @@
 	@else
 		<table class="table table-striped table-hover">
 			<thead>
-				<th></th>
-				<th></th>
-				<th>Preis</th>
-				<th>Menge</th>
-				<th>Aktion</th>
+				<th>Produkt</th>
+				<th class="text-center">Menge</th>
+				<th class="text-center">Preis</th>
+				<th class="text-center">Summe</th>
+				<th class="text-right">Aktion</th>
 			</thead>
 			@foreach($products as $product)
-				<tr>
-					<td>{!! $product->image_path !!}</td>
-					<td>{!! $product->name !!}</td>
-					<td>{!! $product->pivot->price !!}</td>
-					<td>									
+				<tr>					
+					<td class="col-sm-8 col-md-6">
+						<div class="media">
+              <a class="pull-left" href="#"> <img class="media-object" src="{!! $product->image_path !!}" style="width: 72px; height: 72px;"> </a>
+              <div class="media-body">
+                <h4 class="media-heading"><a href="{!! url('/products/' . $product->id) !!}">{!! $product->name !!}</a></h4>
+                <h5 class="media-heading"> by <a href="#">{!! $product->manufacturers_id !!}</a></h5>
+                  <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
+              </div>
+            </div>
+					</td>
+					<td class="col-sm-1 col-md-1" style="text-align: center">
 						<div class="form-group">
 							{!! Form::input('number','quantity', $product->pivot->quantity, ['class' => 'form-control', 'form' => 'form-quantity'.$product->id]) !!}
 						</div>
 					</td>
-					<td>
+					<td class="col-sm-1 col-md-1 text-center">{!! $product->pivot->price !!}</td>
+					<td class="col-sm-2 col-md-2 text-center">{!! $product->pivot->price*$product->pivot->quantity !!}</td>
+					<td class="col-sm-1 col-md-1 text-right">
 						<div class="btn-group">
 							{!! Form::open(['method' => 'POST', 'url' => ['baskets/change-quantity/'. $product->id],'id' => 'form-quantity'.$product->id, 'class' => '']) !!}
 								<button type='submit'><span class="glyphicon glyphicon-ok"></span></button>
@@ -35,7 +44,6 @@
 				</tr>
 			@endforeach
 		</table>
-
 		<div class="row">
 			<div class="col-md-2">
 				Summe: {!! $basket->total_price !!} €

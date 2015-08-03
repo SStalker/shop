@@ -13,24 +13,89 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				Details of Articles	
-				@foreach($products as $product)
-					{{ $product->name }}
-				@endforeach
+			<fieldset>
+				<legend>Details of Articles</legend>
+				@include('orders.list', ['products' => $products])
+			</fieldset>				
 			</div>			
 		</div>
+		</br>
 		<div class="row">
-			<div class="col-md-4">Delivery address</div>
-			<div class="col-md-4">Billing address</div>
-			<div class="col-md-4">Payment method</div>
+			<div class="col-md-4">
+				<fieldset>
+					<legend>Delivery address</legend>
+					@foreach($addresses as $address)
+
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="optionDeliveryAddress" id="delivery_address" value="{{ $address->id }}" checked="{{ $address->id == $order->address_id }}">
+					    <div>
+								<address class="col-md-12">
+									<strong>{!! $address->user->firstname !!} {!! $address->user->lastname !!}</strong><br>
+									{!! $address->street !!} {!! $address->housenumber !!}<br>
+									{!! $address->postcode !!} {!! $address->city !!}<br>
+									{!! $address->state !!}<br>
+									{!! $address->country !!}<br>
+								</address>
+							</div>
+						</label>
+					</div>
+				@endforeach
+				</fieldset>	
+			</div>
+			<div class="col-md-4">
+				<fieldset>
+					<legend>Billing address</legend>
+					<div class="radio">
+					<label>
+						<input type="radio" name="optionBilligAddress" id="billing_address" value="0" checked="1">
+						<div>
+							Same as delivery address
+						</div>
+					</label>
+				</div>
+				@foreach($addresses as $address)
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="optionBilligAddress" id="billing_address" value="{{ $address->id }}" checked="{{ $address->id == $order->billing_id }}">		
+					    <div>
+							<address class="col-md-12">
+								<strong>{!! $address->user->firstname !!} {!! $address->user->lastname !!}</strong><br>
+								{!! $address->street !!} {!! $address->housenumber !!}<br>
+								{!! $address->postcode !!} {!! $address->city !!}<br>
+								{!! $address->state !!}<br>
+								{!! $address->country !!}<br>
+							</address>
+							</div>
+						</label>
+					</div>
+				@endforeach
+				</fieldset>
+			</div>
+			<div class="col-md-4">
+				<fieldset>
+					<legend>Payment method</legend>
+					{{ $order->payment_method }}
+				</fieldset>				
+			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-8">
-				<div class="row">sum + costs</div>
+				<div class="row" style="font-size: 20px;">
+					<div class="col-md-10" style="border-bottom: 1px solid black;">Lieferkosten:</div>
+					<div class="col-md-2" ><b>9,99 €</b></div>
+				</div>
+				<div class="row" style="font-size: 24px;">
+					<div class="col-md-10">Summe:</div>
+					<div class="col-md-2"><b>100 €</b></div>
+				</div>
 				<div class="row">
 					<div class="col-md-6">Coupon</div>
-					<div class="col-md-6">Buy Button</div>
+					<div class="col-md-6">
+						<button class="btn btn-danger btn-lg pull-right" type="submit">Buy!!</button>
+					</div>
 				</div>
 			</div>
 		</div>

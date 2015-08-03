@@ -55,7 +55,9 @@ class OrderController extends Controller
       else
         return view('orders/checkout')
           ->with('custom_errors', $this->custom_errors)
-          ->with('products', $basket->products);  
+          ->with('order', $basket->order)
+          ->with('products', $basket->products)
+          ->with('addresses', Auth::user()->addresses);  
     }
     //Order::findOrNew($id)
     //return view('order.transaction');

@@ -28,12 +28,14 @@ class MacroServiceProvider extends ServiceProvider
             }
             if( empty($node['children']) ) {
                 //glyphicon for closed entries
-                $classSpan .= ' glyphicon-chevron-right';
+                if($mode != 'plain')
+                    $classSpan .= ' glyphicon-chevron-right';
                 return '<li class="'.$classLi.'"> <a href="'.url('categories/'. $node['id']).'">'.'<span class="'.$classSpan.'"></span>' .$node['name'] . '</a></li>';
             } else {
                 //$html = "Anzahl Kinder von:". $node['name'] . ' -> ' . count($node['children']);
                 //glyphicon for opened entries
-                $classSpan .= ' glyphicon-chevron-down';
+                if($mode != 'plain')
+                    $classSpan .= ' glyphicon-chevron-down';
                 $html = '<li class="'.$classLi.'"><a href="'.url('categories/'. $node['id']).'">'.'<span class="'.$classSpan.'"></span>'. $node['name'] . '</a>';
                 $html .= '<ul class="'.$classUl.'">';
 

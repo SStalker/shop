@@ -19,7 +19,7 @@ class CreateOrderTable extends Migration
           $table->integer('address_id')->nullable();
           $table->integer('billing_id')->nullable();
           $table->integer('basket_id')->nullable();          
-          $table->enum('payment_method', ['debit', 'Creditcard'])->nullable();
+          $table->enum('payment_method', ['Debit', 'Creditcard'])->nullable();
           $table->string('coupon_code')->nullable();
           $table->enum('status', ['Commissioned ','Paid','Shipped', 'Arrived'])->nullable();
           

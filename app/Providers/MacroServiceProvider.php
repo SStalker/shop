@@ -24,13 +24,17 @@ class MacroServiceProvider extends ServiceProvider
             else{
                 $classLi = 'list-group-item';
                 $classUl = 'list-group';
-                $classSpan = 'glyphicon glyphicon-pencil text-primary';
+                $classSpan = 'glyphicon text-primary';
             }
             if( empty($node['children']) ) {
-                return '<li class="'.$classLi.'"> <span class="'.$classSpan.'"></span><a href="'.url('categories/'. $node['id']).'">'. $node['name'] . '</a></li>';
+                //glyphicon for closed entries
+                $classSpan .= ' glyphicon-chevron-right';
+                return '<li class="'.$classLi.'"> <a href="'.url('categories/'. $node['id']).'">'.'<span class="'.$classSpan.'"></span>' .$node['name'] . '</a></li>';
             } else {
                 //$html = "Anzahl Kinder von:". $node['name'] . ' -> ' . count($node['children']);
-                $html = '<li class="'.$classLi.'"> <span class="'.$classSpan.'"></span><a href="'.url('categories/'. $node['id']).'">'. $node['name'] . '</a>';
+                //glyphicon for opened entries
+                $classSpan .= ' glyphicon-chevron-down';
+                $html = '<li class="'.$classLi.'"><a href="'.url('categories/'. $node['id']).'">'.'<span class="'.$classSpan.'"></span>'. $node['name'] . '</a>';
                 $html .= '<ul class="'.$classUl.'">';
 
                 foreach($node['children'] as $child)

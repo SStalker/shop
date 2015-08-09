@@ -27,10 +27,12 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        if(Auth::user()->hasRole('admin'))
-            return view('products.list')->with('products', $products);
-
-        return view('products.index')->with('products', $products);
+        if(Auth::check()) {
+            if (Auth::user()->hasRole('admin'))
+                return view('products.list')->with('products', $products);
+        }
+        else
+            return view('products.index')->with('products', $products);
     }
 
     /**

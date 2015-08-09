@@ -37,7 +37,8 @@ class ExampleCategory extends Seeder
           ['name' => 'Desktop Systeme', 'status' => 1, 'children' => [
               // These will be created
               ['name' => 'Personal Computer', 'status' => 1],
-              ['name' => 'All-in-One/Komplettsysteme', 'status' => 1],
+              ['name' => 'All-in-One', 'status' => 1],
+              ['name' => 'Komplettsysteme', 'status' => 1],
               ['name' => 'Gaming Desktops', 'status' => 1]
           ]],
             // This one, as it's not present, will be deleted

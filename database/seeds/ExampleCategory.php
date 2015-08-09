@@ -14,25 +14,41 @@ class ExampleCategory extends Seeder
     public function run()
     {
         $categories = [
-          ['id' => 1, 'name' => 'TV & Home Theather', 'status' => 1],
-          ['id' => 2, 'name' => 'Tablets & E-Readers', 'status' => 1],
-          ['id' => 3, 'name' => 'Computers', 'status' => 1,'children' => [
-            ['id' => 4, 'name' => 'Laptops', 'status' => 1, 'children' => [
-              ['id' => 5, 'name' => 'PC Laptops', 'status' => 1],
-              ['id' => 6, 'name' => 'Macbooks (Air/Pro)', 'status' => 1]
-            ]
-          ],
-          ['id' => 7, 'name' => 'Desktops', 'status' => 1, 'children' => [
-              // These will be created
-              ['name' => 'Towers Only', 'status' => 1],
-              ['name' => 'Desktop Packages', 'status' => 1],
-              ['name' => 'All-in-One Computers', 'status' => 1],
-              ['name' => 'Gaming Desktops', 'status' => 1]
-            ]]
-            // This one, as it's not present, will be deleted
-            // ['id' => 8, 'name' => 'Monitors'],
+          ['name' => 'TV & Home Theather', 'status' => 1, 'children' => [
+              ['name' => 'TV-Geräte', 'status' => 1],
+              ['name' => 'Beamer', 'status' => 1],
+              ['name' => 'DVD & Blue-ray', 'status' => 1]
           ]],
-          ['id' => 9, 'name' => 'Cell Phones', 'status' => 1]
+          ['name' => 'Tablets & E-Readers', 'status' => 1, 'children' => [
+              ['name' => 'Tablets', 'status' => 1],
+              ['name' => 'E-Reader', 'status' => 1]
+          ]],
+          ['name' => 'Handy & Smartphones', 'status' => 1],
+          ['name' => 'Notebooks', 'status' => 1, 'children' => [
+              ['name' => 'Windows', 'status' => 1, 'children' => [
+                  ['name' => 'Businness-Notebooks', 'status' => 1],
+                  ['name' => 'Gaming-Notebooks', 'status' => 1]
+              ]],
+              ['name' => 'Mac-OS', 'status' => 1, 'children' => [
+                  ['name' => 'Macbook Pro', 'status' => 1],
+                  ['name' => 'Macbook Air', 'status' => 1]
+              ]],
+          ]],
+          ['name' => 'Desktop Systeme', 'status' => 1, 'children' => [
+              // These will be created
+              ['name' => 'Personal Computer', 'status' => 1],
+              ['name' => 'All-in-One/Komplettsysteme', 'status' => 1],
+              ['name' => 'Gaming Desktops', 'status' => 1]
+          ]],
+            // This one, as it's not present, will be deleted
+            // [  8, 'name' => 'Monitors'],
+          ['name' => 'Peripherie', 'status' => 1, 'children' => [
+              ['name' => 'Mäuse', 'status' => 1],
+              ['name' => 'Tastaturen', 'status' => 1],
+              ['name' => 'Monnitore', 'status' => 1],
+              ['name' => 'Drucker', 'status' => 1],
+              ['name' => 'Sonstiges', 'status' => 1]
+          ]]
         ];
 
         Category::buildTree($categories); // => true

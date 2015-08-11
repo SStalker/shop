@@ -72,7 +72,7 @@
 
         <!--@if(Auth::user())
           <ul class="nav navbar-nav navbar-right">
-            <form action="{!! url('/users/search') !!}" method="POST" class="navbar-form navbar-left" role="search">
+            <form action="{!! url('/search/search') !!}" method="GET" class="navbar-form navbar-left" role="search">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group">
                 <input type="text" name="searchtext" class="form-control" placeholder="Search User">
@@ -80,7 +80,7 @@
               <button type="submit" class="btn btn-default">Search</button>
             </form>
           </ul>
-        @endif    -->
+        @endif -->
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

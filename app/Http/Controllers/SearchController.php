@@ -11,7 +11,7 @@ class SearchController extends Controller
 {
     public function getSearch()
     {
-        $input = '%'.Request::input('search').'%';
+        $input = '%'.Request::input('searchtext').'%';
         $products = Product::where('name', 'LIKE', $input)
             ->orWhere('description', 'LIKE', $input)
             ->get();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use App\User;
+
 use Request;
 use Validator;
 use Auth;
@@ -93,9 +94,10 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
+        $category = Category::find($product->category_id);
         if ($product->status) 
         {
-            return view('products.show')->with('product', $product);
+            return view('products.show')->with('product', $product)->with('category', $category);
         }
         else
         {

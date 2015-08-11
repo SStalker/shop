@@ -15,7 +15,7 @@
                         <div class="col-md-1">
                             <img src="{!! url( 'images/' .$product->image_path) !!}" alt="No image available">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8 ">
                             {!! $product->description !!}
                         </div>
                         <div class="col-md-3">

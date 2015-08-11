@@ -12,6 +12,7 @@
 */
 
 Route::get('/','StartController@getIndex');
+Route::get('/search', 'SearchController@getSearch');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -19,8 +20,7 @@ Route::controllers([
 	'admin' => 'AdminController',
 	'settings' => 'SettingController',
 	'baskets' => 'BasketController',
-  'search' => 'SearchController',
-  'orders' => 'OrderController'
+    'orders' => 'OrderController'
 ]);
 
 Route::resource('products', 'ProductController');

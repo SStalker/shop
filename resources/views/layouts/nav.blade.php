@@ -61,7 +61,7 @@
 
       </ul>
 
-        {!! Form::open(['url' => 'search/search', 'method' => 'GET', 'class' => 'input-group navbar-form navbar-right']) !!}
+        {!! Form::open(['url' => 'search', 'method' => 'GET', 'class' => 'input-group navbar-form navbar-right']) !!}
             <div class='form-group input-group-btn'>
                 {!! Form::text('searchtext', null, ['class' => 'form-control', 'placeholder' => 'Suche...']) !!}
                 {!! Form::button('Suchen', ['type' => 'submit', 'class' => 'btn btn-default ']) !!}
@@ -72,7 +72,7 @@
 
         <!--@if(Auth::user())
           <ul class="nav navbar-nav navbar-right">
-            <form action="{!! url('/search/search') !!}" method="GET" class="navbar-form navbar-left" role="search">
+            <form action="{!! url('/search') !!}" method="GET" class="navbar-form navbar-left" role="search">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group">
                 <input type="text" name="searchtext" class="form-control" placeholder="Search User">

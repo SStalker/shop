@@ -7,7 +7,12 @@
 				<img src="{!! url( 'images/' .$product->image_path) !!}" alt="No image available">
 			</div>
 			<div class="col-md-6 text-center">
-				<h1>{!! $product->name !!} <small>aus {!! $category->name !!}</small> </h1>
+				<div class="row">
+					<h1>{!! $product->name !!} <small>aus {!! $category->name !!}</small> </h1>
+				</div>
+				<div class="row">
+					<h4>{!! $product->price !!} €</h4>
+				</div>
 			</div>
 			<div class="col-md-3">
 				{!! Form::open(['method' => 'POST', 'url' => 'baskets/add-product/'. $product->id, 'class' => 'pull-right vcenter' ]) !!}

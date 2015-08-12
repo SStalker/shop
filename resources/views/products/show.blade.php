@@ -15,9 +15,18 @@
 				</div>
 			</div>
 			<div class="col-md-3">
-				{!! Form::open(['method' => 'POST', 'url' => 'baskets/add-product/'. $product->id, 'class' => 'pull-right vcenter' ]) !!}
-					{!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger']) !!}
-				{!! Form::close() !!}
+				<div class="row">
+					{!! Form::open(['method' => 'POST', 'url' => 'baskets/add-product/'. $product->id, 'class' => 'pull-right vcenter' ]) !!}
+						{!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger']) !!}
+					{!! Form::close() !!}
+				</div>
+				<div class="row">
+					@if($product->status)
+						<p class="text-success pull-right">Noch {!! $product->quantity !!} Verfügbar</p>
+					@else
+						<span class="text-danger pull-right">Nicht Verfügbar</span>
+					@endif
+				</div>
 			</div>
 		</div>
 		<hr/>

@@ -24,7 +24,7 @@
               </div>
             </div>
 					</td>
-					<td class="col-sm-1 col-md-1" style="text-align: center">
+					<td class="col-sm-1 col-md-1 text-center" >
 						<div class="form-group">
 							{!! Form::input('number','quantity', $product->pivot->quantity, ['class' => 'form-control', 'form' => 'form-quantity'.$product->id]) !!}
 						</div>

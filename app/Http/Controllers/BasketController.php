@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Request;
 use Input;
+use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Session;
@@ -37,6 +38,11 @@ class BasketController extends Controller
      */
     public function postAddProduct($product_id)
     {
+        //If user is guest redirect to Login, this is because of a lack of time.
+        if(!Auth::check()){
+            return redirect('auth/login');
+        }
+
         // Update a already inserted product
         // Example: User::find(1)->roles()->updateExistingPivot($roleId, $attributes);
 

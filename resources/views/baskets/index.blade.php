@@ -45,10 +45,10 @@
 			@endforeach
 		</table>
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-3 pull-left">
 				Summe: {!!  money_format('%.2n', $basket->total_price )!!} €
 			</div>
-			<div class="col-md-8"></div>
+			<div class="col-md-7"></div>
 			<div class="col-md-2">
 				{!! Form::open(['method' => 'POST', 'url' => 'orders/transaction/'. $basket->id, 'class' => 'pull-right']) !!}
 					{!! Form::submit('Zur Kasse', ['class' => 'btn btn-danger']) !!}

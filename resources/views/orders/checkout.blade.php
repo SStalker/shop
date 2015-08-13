@@ -24,12 +24,13 @@
 			<div class="col-md-4">
 				<fieldset>
 					<legend>Delivery address</legend>
-					@foreach($addresses as $address)
+					@if(!$addresses->isEmpty())
+						@foreach($addresses as $address)
 
-					<div class="radio">
-					  <label>
-					    <input type="radio" name="optionDeliveryAddress" id="delivery_address" value="{{ $address->id }}" checked="{{ $address->id == $order->address_id }}">
-					    <div>
+						<div class="radio">
+						  <label>
+							<input type="radio" name="optionDeliveryAddress" id="delivery_address" value="{{ $address->id }}" checked="{{ $address->id == $order->address_id }}">
+							<div>
 								<address class="col-md-12">
 									<strong>{!! $address->user->firstname !!} {!! $address->user->lastname !!}</strong><br>
 									{!! $address->street !!} {!! $address->housenumber !!}<br>
@@ -38,9 +39,14 @@
 									{!! $address->country !!}<br>
 								</address>
 							</div>
-						</label>
-					</div>
-				@endforeach
+							</label>
+						</div>
+						@endforeach
+					@else
+						{!! Form::open(['url' => 'addresses/create', 'method' => 'GET']) !!}
+							{!! Form::submit('Neue Adresse hinzufügen', ['class' => 'btn btn-large btn-primary']) !!}
+						{!! Form::close() !!}
+					@endif
 				</fieldset>	
 			</div>
 			<div class="col-md-4">

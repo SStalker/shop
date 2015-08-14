@@ -13,7 +13,7 @@ use App\Product;
 
 class BasketController extends Controller
 {
-  private $id;
+    private $id;
 
 	public function __construct()
 	{
@@ -97,26 +97,29 @@ class BasketController extends Controller
         $product = Product::findOrFail($product_id);
         $basket = Basket::findOrFail($this->id);
         $productsOfBasket = $basket->products();
-        $productsOfBasket->updateExistingPivot($product_id, ['quantity' => Input::get('quantity')]);
-
+        if(Input::get('quantity') > $product->quantity) {
+            $productsOfBasket->updateExistingPivot($product_id, ['quantity' => $product->quantity]);
+        }else {
+            $productsOfBasket->updateExistingPivot($product_id, ['quantity' => Input::get('quantity')]);
+        }
         $this->recalcCart();
         return redirect('baskets/index');
     }
 
     private function recalcCart()
     {
-      $basket = Basket::findOrFail($this->id);
-      $productsOfBasket = $basket->products;
-      $total_quantity = 0;
-      $total_price = 0;
-      
-      foreach ($productsOfBasket as $product) {
-        $total_quantity += $product->pivot->quantity;
-        $total_price += $product->pivot->quantity*$product->pivot->price;  
-      }
+        $basket = Basket::findOrFail($this->id);
+        $productsOfBasket = $basket->products;
+        $total_quantity = 0;
+        $total_price = 0;
 
-      $basket->total_quantity = $total_quantity;
-      $basket->total_price = $total_price;
-      $basket->save();
+        foreach ($productsOfBasket as $product) {
+        $total_quantity += $product->pivot->quantity;
+        $total_price += $product->pivot->quantity*$product->pivot->price;
+        }
+
+        $basket->total_quantity = $total_quantity;
+        $basket->total_price = $total_price;
+        $basket->save();
     }
 }

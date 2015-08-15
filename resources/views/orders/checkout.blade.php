@@ -21,7 +21,7 @@
 		</div>
 		</br>
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-4"> <!-- Delivery Address --> 
 				<fieldset>
 					<legend>Delivery address</legend>
 					@if(!$addresses->isEmpty())
@@ -48,8 +48,8 @@
 						{!! Form::close() !!}
 					@endif
 				</fieldset>	
-			</div>
-			<div class="col-md-4">
+			</div> <!-- Delivery Address --> 
+			<div class="col-md-4"> <!-- Billing Address --> 
 				<fieldset>
 					<legend>Billing address</legend>
 					<div class="radio">
@@ -77,7 +77,7 @@
 					</div>
 				@endforeach
 				</fieldset>
-			</div>
+			</div> <!-- Billing Address --> 
 			<div class="col-md-4">
 				<fieldset>
 					<legend>Payment method</legend>
@@ -118,5 +118,3 @@
 
 			- Area for the final buy button
 	 --}}
-
-@stop

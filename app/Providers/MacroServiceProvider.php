@@ -27,23 +27,31 @@ class MacroServiceProvider extends ServiceProvider
                 $classSpan = 'glyphicon text-primary';
             }
             if( empty($node['children']) ) {
-                //glyphicon for closed entries
-                if($mode != 'plain')
-                    $classSpan .= ' glyphicon-chevron-right';
-                return '<li class="'.$classLi.'"> <a href="'.url('categories/'. $node['id']).'">'.'<span class="'.$classSpan.'"></span>' .$node['name'] . '</a></li>';
+                if($node['status']){
+                    //glyphicon for closed entries
+                    if ($mode != 'plain')
+                        $classSpan .= ' glyphicon-chevron-right';
+                    return '<li class="' . $classLi . '"> <a href="' . url('categories/' . $node['id']) . '">' . '<span class="' . $classSpan . '"></span>' . $node['name'] . '</a></li>';
+                }else{
+                    return '';
+                }
             } else {
-                //$html = "Anzahl Kinder von:". $node['name'] . ' -> ' . count($node['children']);
-                //glyphicon for opened entries
-                if($mode != 'plain')
-                    $classSpan .= ' glyphicon-chevron-down';
-                $html = '<li class="'.$classLi.'"><a href="'.url('categories/'. $node['id']).'">'.'<span class="'.$classSpan.'"></span>'. $node['name'] . '</a>';
-                $html .= '<ul class="'.$classUl.'">';
+                if($node['status']) {
+                    //$html = "Anzahl Kinder von:". $node['name'] . ' -> ' . count($node['children']);
+                    //glyphicon for opened entries
+                    if ($mode != 'plain')
+                        $classSpan .= ' glyphicon-chevron-down';
+                    $html = '<li class="' . $classLi . '"><a href="' . url('categories/' . $node['id']) . '">' . '<span class="' . $classSpan . '"></span>' . $node['name'] . '</a>';
+                    $html .= '<ul class="' . $classUl . '">';
 
-                foreach($node['children'] as $child)
-                    $html .= renderNode($child, $mode);
+                    foreach ($node['children'] as $child)
+                        $html .= renderNode($child, $mode);
 
-                $html .= '</ul>';
-                $html .= '</li>';
+                    $html .= '</ul>';
+                    $html .= '</li>';
+                }else{
+                    return '';
+                }
             }
             
             return $html;

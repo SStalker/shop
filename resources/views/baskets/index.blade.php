@@ -50,8 +50,9 @@
 			</div>
 			<div class="col-md-7"></div>
 			<div class="col-md-2">
-				{!! Form::open(['method' => 'POST', 'url' => 'orders/transaction/'. $basket->id, 'class' => 'pull-right']) !!}
-					{!! Form::submit('Zur Kasse', ['class' => 'btn btn-danger']) !!}
+			{!! HTML::link('orders/choose-address', 'Choose an address') !!}
+				{{--!! Form::open(['method' => 'POST', 'url' => 'orders/transaction/'. $basket->id, 'class' => 'pull-right']) !!}
+					{!! Form::submit('Zur Kasse', ['class' => 'btn btn-danger']) !!--}}
 				{!! Form::close() !!}
 			</div>
 		</div>

@@ -44,7 +44,7 @@ class Article extends Model
     public static $rules = array(
         'name' => 'required|min:2',
         'quantity' => 'required|numeric',
-        'price' => array('required','regex:/^([1-9][0-9]*|0)(\,[0-9]{2})?$/'),
+        'price' => array('required','regex:/^([1-9][0-9]*|0)(\.[0-9]{2})?$/'),
         'status' => 'required|boolean',
         'category_id' => 'required|numeric|min:1'
     );

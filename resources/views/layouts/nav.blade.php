@@ -42,21 +42,17 @@
           @endif
         @endif
 
-        @if(Auth::user())
-          @if(Auth::user()->hasRole('admin'))
+
+        @if(Auth::user() && Auth::user()->hasRole('admin'))
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Produkte <span class="caret"></span></a>
-              <ul class="dropdown-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Produkte <span class="caret"></span></a>
+                <ul class="dropdown-menu">
                   <li><a href="{!! url('/articles') !!}">Produktübersicht</a></li>
                   <li><a href="{!! url('/articles/create') !!}">Neues Produkt</a></li>
-              </ul>
+                </ul>
             </li>
-          @else
-            <li><a href="{!! url('/articles') !!}">Produkte</a></li>
-          @endif
-        @else
-            <li><a href="{!! url('/articles') !!}">Produkte</a></li>
         @endif
+
 
 
       </ul>

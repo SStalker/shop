@@ -16,7 +16,7 @@
 				<tr>					
 					<td class="col-sm-8 col-md-6">
 						<div class="media">
-              <a class="pull-left" href="#"> <img class="media-object" src="{!! $article->image_path !!}" style="width: 72px; height: 72px;"> </a>
+              <a class="pull-left" href="#"> <img class="media-object" src="{!!url( 'images/' .$article->image_path) !!}" style="width: 72px; height: 72px;"> </a>
               <div class="media-body">
                 <h4 class="media-heading"><a href="{!! url('/articles/' . $article->id) !!}">{!! $article->name !!}</a></h4>
                 <h5 class="media-heading"> by <a href="#">{!! $article->manufacturers_id !!}</a></h5>
@@ -29,8 +29,8 @@
 							{!! Form::input('number','quantity', $article->pivot->quantity, ['class' => 'form-control', 'form' => 'form-quantity'.$article->id]) !!}
 						</div>
 					</td>
-					<td class="col-sm-1 col-md-1 text-center">{!! money_format('%.2n', $article->pivot->price) !!}</td>
-					<td class="col-sm-2 col-md-2 text-center">{!! money_format('%.2n', ($article->pivot->price*$article->pivot->quantity)) !!}</td>
+					<td class="col-sm-1 col-md-1 text-center">{!! money_format('%.2n', $article->pivot->price) !!}€</td>
+					<td class="col-sm-2 col-md-2 text-center">{!! money_format('%.2n', ($article->pivot->price*$article->pivot->quantity)) !!}€</td>
 					<td class="col-sm-1 col-md-1 text-right">
 						<div class="btn-group">
 							{!! Form::open(['method' => 'POST', 'url' => ['baskets/change-quantity/'. $article->id],'id' => 'form-quantity'.$article->id, 'class' => '']) !!}

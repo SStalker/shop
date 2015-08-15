@@ -115,8 +115,25 @@ class CategoryController extends Controller
             return redirect('categories');
         }
         */
-       $products = $category->products()->get();
-        
+        if($category->isLeaf()){
+            $products = $category->products()->get();
+        }else{
+            //return a selection of products from all child categories
+            $childCategories = Category::find($id)->getDescendants();
+            $childProducts = array();
+            //Get product of every last child and add it to array
+            foreach($childCategories as $child) {
+                foreach ($child->products as $product) {
+                    $childProducts[] = $product;
+                }
+            }
+
+            //Get up to 3 Random Products from all child categories
+            $productsIndex = array_rand($childProducts, 3);
+            foreach($productsIndex as $index){
+                $products[] = $childProducts[$index];
+            }
+        }
         return view('products.index')->with('products', $products);
     }
 

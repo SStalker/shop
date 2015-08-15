@@ -71,3 +71,8 @@ td.mealfield.mealfieldhovered
 .frontpageDist{
     margin-bottom: 80px;
 }
+
+.frontpagePanel{
+    border-bottom-color: darkgrey;
+    box-shadow: #000000;
+}

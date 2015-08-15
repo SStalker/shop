@@ -12,8 +12,8 @@
     <div class="container-fluid">
         <div class="row">
             @foreach($articles as $article)
-                <div class="frontpageDist panel col-md-3">
-                    <a href="{!! url( 'images/' .$article->id) !!}">
+                <div class="frontpageDist frontpagePanel panel col-md-3">
+                    <a href="{!! url( 'articles/' .$article->id) !!}">
                         <img class="thumbnail center-block" src=" {!! url( 'images/' .$article->image_path) !!}" alt="No image available">
                         <div class="text-center">
                             {!! $article->name !!}

@@ -54,7 +54,11 @@ class BasketController extends Controller
 
             //dd('This product is already in the basket. Update it.');
             // Thinking... this would override the previous quantity..not good
-            //$productsOfBasket->updateExistingPivot($product_id, ['quantity' => 1, 'price' => $product->price]);
+            $quantityInBasket = $productsOfBasket->find($product_id)->pivot->quantity + 1;
+            $productsOfBasket->updateExistingPivot($product_id, ['quantity' => $quantityInBasket, 'price' => $product->price]);
+            $basket->total_price += $product->price;
+            $basket->total_quantity += 1;
+            $basket->update();
 
         } else {
 
@@ -62,6 +66,7 @@ class BasketController extends Controller
             $productsOfBasket->attach($product_id, ['quantity' => 1, 'price' => $product->price]);
             //  change the baskets price and quantity
             $basket->total_price += $product->price;
+            //dd($basket->total_price);
             $basket->total_quantity += 1;
             $basket->update();
         }

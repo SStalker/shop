@@ -19,9 +19,6 @@
             @if(Auth::user())
               <li><a href="{!! url('/settings') !!}">Konto</a></li>  
               <li><a href="{!! url('/auth/logout') !!}">Logout</a></li>
-              @if(Auth::user()->hasRole('admin'))
-                <li><a href="{!! url('/admin/index') !!}">Backend</a></li>
-              @endif
             @else
               <li><a href="{!! url('/auth/login') !!}">Login</a></li>
               <li><a href="{!! url('/auth/register') !!}">Registrieren</a></li>

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     protected $fillable = [
+        'firstname',
+        'lastname',
         'street',
         'housenumber',
         'postcode',
@@ -17,6 +19,8 @@ class Address extends Model
     ];
 
     public static $rules = [
+        'firstname' => 'required|max:50',
+        'lastname' => 'required|max:50',
         'street' => 'required|max:50',
         'housenumber' => 'required|min:1',
         'postcode' => 'required|min:5|digits:5',

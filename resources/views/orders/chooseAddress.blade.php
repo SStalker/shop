@@ -24,7 +24,7 @@
 					    <input type="radio" name="optionDeliveryAddress" id="delivery_address" value="{{ $address->id }}" "{{ ($address->id == $order->address_id) ? 'checked' : '' }}">
 					    <div>
 								<address class="col-md-12">
-									<strong>{!! $address->user->firstname !!} {!! $address->user->lastname !!}</strong><br>
+									<strong>{!! $address->firstname !!} {!! $address->lastname !!}</strong><br>
 									{!! $address->street !!} {!! $address->housenumber !!}<br>
 									{!! $address->postcode !!} {!! $address->city !!}<br>
 									{!! $address->state !!}<br>
@@ -53,7 +53,7 @@
 					    <input type="radio" name="optionBillingAddress" id="billing_address" value="{{ $address->id }}" "{{ ($address->id == $order->billing_id) ? 'checked' : '' }}">		
 					    <div>
 							<address class="col-md-12">
-								<strong>{!! $address->user->firstname !!} {!! $address->user->lastname !!}</strong><br>
+								<strong>{!! $address->firstname !!} {!! $address->lastname !!}</strong><br>
 								{!! $address->street !!} {!! $address->housenumber !!}<br>
 								{!! $address->postcode !!} {!! $address->city !!}<br>
 								{!! $address->state !!}<br>

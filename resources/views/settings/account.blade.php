@@ -46,7 +46,7 @@
 			<div class="row-fluid">
 				@foreach($addresses as $address)					
 					<address class="col-md-6">
-						<strong>{!! $user->firstname !!} {!! $user->lastname !!}</strong><br>
+						<strong>{!! $address->firstname !!} {!! $address->lastname !!}</strong><br>
 						{!! $address->street !!} {!! $address->housenumber !!}<br>
 						{!! $address->postcode !!} {!! $address->city !!}<br>
 						{!! $address->state !!}<br>

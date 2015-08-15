@@ -24,7 +24,7 @@ class CreateBasketAndItems extends Seeder
 		$basket->active = 1;
 		$basket->save();
 
-		$basket->products()->attach(1, ['quantity' => 1, 'price' => 1]);
+		$basket->articles()->attach(1, ['quantity' => 1, 'price' => 1]);
         */
     }
 }

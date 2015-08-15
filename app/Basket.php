@@ -14,9 +14,9 @@ class Basket extends Model
         'active'
     ];
 
-    public function products()
+    public function articles()
     {
-    	return $this->belongsToMany('App\Product')->withPivot('quantity', 'price')->withTimestamps();
+    	return $this->belongsToMany('App\Article')->withPivot('quantity', 'price')->withTimestamps();
     }
 
     public function order()
@@ -24,9 +24,9 @@ class Basket extends Model
         return $this->hasOne('App\Order');
     }
 
-    public function hasProducts()
+    public function hasArticles()
     {
-        return !$this->products->isEmpty();
+        return !$this->articles->isEmpty();
     }
 
     public function hasOrder()

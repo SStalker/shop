@@ -3,19 +3,19 @@
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
-class ExampleProduct extends Seeder
+class ExampleArticle extends Seeder
 {
 
     /*
      *  Columns
      *
         increments('id');
-        string('product_name');
+        string('article_name');
         longText('description');
         integer('quantity');
         string('image_path');
         float('price');
-        boolean('status'); //The status of the product. Can be set to false (disabled) or true (enabled).
+        boolean('status'); //The status of the article. Can be set to false (disabled) or true (enabled).
         integer('times_ordered');
         integer('category_id');
         integer('manufacturers_id');
@@ -30,7 +30,7 @@ class ExampleProduct extends Seeder
      */
     public function run()
     {
-        DB::table('products')->insert([
+        DB::table('articles')->insert([
             [
                 'name' => 'Beispiel TV-Gerät',
                 'description' => 'Beispiel Fernsehgerät mit Ultra HD Auflösung und 108cm Bilddiagonalen (42,5 Zoll)',

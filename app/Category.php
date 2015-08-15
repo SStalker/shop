@@ -30,7 +30,7 @@ class Category extends Baum\Node
         'status' => 'required|boolean'
     );
 
-    public function products(){
-        return $this->hasMany('App\Product');
+    public function articles(){
+        return $this->hasMany('App\Article');
     }
 }

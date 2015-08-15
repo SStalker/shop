@@ -9,7 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Session;
 use App\Basket;
-use App\Product;
+use App\Article;
 
 class BasketController extends Controller
 {
@@ -24,48 +24,48 @@ class BasketController extends Controller
     public function getIndex()
     {
         $basket = Basket::findOrFail($this->id);
-        $products = $basket->products;
+        $articles = $basket->articles;
 
         return view('baskets.index')
             ->with('basket', $basket)
-            ->with('products', $products);
+            ->with('articles', $articles);
     }
 
     /**
-     * This function add/update a product with the given id
-     * @param  integer $product_id ID of the product
+     * This function add/update a article with the given id
+     * @param  integer $article_id ID of the article
      * @return redirect to basket/index
      */
-    public function postAddProduct($product_id)
+    public function postAddArticle($article_id)
     {
         //If user is guest redirect to Login, this is because of a lack of time.
         if(!Auth::check()){
             return redirect('auth/login');
         }
 
-        // Update a already inserted product
+        // Update a already inserted article
         // Example: User::find(1)->roles()->updateExistingPivot($roleId, $attributes);
 
-        $product = Product::findOrFail($product_id);
+        $article = Article::findOrFail($article_id);
         $basket = Basket::findOrFail($this->id);
-        $productsOfBasket = $basket->products();
+        $articlesOfBasket = $basket->articles();
 
-        if($productsOfBasket->find($product_id)) {
+        if($articlesOfBasket->find($article_id)) {
 
-            //dd('This product is already in the basket. Update it.');
+            //dd('This article is already in the basket. Update it.');
             // Thinking... this would override the previous quantity..not good
-            $quantityInBasket = $productsOfBasket->find($product_id)->pivot->quantity + 1;
-            $productsOfBasket->updateExistingPivot($product_id, ['quantity' => $quantityInBasket, 'price' => $product->price]);
-            $basket->total_price += $product->price;
+            $quantityInBasket = $articlesOfBasket->find($article_id)->pivot->quantity + 1;
+            $articlesOfBasket->updateExistingPivot($article_id, ['quantity' => $quantityInBasket, 'price' => $article->price]);
+            $basket->total_price += $article->price;
             $basket->total_quantity += 1;
             $basket->update();
 
         } else {
 
-            //dd('This product is not in the basket. Simply add it.');
-            $productsOfBasket->attach($product_id, ['quantity' => 1, 'price' => $product->price]);
+            //dd('This article is not in the basket. Simply add it.');
+            $articlesOfBasket->attach($article_id, ['quantity' => 1, 'price' => $article->price]);
             //  change the baskets price and quantity
-            $basket->total_price += $product->price;
+            $basket->total_price += $article->price;
             //dd($basket->total_price);
             $basket->total_quantity += 1;
             $basket->update();
@@ -79,33 +79,33 @@ class BasketController extends Controller
         // todo
     }
 
-    public function postDeleteProduct($product_id)
+    public function postDeleteArticle($article_id)
     {
         $basket = Basket::findOrFail($this->id);
-        $productsOfBasket = $basket->products();
-        $productMN = $productsOfBasket->find($product_id)->pivot;
-        //dd($productMN->pivot->price);
+        $articlesOfBasket = $basket->articles();
+        $articleMN = $articlesOfBasket->find($article_id)->pivot;
+        //dd($articleMN->pivot->price);
         // change the baskets price and quantity
         
-        $basket->total_price -= $productMN->quantity * $productMN->price;
-        $basket->total_quantity -= $productMN->quantity;
+        $basket->total_price -= $articleMN->quantity * $articleMN->price;
+        $basket->total_quantity -= $articleMN->quantity;
         $basket->save();
 
-        $productsOfBasket->detach($product_id);        
+        $articlesOfBasket->detach($article_id);        
 
         return redirect('baskets/index');
     }
 
-    public function postChangeQuantity($product_id)
+    public function postChangeQuantity($article_id)
     {
         //dd(Request::all());
-        $product = Product::findOrFail($product_id);
+        $article = Article::findOrFail($article_id);
         $basket = Basket::findOrFail($this->id);
-        $productsOfBasket = $basket->products();
-        if(Input::get('quantity') > $product->quantity) {
-            $productsOfBasket->updateExistingPivot($product_id, ['quantity' => $product->quantity]);
+        $articlesOfBasket = $basket->articles();
+        if(Input::get('quantity') > $article->quantity) {
+            $articlesOfBasket->updateExistingPivot($article_id, ['quantity' => $article->quantity]);
         }else {
-            $productsOfBasket->updateExistingPivot($product_id, ['quantity' => Input::get('quantity')]);
+            $articlesOfBasket->updateExistingPivot($article_id, ['quantity' => Input::get('quantity')]);
         }
         $this->recalcCart();
         return redirect('baskets/index');
@@ -114,13 +114,13 @@ class BasketController extends Controller
     private function recalcCart()
     {
         $basket = Basket::findOrFail($this->id);
-        $productsOfBasket = $basket->products;
+        $articlesOfBasket = $basket->articles;
         $total_quantity = 0;
         $total_price = 0;
 
-        foreach ($productsOfBasket as $product) {
-        $total_quantity += $product->pivot->quantity;
-        $total_price += $product->pivot->quantity*$product->pivot->price;
+        foreach ($articlesOfBasket as $article) {
+        $total_quantity += $article->pivot->quantity;
+        $total_price += $article->pivot->quantity*$article->pivot->price;
         }
 
         $basket->total_quantity = $total_quantity;

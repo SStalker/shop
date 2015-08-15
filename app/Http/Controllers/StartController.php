@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Category;
-use App\Product;
+use App\Article;
 
 class StartController extends Controller
 {
@@ -21,15 +21,15 @@ class StartController extends Controller
     	$categories = Category::all();
 
         //Get the 6 most ordered products
-        $productsAsc = Product::orderBy('times_ordered','asc')->get();
-        $products = array();
+        $articlesAsc = Article::orderBy('times_ordered','asc')->get();
+        $articles = array();
         for($i = 0; $i < 6; $i++ ){
-            $products[] = $productsAsc[$i];
+            $articles[] = $articlesAsc[$i];
         }
 
-        //return all categories for side menu and 6 most ordered products
+        //return all categories for side menu and 6 most ordered articles
     	return view('index')
     		->with('categories', $categories)
-            ->with('products', $products);
+            ->with('articles', $articles);
     }
 }

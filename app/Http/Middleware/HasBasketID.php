@@ -54,8 +54,8 @@ class HasBasketID
                 $basket = Basket::findOrFail($basket_id);
 
                 if($basket->user_id == 0) {
-                    //dd($basket->products->count());
-                    if($basket->products->count() > 0){
+                    //dd($basket->articles->count());
+                    if($basket->articles->count() > 0){
                         echo 'Dieser Warenkorb hat Produkte';
                         $basket->user_id = Auth::user()->id;
                         $basket->active = 1;

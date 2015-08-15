@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Product;
+use App\Article;
 use App\User;
 
 use Request;
@@ -11,7 +11,7 @@ use Validator;
 use Auth;
 use App\Http\Controllers\Controller;
 
-class ProductController extends Controller
+class ArticleController extends Controller
 {
     public function __construct()
     {
@@ -27,13 +27,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $articles = Article::all();
         if(Auth::check()) {
             if (Auth::user()->hasRole('admin'))
-                return view('products.list')->with('products', $products);
+                return view('articles.list')->with('articles', $articles);
         }
         else
-            return view('products.index')->with('products', $products);
+            return view('articles.index')->with('articles', $articles);
     }
 
     /**
@@ -53,13 +53,13 @@ class ProductController extends Controller
                 $categories[$category->id] = $category->name;
             }
 
-            return view('products.create')->with('categories' ,$categories);
+            return view('articles.create')->with('categories' ,$categories);
         }
         else
         {
-            return redirect('products');
+            return redirect('articles');
         }
-        return view('products.create')->with('categories' ,$categories);
+        return view('articles.create')->with('categories' ,$categories);
     }
 
     /**
@@ -70,12 +70,12 @@ class ProductController extends Controller
     public function store()
     {
         $request = Request::all();
-        $validator = Validator::make($request, Product::$rules);
+        $validator = Validator::make($request, Article::$rules);
 
         if ($validator->passes()) {
-            $product = Product::create($request);
+            $article = Article::create($request);
 
-            return redirect('products');
+            return redirect('articles');
 
         } else {
 
@@ -93,15 +93,15 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::findOrFail($id);
-        $category = Category::find($product->category_id);
-        if ($product->status) 
+        $article = Article::findOrFail($id);
+        $category = Category::find($article->category_id);
+        if ($article->status) 
         {
-            return view('products.show')->with('product', $product)->with('category', $category);
+            return view('articles.show')->with('article', $article)->with('category', $category);
         }
         else
         {
-            return redirect('products');
+            return redirect('articles');
         }
     }
 
@@ -116,7 +116,7 @@ class ProductController extends Controller
         //
         if(Auth::user()->hasRole('admin'))
         {
-            $product = Product::findOrFail($id);
+            $article = Article::findOrFail($id);
             $categoryArray = Category::orderBy('name', 'asc')->get();
             $categories = array('0' => '--- bitte wählen ---');
             foreach($categoryArray as $category)
@@ -124,13 +124,13 @@ class ProductController extends Controller
                 $categories[$category->id] = $category->name;
             }
 
-            return view('products.edit')
-                    ->with('product', $product)
+            return view('articles.edit')
+                    ->with('article', $article)
                     ->with('categories' ,$categories);
         }
         else
         {
-            return redirect('products');
+            return redirect('articles');
         }
     }
 
@@ -143,14 +143,14 @@ class ProductController extends Controller
     public function update($id)
     {
         $request = Request::all();
-        $validator = Validator::make($request, Product::$rules);
+        $validator = Validator::make($request, Article::$rules);
 
         if($validator->passes())
         {
-            $product = Product::findOrFail($id);
-            $product->update($request);
+            $article = Article::findOrFail($id);
+            $article->update($request);
 
-            return redirect('products');
+            return redirect('articles');
         }
         else
         {
@@ -168,9 +168,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        $product->delete();
+        $article = Article::findOrFail($id);
+        $article->delete();
         
-        return redirect('products');
+        return redirect('articles');
     }
 }

@@ -15,14 +15,14 @@
 	   </div>
 	   <div class="panel-body">	
 			<div class="table-responsive">	
-		   		@foreach($category->products as $product)
-		   			@if($product->status)
+		   		@foreach($category->articles as $article)
+		   			@if($article->status)
 			   			<div class="panel panel-default">
 		                    <div class="panel-heading">
-		                        {!! $product->name !!}
+		                        {!! $article->name !!}
 		                    </div>
 		                    <div class="panel-body">
-		                        {!! $product->description !!}
+		                        {!! $article->description !!}
 		                    </div>
 		                </div>
 	                @endif

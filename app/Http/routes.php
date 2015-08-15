@@ -23,7 +23,7 @@ Route::controllers([
     'orders' => 'OrderController'
 ]);
 
-Route::resource('products', 'ProductController');
+Route::resource('articles', 'ArticleController');
 Route::resource('permissions', 'PermissionController');
 Route::resource('roles', 'RoleController');
 Route::resource('addresses', 'AddressController');

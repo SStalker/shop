@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-	@if($products->isEmpty())
+	@if($articles->isEmpty())
 		Sie haben keine Produkte im Warenkorb
 	@else
 		<table class="table table-striped table-hover">
@@ -12,31 +12,31 @@
 				<th class="text-center">Summe</th>
 				<th class="text-right">Aktion</th>
 			</thead>
-			@foreach($products as $product)
+			@foreach($articles as $article)
 				<tr>					
 					<td class="col-sm-8 col-md-6">
 						<div class="media">
-              <a class="pull-left" href="#"> <img class="media-object" src="{!! $product->image_path !!}" style="width: 72px; height: 72px;"> </a>
+              <a class="pull-left" href="#"> <img class="media-object" src="{!! $article->image_path !!}" style="width: 72px; height: 72px;"> </a>
               <div class="media-body">
-                <h4 class="media-heading"><a href="{!! url('/products/' . $product->id) !!}">{!! $product->name !!}</a></h4>
-                <h5 class="media-heading"> by <a href="#">{!! $product->manufacturers_id !!}</a></h5>
+                <h4 class="media-heading"><a href="{!! url('/articles/' . $article->id) !!}">{!! $article->name !!}</a></h4>
+                <h5 class="media-heading"> by <a href="#">{!! $article->manufacturers_id !!}</a></h5>
                   <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
               </div>
             </div>
 					</td>
 					<td class="col-sm-1 col-md-1 text-center" >
 						<div class="form-group">
-							{!! Form::input('number','quantity', $product->pivot->quantity, ['class' => 'form-control', 'form' => 'form-quantity'.$product->id]) !!}
+							{!! Form::input('number','quantity', $article->pivot->quantity, ['class' => 'form-control', 'form' => 'form-quantity'.$article->id]) !!}
 						</div>
 					</td>
-					<td class="col-sm-1 col-md-1 text-center">{!! money_format('%.2n', $product->pivot->price) !!}</td>
-					<td class="col-sm-2 col-md-2 text-center">{!! money_format('%.2n', ($product->pivot->price*$product->pivot->quantity)) !!}</td>
+					<td class="col-sm-1 col-md-1 text-center">{!! money_format('%.2n', $article->pivot->price) !!}</td>
+					<td class="col-sm-2 col-md-2 text-center">{!! money_format('%.2n', ($article->pivot->price*$article->pivot->quantity)) !!}</td>
 					<td class="col-sm-1 col-md-1 text-right">
 						<div class="btn-group">
-							{!! Form::open(['method' => 'POST', 'url' => ['baskets/change-quantity/'. $product->id],'id' => 'form-quantity'.$product->id, 'class' => '']) !!}
+							{!! Form::open(['method' => 'POST', 'url' => ['baskets/change-quantity/'. $article->id],'id' => 'form-quantity'.$article->id, 'class' => '']) !!}
 								<button type='submit'><span class="glyphicon glyphicon-ok"></span></button>
 							{!! Form::close() !!}
-							{!! Form::open(['method' => 'POST', 'url' => ['baskets/delete-product/'. $product->id], 'class' => 'pull-left']) !!}
+							{!! Form::open(['method' => 'POST', 'url' => ['baskets/delete-article/'. $article->id], 'class' => 'pull-left']) !!}
 								<button type='submit'><span class="glyphicon glyphicon-remove"></span></button>
 							{!! Form::close() !!}
 						</div>

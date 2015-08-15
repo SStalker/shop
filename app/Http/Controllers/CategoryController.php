@@ -116,25 +116,25 @@ class CategoryController extends Controller
         }
         */
         if($category->isLeaf()){
-            $products = $category->products()->get();
+            $articles = $category->articles()->get();
         }else{
-            //return a selection of products from all child categories
+            //return a selection of articles from all child categories
             $childCategories = Category::find($id)->getDescendants();
-            $childProducts = array();
-            //Get product of every last child and add it to array
+            $childArticles = array();
+            //Get article of every last child and add it to array
             foreach($childCategories as $child) {
-                foreach ($child->products as $product) {
-                    $childProducts[] = $product;
+                foreach ($child->articles as $article) {
+                    $childArticles[] = $article;
                 }
             }
 
-            //Get up to 3 Random Products from all child categories
-            $productsIndex = array_rand($childProducts, 3);
-            foreach($productsIndex as $index){
-                $products[] = $childProducts[$index];
+            //Get up to 3 Random Articles from all child categories
+            $articlesIndex = array_rand($childArticles, 3);
+            foreach($articlesIndex as $index){
+                $articles[] = $childArticles[$index];
             }
         }
-        return view('products.index')->with('products', $products);
+        return view('articles.index')->with('articles', $articles);
     }
 
     /**
@@ -157,7 +157,7 @@ class CategoryController extends Controller
         }
         else
         {
-            return redirect('products');
+            return redirect('articles');
         }
     }
 
@@ -183,7 +183,7 @@ class CategoryController extends Controller
         }
         else
         {
-            return redirect('products.edit')
+            return redirect('articles.edit')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -204,7 +204,7 @@ class CategoryController extends Controller
         }
         else
         {
-            return redirect('products');
+            return redirect('articles');
         }
     }
 }

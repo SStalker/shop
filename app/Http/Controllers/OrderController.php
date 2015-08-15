@@ -129,7 +129,7 @@ class OrderController extends Controller
     return view('orders.checkout')
           ->with('custom_errors', $this->custom_errors)
           ->with('order', $basket->order)
-          ->with('products', $basket->products)
+          ->with('articles', $basket->articles)
           ->with('addresses', $this->addresses); 
   }
 
@@ -138,7 +138,7 @@ class OrderController extends Controller
     $basket = Basket::findOrFail($basket_id);
 
     // Check if the basket is empty
-    if(!$basket->hasProducts())
+    if(!$basket->hasArticles())
       return Redirect::back();
 
     // Check if the cart has an order tupel assigend
@@ -170,7 +170,7 @@ class OrderController extends Controller
         return view('orders/checkout')
           ->with('custom_errors', $this->custom_errors)
           ->with('order', $basket->order)
-          ->with('products', $basket->products)
+          ->with('articles', $basket->articles)
           ->with('addresses', Auth::user()->addresses);  */
     }
     //Order::findOrNew($id)

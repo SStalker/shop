@@ -11,12 +11,12 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            @foreach($products as $product)
+            @foreach($articles as $article)
                 <div class="frontpageDist panel col-md-3">
-                    <a href="{!! url( 'images/' .$product->id) !!}">
-                        <img class="thumbnail center-block" src=" {!! url( 'images/' .$product->image_path) !!}" alt="No image available">
+                    <a href="{!! url( 'images/' .$article->id) !!}">
+                        <img class="thumbnail center-block" src=" {!! url( 'images/' .$article->image_path) !!}" alt="No image available">
                         <div class="text-center">
-                            {!! $product->name !!}
+                            {!! $article->name !!}
                         </div>
                     </a>
                 </div>

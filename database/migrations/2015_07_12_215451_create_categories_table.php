@@ -12,7 +12,7 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        //Schema for products table
+        //Schema for articles table
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
@@ -20,7 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('lft')->nullable();
             $table->integer('rft')->nullable();
             $table->integer('depth')->nullable();
-            $table->boolean('status')->nullable(); //The status of the product. Can be set to false (disabled) or true (enabled).
+            $table->boolean('status')->nullable(); //The status of the article. Can be set to false (disabled) or true (enabled).
             $table->timestamps();
             $table->softDeletes();
         });

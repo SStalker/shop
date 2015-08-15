@@ -47,15 +47,15 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Produkte <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                  <li><a href="{!! url('/products') !!}">Produktübersicht</a></li>
-                  <li><a href="{!! url('/products/create') !!}">Neues Produkt</a></li>
+                  <li><a href="{!! url('/articles') !!}">Produktübersicht</a></li>
+                  <li><a href="{!! url('/articles/create') !!}">Neues Produkt</a></li>
               </ul>
             </li>
           @else
-            <li><a href="{!! url('/products') !!}">Produkte</a></li>
+            <li><a href="{!! url('/articles') !!}">Produkte</a></li>
           @endif
         @else
-            <li><a href="{!! url('/products') !!}">Produkte</a></li>
+            <li><a href="{!! url('/articles') !!}">Produkte</a></li>
         @endif
 
 

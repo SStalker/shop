@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Article;
 
 use Request;
 use App\Http\Controllers\Controller;
@@ -12,9 +12,9 @@ class SearchController extends Controller
     public function getSearch()
     {
         $input = '%'.Request::input('searchtext').'%';
-        $products = Product::where('name', 'LIKE', $input)
+        $articles = Article::where('name', 'LIKE', $input)
             ->orWhere('description', 'LIKE', $input)
             ->get();
-        return view('search.result')->with('products', $products);
+        return view('search.result')->with('articles', $articles);
     }
 }

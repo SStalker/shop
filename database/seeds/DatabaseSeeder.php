@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(ExampleProduct::class);
+        $this->call(ExampleArticle::class);
         $this->call(ExampleCategory::class);
         $this->call(CreateRoles::class);
         $this->call(CreatePermissions::class);

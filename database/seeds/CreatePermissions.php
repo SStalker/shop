@@ -19,11 +19,11 @@ class CreatePermissions extends Seeder
 		$createAccessBackend->description  = 'Right to see the Backend'; // optional
 		$createAccessBackend->save();
 
-		$permOnProducts = new Permission();
-		$permOnProducts->name         = 'access-products';
-		$permOnProducts->display_name = 'Access Products'; // optional
-		$permOnProducts->description  = 'Access to create/modify products'; // optional
-		$permOnProducts->save();
+		$permOnArticles = new Permission();
+		$permOnArticles->name         = 'access-articles';
+		$permOnArticles->display_name = 'Access Articles'; // optional
+		$permOnArticles->description  = 'Access to create/modify articles'; // optional
+		$permOnArticles->save();
 
 		$permOnCategories = new Permission();
 		$permOnCategories->name         = 'access-categories';

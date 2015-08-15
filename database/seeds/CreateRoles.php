@@ -21,7 +21,7 @@ class CreateRoles extends Seeder
 		$seller = new Role();
 		$seller->name         = 'seller';
 		$seller->display_name = 'User Seller'; // optional
-		$seller->description  = 'Seller is allowed to manage and edit his products'; // optional
+		$seller->description  = 'Seller is allowed to manage and edit his articles'; // optional
 		$seller->save();
 
 		$customer = new Role();

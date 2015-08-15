@@ -15,7 +15,7 @@
 			<div class="col-md-12">
 			<fieldset>
 				<legend>Details of Articles</legend>
-				@include('orders.list', ['products' => $products])
+				@include('orders.list', ['articles' => $articles])
 			</fieldset>				
 			</div>			
 		</div>
@@ -114,7 +114,7 @@
 
 			- Area for coupon code textfield
 	
-			- Area again for all products details to check
+			- Area again for all articles details to check
 
 			- Area for the final buy button
 	 --}}

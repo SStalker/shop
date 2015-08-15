@@ -16,9 +16,15 @@
 			</div>
 			<div class="col-md-3">
 				<div class="row">
-					{!! Form::open(['method' => 'POST', 'url' => 'baskets/add-article/'. $article->id, 'class' => 'pull-right vcenter' ]) !!}
-						{!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger']) !!}
-					{!! Form::close() !!}
+                    @if(!$article->status)
+                        {!! Form::open(['method' => 'POST', 'url' => 'baskets/add-article/'. $article->id, 'class' => 'pull-right vcenter']) !!}
+                            {!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger disabled']) !!}
+                        {!! Form::close() !!}
+                    @else
+                        {!! Form::open(['method' => 'POST', 'url' => 'baskets/add-article/'. $article->id, 'class' => 'pull-right vcenter']) !!}
+                            {!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger']) !!}
+                        {!! Form::close() !!}
+                    @endif
 				</div>
 				<div class="row">
 					@if($article->status)

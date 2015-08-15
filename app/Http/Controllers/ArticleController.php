@@ -95,14 +95,8 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
         $category = Category::find($article->category_id);
-        if ($article->status) 
-        {
-            return view('articles.show')->with('article', $article)->with('category', $category);
-        }
-        else
-        {
-            return redirect('articles');
-        }
+
+        return view('articles.show')->with('article', $article)->with('category', $category);
     }
 
     /**

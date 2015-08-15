@@ -21,9 +21,16 @@
                         {!! $article->description !!}
                     </div>
                     <div class="col-md-3">
-                        {!! Form::open(['method' => 'POST', 'url' => 'baskets/add-article/'. $article->id, 'class' => 'pull-right' ]) !!}
-                            {!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger']) !!}
-                        {!! Form::close() !!}
+                        @if(!$article->status)
+                            {!! Form::open(['method' => 'POST', 'url' => 'baskets/add-article/'. $article->id, 'class' => 'pull-right']) !!}
+                                {!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger disabled']) !!}
+                            {!! Form::close() !!}
+                        @else
+                            {!! Form::open(['method' => 'POST', 'url' => 'baskets/add-article/'. $article->id, 'class' => 'pull-right']) !!}
+                                {!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger']) !!}
+                            {!! Form::close() !!}
+                        @endif
+
                     </div>
                 </div>
             </div>

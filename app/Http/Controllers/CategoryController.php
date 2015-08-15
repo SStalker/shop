@@ -26,9 +26,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-
+        //Get all categories
         $list = Category::all();
-        //dd($list);
+        //Return 'Hlist' as hierachy list and 'list' as normal list to index
         return view('categories.index')
             ->with('Hlist', $list->toHierarchy())
             ->with('list', $list);
@@ -41,8 +41,8 @@ class CategoryController extends Controller
      */
     public function create()
 
-    {        
-        //$categories[] = '--- bitte wählen ---';
+    {
+        //Create correct nested list for all categories
         $categories = Category::getNestedList('name', null, '**');
             
         return view('categories.create')->with('categories' ,$categories);
@@ -55,18 +55,23 @@ class CategoryController extends Controller
      */
     public function store()
     {
+        //Get delivered input
         $request = Request::all();
         $choosedCategory = Category::findOrFail( $request['parent_id'] );
 
+        //Check if all rules are fulfilled
         $validator = Validator::make($request, Category::$rules);
-        //dd($request);
+
+        //
         if ($validator->passes()) {
-            
+
+            //If validator passes create and save new category
             $category = new Category();
             $category->name = $request['name'];
             $category->status = $request['status'];
             $category->save();
 
+            //Set position in hierachie
             switch ($request['type']) {
                 case 'root':
                     $category->makeRoot();
@@ -81,14 +86,12 @@ class CategoryController extends Controller
                     // todo
                     break;
             }
-            
-            // create speichert automatisch den datensatz schon ab
-            //$category->save();
 
             return redirect('categories');
 
         } else {
 
+            //return with errors
             return redirect('categories/create')
                 ->withErrors($validator)
                 ->withInput();
@@ -104,37 +107,43 @@ class CategoryController extends Controller
     public function show($id)
     {    
         $category = Category::findOrFail($id);
-        /*
+
+        // If category is available
         if ($category->status) 
         {
-            return view('categories.show')
-                ->with('category', $category);
+            // If category ist leaf
+            if($category->isLeaf()){
+                //Get all articles
+                $articles = $category->articles()->get();
+            }else{
+                //return a selection of articles from all child categories
+                $childCategories = Category::find($id)->getDescendants();
+                $childArticles = array();
+                //Get article of every last child and add it to array
+                foreach($childCategories as $child) {
+                    foreach ($child->articles as $article) {
+                        $childArticles[] = $article;
+                    }
+                }
+
+                //Get random articles from child categories
+                if(count($childArticles) >=3){
+                    //Get up to 3 random articles from all child categories if 3 articles are available
+                    $articlesIndex = array_rand($childArticles, 3);
+                    foreach($articlesIndex as $index){
+                        $articles[] = $childArticles[$index];
+                    }
+                }else{
+                    //Get all child articles
+                    $articles = $childArticles;
+                }
+            }
+            return view('articles.index')->with('articles', $articles);
         }
         else
         {
-            return redirect('categories');
+            return redirect('/');
         }
-        */
-        if($category->isLeaf()){
-            $articles = $category->articles()->get();
-        }else{
-            //return a selection of articles from all child categories
-            $childCategories = Category::find($id)->getDescendants();
-            $childArticles = array();
-            //Get article of every last child and add it to array
-            foreach($childCategories as $child) {
-                foreach ($child->articles as $article) {
-                    $childArticles[] = $article;
-                }
-            }
-
-            //Get up to 3 Random Articles from all child categories
-            $articlesIndex = array_rand($childArticles, 3);
-            foreach($articlesIndex as $index){
-                $articles[] = $childArticles[$index];
-            }
-        }
-        return view('articles.index')->with('articles', $articles);
     }
 
     /**
@@ -147,13 +156,15 @@ class CategoryController extends Controller
     {
         if(Auth::user()->hasRole('admin'))
         {
-        $category = Category::find($id);
-        $categories = Category::getNestedList('name', null, '**');
+            //Get right category
+            $category = Category::find($id);
+            //Create correct nestedlist
+            $categories = Category::getNestedList('name', null, '**');
 
-
-        return view('categories.edit')
-            ->with('category', $category)
-            ->with('categories' ,$categories);
+            //return the correct category and a list of all categories
+            return view('categories.edit')
+                ->with('category', $category)
+                ->with('categories' ,$categories);
         }
         else
         {
@@ -169,11 +180,15 @@ class CategoryController extends Controller
      */
     public function update($id)
     {
+        //Get delivered input
         $request = Request::all();
+
+        //validate input
         $validator = Validator::make($request, Category::$rules);
 
         if($validator->passes())
         {
+            //update
             $category = Category::findOrFail($id);
             $category->name = $request['name'];
             $category->status = $request['status'];
@@ -183,6 +198,7 @@ class CategoryController extends Controller
         }
         else
         {
+            //return with errors and without update
             return redirect('articles.edit')
                 ->withErrors($validator)
                 ->withInput();
@@ -197,13 +213,16 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        //check if user ist admin
         if (Auth::user()->hasRole('admin')) 
         {
+            //Delete article
             Category::findOrFail($id)->delete();
             return redirect('categories');
         }
         else
         {
+            //return without deletion
             return redirect('articles');
         }
     }

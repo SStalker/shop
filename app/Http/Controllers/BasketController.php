@@ -14,6 +14,7 @@ use App\Article;
 class BasketController extends Controller
 {
     private $id;
+    private $quantity_errors;
 
 	public function __construct()
 	{
@@ -28,7 +29,9 @@ class BasketController extends Controller
 
         return view('baskets.index')
             ->with('basket', $basket)
-            ->with('articles', $articles);
+            ->with('articles', $articles)
+            ->with('invalidArticle', $this->inStock())
+            ->with('quantity_errors', $this->quantity_errors);
     }
 
     /**
@@ -119,12 +122,32 @@ class BasketController extends Controller
         $total_price = 0;
 
         foreach ($articlesOfBasket as $article) {
-        $total_quantity += $article->pivot->quantity;
-        $total_price += $article->pivot->quantity*$article->pivot->price;
+            $total_quantity += $article->pivot->quantity;
+            $total_price += $article->pivot->quantity*$article->pivot->price;
         }
 
         $basket->total_quantity = $total_quantity;
         $basket->total_price = $total_price;
         $basket->save();
+    }
+
+    private function inStock()
+    {
+        $basket = Basket::findOrFail($this->id);
+        $articles = $basket->articles;
+        $b_error = false;
+
+        foreach ($articles as $article) {
+            if(!$article->status){
+
+                $this->quantity_errors[] = 'Artikel "' .$article->name. '" ist nicht auf Lager.';
+                $b_error = true;
+            }else if( ($article->quantity-$article->pivot->quantity) < 0 ) {
+                $this->quantity_errors[] = 'Leider nicht mehr genug Artikel auf Lager.';
+                $b_error = true;
+            }
+        }
+        
+        return $b_error;
     }
 }

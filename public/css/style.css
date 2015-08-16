@@ -76,3 +76,7 @@ td.mealfield.mealfieldhovered
     border-bottom-color: darkgrey;
     box-shadow: #000000;
 }
+
+.withoutMargin{
+    margin: 0px;
+}

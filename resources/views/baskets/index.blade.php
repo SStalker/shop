@@ -1,6 +1,13 @@
 @extends('app')
 
 @section('content')
+
+	@if( isset($quantity_errors) )
+		@foreach($quantity_errors as $error)
+			{{ $error }}
+		@endforeach
+	@endif
+
 	@if($articles->isEmpty())
 		Sie haben keine Produkte im Warenkorb
 	@else
@@ -29,8 +36,8 @@
 							{!! Form::input('number','quantity', $article->pivot->quantity, ['class' => 'form-control', 'form' => 'form-quantity'.$article->id]) !!}
 						</div>
 					</td>
-					<td class="col-sm-1 col-md-1 text-center">{!! money_format('%.2n', $article->pivot->price) !!}€</td>
-					<td class="col-sm-2 col-md-2 text-center">{!! money_format('%.2n', ($article->pivot->price*$article->pivot->quantity)) !!}€</td>
+					<td class="col-sm-1 col-md-1 text-center">{!! money_format('%.2n', $article->pivot->price) !!} €</td>
+					<td class="col-sm-2 col-md-2 text-center">{!! money_format('%.2n', ($article->pivot->price*$article->pivot->quantity)) !!} €</td>
 					<td class="col-sm-1 col-md-1 text-right">
 						<div class="btn-group">
 							{!! Form::open(['method' => 'POST', 'url' => ['baskets/change-quantity/'. $article->id],'id' => 'form-quantity'.$article->id, 'class' => '']) !!}
@@ -50,10 +57,13 @@
 			</div>
 			<div class="col-md-7"></div>
 			<div class="col-md-2">
-			{!! HTML::link('orders/choose-address', 'Choose an address') !!}
-				{{--!! Form::open(['method' => 'POST', 'url' => 'orders/transaction/'. $basket->id, 'class' => 'pull-right']) !!}
-					{!! Form::submit('Zur Kasse', ['class' => 'btn btn-danger']) !!
-				{!! Form::close() !!}--}}
+				{!! Form::open(['method' => 'POST', 'url' => 'orders/choose-address', 'class' => 'pull-right']) !!}
+					@if( isset($invalidArticle) && $invalidArticle == true ) 
+						{!! Form::submit('Weiter zu Adressen', ['class' => 'btn btn-danger disabled']) !!}
+					@else
+						{!! Form::submit('Weiter zu Adressen', ['class' => 'btn btn-danger']) !!}
+					@endif
+				{!! Form::close() !!}
 			</div>
 		</div>
 	@endif

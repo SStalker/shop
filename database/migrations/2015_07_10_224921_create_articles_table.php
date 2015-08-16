@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->longText('description')->nullable();
             $table->integer('quantity');
             $table->string('image_path')->nullable();
-            $table->decimal('price', 10, 2);
+            $table->double('price', 10, 2);
             $table->boolean('status'); //The status of the article. Can be set to false (disabled) or true (enabled).
             $table->integer('times_ordered')->nullable();
             $table->integer('category_id');

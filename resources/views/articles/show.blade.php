@@ -41,5 +41,18 @@
 				<p>{!! $article->description !!}</p>
 			</div>
 		</div>
+        @if(Auth::user() && Auth::user()->hasRole('admin'))
+            <br/>
+            <hr/>
+            <div class="row">
+                <div class="pull-right">
+                    {!! HTML::link('/articles/'.$article->id.'/edit', 'Bearbeiten', array('class'=>'btn btn-default')) !!}
+                    {!! Form::open(['method' => 'DELETE', 'route' => ['articles.destroy', $article->id], 'style' => 'display:inline;']) !!}
+                        {!! Form::submit('Delete', ['class' => 'btn btn-danger', 'onClick' =>
+                    'return confirm(\'Wirklich löschen?\');' ]) !!}
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        @endif
 	</div>
 @stop

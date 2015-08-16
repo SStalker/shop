@@ -3,16 +3,16 @@
     <h1>Produkte</h1>
     <table class="table table-striped table-bordered table-hover">
         <thead>
-            <th>Name</th>
-            <th>Beschreibung</th>
-            <th>Anzahl</th>
-            <th>Bildpfad</th>
-            <th>Preis</th>
-            <th>Status</th>
-            <th># bestellt</th>
-            <th>Kategorie</th>
-            {{--<th>Hersteller</th>--}}
-            <th>Aktionen</th>
+            <th class="col-md-1">Name</th>
+            <th class="col-md-3">Beschreibung</th>
+            <th class="col-md-1">Anzahl</th>
+            <th class="col-md-1">Bildpfad</th>
+            <th class="col-md-1">Preis</th>
+            <th class="col-md-1">Status</th>
+            <th class="col-md-1">bestellt</th>
+            <th class="col-md-1">Kategorie</th>
+            {{--<th class="col-md-1">Hersteller</th>--}}
+            <th class="col-md-1">Aktionen</th>
         </thead>
         @foreach($articles as $article)
             <tr>
@@ -20,8 +20,16 @@
                 <td>{!! $article->description !!}</td>
                 <td>{!! $article->quantity !!}</td>
                 <td>{!! $article->image_path !!}</td>
-                <td>{!! $article->price !!}</td>
-                <td>{!! $article->status !!}</td>
+                <td>{!! money_format('%.2n', $article->price) !!} €</td>
+                <td>
+                    <span class="
+                    @if($article->status)
+                        text-success
+                    @else
+                        text-danger
+                    @endif
+                        ">Verfügbar</span>
+                </td>
                 <td>{!! $article->times_ordered !!}</td>
                 <td>{!! $article->category->name !!}</td>
                 {{--}<td>{!! $article->manufactur()->name !!}</td>--}}

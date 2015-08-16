@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CreatePermissions::class);
         $this->call(AdminUser::class);
         $this->call(CreateBasketAndItems::class);
+        $this->call(ExampleOrder::class);
         Model::reguard();
     }
 }

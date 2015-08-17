@@ -85,8 +85,6 @@ td.mealfield.mealfieldhovered
     color: #ffffff;
 }
 
-
-
 .text-white:hover, .text-white:link{
     color: #ffffff;
     text-decoration: none;
@@ -94,4 +92,13 @@ td.mealfield.mealfieldhovered
 
 .containerMargin{
     margin-top: 40px;
+}
+
+.breadcrumb> li + li:before {
+    content: ">>";
+}
+
+.checkAndBuyBorderBottom{
+    border-bottom: 1px solid black;
+    font-size: 20px;
 }

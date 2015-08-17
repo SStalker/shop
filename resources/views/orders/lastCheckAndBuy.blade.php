@@ -53,13 +53,13 @@
 		<div class="row containerMargin">
 			<div class="col-md-4"></div>
 			<div class="col-md-8">
-				<div class="row" style="font-size: 20px;">
-					<div class="col-md-10" style="border-bottom: 1px solid black;">Lieferkosten:</div>
-					<div class="col-md-2" ><b>9,99 €</b></div>
+				<div class="row checkAndBuyBorderBottom" >
+					<div class="col-md-8">Lieferkosten:</div>
+					<div class="col-md-4 text-right" ><b>9,99 €</b></div>
 				</div>
 				<div class="row" style="font-size: 24px;">
-					<div class="col-md-10">Summe:</div>
-					<div class="col-md-2"><b>{!! $order->basket->total_price + 9.99 !!}</b></div>
+					<div class="col-md-8">Summe:</div>
+					<div class="col-md-4 text-right"><b>{!! $order->basket->total_price + 9.99 !!} €</b></div>
 				</div>
 
 				<div class="row containerMargin">

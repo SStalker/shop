@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Basket;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Request;
 use Auth;
 use Validator;
 use Hash;
+use App\Order;
 
 class SettingController extends Controller
 {
@@ -32,7 +34,16 @@ class SettingController extends Controller
 
     public function getOrder()
     {
-    	return view('settings.order');
+        // Check if calling user is logged in else return to loggin
+        if(Auth::check()){
+            $orders = Order::where('user_id', Auth::user()->id)->get();
+
+            return view('settings.order')
+                ->with('orders', $orders);
+        }else{
+            return redirect('/auth/login');
+        }
+
     }
 
     public function getPayment()

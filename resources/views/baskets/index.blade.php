@@ -57,7 +57,7 @@
 			</div>
 			<div class="col-md-7"></div>
 			<div class="col-md-2">
-				{!! Form::open(['method' => 'POST', 'url' => 'orders/choose-address', 'class' => 'pull-right']) !!}
+				{!! Form::open(['method' => 'GET', 'url' => 'orders/choose-address', 'class' => 'pull-right']) !!}
 					@if( isset($invalidArticle) && $invalidArticle == true ) 
 						{!! Form::submit('Weiter zu Adressen', ['class' => 'btn btn-danger disabled']) !!}
 					@else

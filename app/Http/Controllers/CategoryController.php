@@ -20,9 +20,9 @@ class CategoryController extends Controller
         $this->middleware('basket');
     }
     /**
-     * Display a listing of the resource.
+     * Display a listing of all categories.
      *
-     * @return Response
+     * @return View categories.index with a hierachy list and a normal list, both with all categories
      */
     public function index()
     {
@@ -35,23 +35,23 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating category.
      *
-     * @return Response
+     * @return View categories.create with a nestedList of all categories
      */
     public function create()
-
     {
         //Create correct nested list for all categories
         $categories = Category::getNestedList('name', null, '**');
             
-        return view('categories.create')->with('categories' ,$categories);
+        return view('categories.create')
+                ->with('categories' ,$categories);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created category in storage.
      *
-     * @return Response
+     * @return Redirect categories or redirect categories/create with errors and old input
      */
     public function store()
     {
@@ -71,7 +71,7 @@ class CategoryController extends Controller
             $category->status = $request['status'];
             $category->save();
 
-            //Set position in hierachie
+            //Set position in hierachie, default is root
             switch ($request['type']) {
                 case 'root':
                     $category->makeRoot();
@@ -83,7 +83,7 @@ class CategoryController extends Controller
                     $category->makeSiblingof($choosedCategory);
                     break;
                 default:
-                    // todo
+                    $category->makeRoot();
                     break;
             }
 
@@ -99,10 +99,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display a category.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id as id of a category
+     * @return View articles.index with article object or redirect to start page
      */
     public function show($id)
     {    
@@ -138,7 +138,8 @@ class CategoryController extends Controller
                     $articles = $childArticles;
                 }
             }
-            return view('articles.index')->with('articles', $articles);
+            return view('articles.index')
+                    ->with('articles', $articles);
         }
         else
         {
@@ -147,36 +148,30 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing a category.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id as id of the category to edit
+     * @return View categories.edit with category object and an nested list of all categories
      */
     public function edit($id)
     {
-        if(Auth::user()->hasRole('admin'))
-        {
-            //Get right category
-            $category = Category::find($id);
-            //Create correct nestedlist
-            $categories = Category::getNestedList('name', null, '**');
+        //Get right category
+        $category = Category::find($id);
+        //Create correct nestedlist
+        $categories = Category::getNestedList('name', null, '**');
 
-            //return the correct category and a list of all categories
-            return view('categories.edit')
-                ->with('category', $category)
-                ->with('categories' ,$categories);
-        }
-        else
-        {
-            return redirect('articles');
-        }
+        //return the correct category and a list of all categories
+        return view('categories.edit')
+            ->with('category', $category)
+            ->with('categories' ,$categories);
+
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a category in storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id as id of one category
+     * @return Redirect categories or redirect categories.edit with errors and old input
      */
     public function update($id)
     {
@@ -199,31 +194,23 @@ class CategoryController extends Controller
         else
         {
             //return with errors and without update
-            return redirect('articles.edit')
+            return back()
                 ->withErrors($validator)
                 ->withInput();
         }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove a category from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id as id of a category
+     * @return redirect
      */
     public function destroy($id)
     {
-        //check if user ist admin
-        if (Auth::user()->hasRole('admin')) 
-        {
+
             //Delete article
             Category::findOrFail($id)->delete();
             return redirect('categories');
-        }
-        else
-        {
-            //return without deletion
-            return redirect('articles');
-        }
     }
 }

@@ -15,7 +15,16 @@ class StartController extends Controller
 	{
 		$this->middleware('basket');
 	}
-	
+
+
+    /**
+     * This function get the 6 most ordered products, an array of all categories and returns them to the shop index
+     *
+     * @param
+     * @return View shop index with arrays of the 6 most ordered articles and all categories
+     *
+     */
+
     public function getIndex()
     {    	
     	$categories = Category::all();

@@ -20,15 +20,15 @@ class SettingController extends Controller
 
 
     /**
-     * This function returns the view for settings index
+     * This function redirects to the view for settings account
      *
      * @param
-     * @return View settings.index
+     * @return Redirect settings.account
      *
      */
     public function getIndex()
     {
-    	return view('settings.index');
+    	return redirect('settings/account');
     }
 
     /**

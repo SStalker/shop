@@ -81,8 +81,15 @@ td.mealfield.mealfieldhovered
     margin: 0px;
 }
 
-.text-wite{
+.text-white{
     color: #ffffff;
+}
+
+
+
+.text-white:hover, .text-white:link{
+    color: #ffffff;
+    text-decoration: none;
 }
 
 .containerMargin{

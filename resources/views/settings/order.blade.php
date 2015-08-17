@@ -6,10 +6,10 @@
             @foreach($orders as $order)
                 <div class="panel panel-primary">
                     <div class="panel-heading"  role="tab" id="heading_{!! $order->id !!}">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#orders" href="#order_{!! $order->id !!}" aria-expanded="false" aria-controls="order_{!! $order->id !!}" >
-                                <span class="caret"></span>  Bestellung vom {!! $order->updated_at !!}</a>
-                                <small class="text-wite">
+                        <a class="text-white" role="button" data-toggle="collapse" data-parent="#orders" href="#order_{!! $order->id !!}" aria-expanded="false" aria-controls="order_{!! $order->id !!}" >
+                            <h4 class="panel-title">
+                                <span class="caret"></span>  Bestellung vom {!! $order->updated_at !!}
+                                <small class="text-white">
                                     @if($order->status === 4)
                                         Abgeschlossen
                                     @elseif($order->status === 3)
@@ -22,7 +22,8 @@
                                 </small>
                             <!-- Todo: Add field for status -->
                             <span class="pull-right"> {!! $order->basket->total_price !!} €</span>
-                        </h4>
+                            </h4>
+                        </a>
                     </div>
                     <div id="order_{!! $order->id !!}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{!! $order->id !!}">
                         <div  class="panel-body">

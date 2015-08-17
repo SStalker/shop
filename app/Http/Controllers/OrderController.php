@@ -8,10 +8,12 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Order;
 use App\Basket;
+use App\Helper\Helper;
 use Auth;
 use Redirect;
 use Session;
 use Validator;
+use Carbon;
 
 class OrderController extends Controller
 {
@@ -87,9 +89,7 @@ class OrderController extends Controller
     {
       $order->address_id = $request['optionDeliveryAddress'];
 
-      if($request['optionBillingAddress'] == 0)
-        $order->billing_id = $order->address_id;
-      else
+
         $order->billing_id = $request['optionBillingAddress'];
 
       $order->save();
@@ -114,9 +114,11 @@ class OrderController extends Controller
 
   public function postChoosePaymentMethod()
   {
-    $request = Request::all();    
+    $request = Request::all();  
     // Todo;: check the input
-    //dd($request);
+    $order = $this->getCurrentOrder();
+    $order->payment_method = $request['optionPaymentMethod'];
+    $order->save();
     //
     return redirect('orders/checkout');     
   }
@@ -125,12 +127,85 @@ class OrderController extends Controller
   {
     $basket = $this->getCurrentBasket();
     $order = $this->getCurrentOrder();
+    $payment_method = '';
+    $billing_address = '';
 
-    return view('orders.checkout')
+    switch ($order->payment_method) {
+        case '1':
+        $payment_method = 'Vorkasse'; break;
+        case '2':
+        $payment_method = 'Nachnahme'; break;
+        case '3':
+        $payment_method = 'Lastschrift'; break;
+        case '4':
+        $payment_method = 'Paypal'; break;
+        case '5':
+        $payment_method = 'Kreditkarte'; break;
+    }
+
+    if($order->billing_id == 0)
+        $billing_address = $order->address;
+    else
+        $billing_address = $order->billing;
+
+    return view('orders.lastCheckAndBuy')
           ->with('custom_errors', $this->custom_errors)
           ->with('order', $basket->order)
           ->with('articles', $basket->articles)
-          ->with('addresses', $this->addresses); 
+          ->with('delivery_address', $order->address)
+          ->with('billing_address', $billing_address)
+          ->with('payment_method', $payment_method); 
+  }
+
+    public function postCheckout()
+    {
+        $request = Request::all();
+
+        if(isset($request['coupon']))
+        ;// check coupon code
+    
+        $basket = $this->getCurrentBasket();
+        $order = $this->getCurrentOrder();
+
+        if(Helper::inStock()){
+            // If everything is successful than we can set basket purchasedate and order status
+            // check if enough articles are there
+            // subtract all articles
+
+            foreach ($basket->articles as $article) {
+                $article->quantity -= $article->pivot->quantity;
+                $article->save();
+            }
+            
+            $basket->purchaseDate = Carbon\Carbon::now();
+            $basket->active = 0;
+            $order->status = 1;
+            $basket->save();
+            $order->save();
+
+
+            
+            $basket = new Basket();
+            $basket->user_id = 0;
+            $basket->session_id = Session::getId();                
+            $basket->total_price = 0;
+            $basket->total_quantity = 0;
+            $basket->active = 1;
+            $basket->save();
+
+            Session::put('basket_id', $basket->id);
+            
+
+            return redirect('orders/success');
+
+        } else {
+            return redirect('baskets');
+        }
+    }
+
+  public function getSuccess()
+  {
+    return view('orders.success');
   }
 
   public function postTransaction($basket_id)

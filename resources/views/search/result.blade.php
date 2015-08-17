@@ -3,10 +3,14 @@
 @section('content')
     <h2>Suchergebnisse</h2>
     <div class="table-responsive">
-        @foreach($articles as $article)
+        @forelse($articles as $article)
             @if($article->status)
                 @include ('articles/_short', ['article' => $article])
             @endif
-        @endforeach
+        @empty
+            <div class="container containerMargin">
+                <h3 class="text-center well">Keine Produkte gefunden</h3>
+            </div>
+        @endforelse
     </div>
 @stop

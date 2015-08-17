@@ -31,7 +31,7 @@ class Basket extends Model
 
     public function hasOrder()
     {
-        return $this->order == null;
+        return ($this->order != null;
     }
 
     /*public static $rules = [    	

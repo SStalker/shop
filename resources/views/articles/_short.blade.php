@@ -16,10 +16,10 @@
                 <img class="media-object center-block" src="{!! url( 'images/' .$article->image_path) !!}" alt="No image available">
             </div>
             <div class="media-body">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     {!! $article->description !!}
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="row text-center" >
                         <h4 class="withoutMargin">{!! money_format('%.2n', $article->price) !!} €</h4>
                     </div>

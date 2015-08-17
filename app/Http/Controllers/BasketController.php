@@ -49,13 +49,12 @@ class BasketController extends Controller
      */
     public function postAddArticle($article_id)
     {
-
-        $article = Article::findOrFail($article_id);
+        $article = Article::findOrFail($article_id);        
         $basket = Basket::findOrFail($this->id);
         $articlesOfBasket = $basket->articles();
-
+        
         //Update a already inserted article
-        if($articlesOfBasket->findOrFail($article_id)) {
+        if($articlesOfBasket->find($article_id)) {
 
             //Quantity in basket raised by one
             $quantityInBasket = $articlesOfBasket->find($article_id)->pivot->quantity + 1;

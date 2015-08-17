@@ -53,4 +53,14 @@ class Article extends Model
     {
         return $this->belonsToMany('App\Basket')->withTimestamps();
     }
+
+    /*  Todo: Change all $price appearance from money_format('%.2n', $article->price) to $article->price
+        Todo: and uncomment the following block/function
+    */
+    /*public function getPriceAttribute($price)
+    {
+        return money_format('%.2n', $price);
+    }*/
+
+
 }

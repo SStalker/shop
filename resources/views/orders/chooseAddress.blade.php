@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-	
+	@include('orders.breadcrumb', ['active' => 1])
 	@include('errors.list')
 	@if( isset($custom_errors) )
 		<ul class="alert alert-danger">
@@ -16,12 +16,12 @@
 		<div class="row">
 			<div class="col-md-4"> <!-- Delivery Address --> 
 				<fieldset>
-					<legend>Delivery address</legend>
+					<legend>Lieferadresse</legend>
 					@if(!$addresses->isEmpty())
 						@foreach($addresses as $address)
 							<div class="radio">
 							  <label>
-							    <input type="radio" name="optionDeliveryAddress" id="delivery_address" value="{{ $address->id }}" "{{ ($address->id == $order->address_id) ? 'checked' : '' }}">
+							    <input type="radio" name="optionDeliveryAddress" id="delivery_address" value="{{ $address->id }}" {{ ($address->id == $order->address_id) ? 'checked' : '' }}>
 							    <div>
 										<address class="col-md-12">
 											<strong>{!! $address->firstname !!} {!! $address->lastname !!}</strong><br>
@@ -41,19 +41,19 @@
 			</div> <!-- Delivery Address --> 
 			<div class="col-md-4"> <!-- Billing Address --> 
 				<fieldset>
-					<legend>Billing address</legend>
+					<legend>Rechnungsadresse</legend>
 					<div class="radio">
 					<label>
 						<input type="radio" name="optionBillingAddress" id="billing_address" value="0" checked>
 						<div>
-							Same as delivery address
+							Wie die Lieferadresse
 						</div>
 					</label>
 				</div>
 				@foreach($addresses as $address)
 					<div class="radio">
 					  <label>
-					    <input type="radio" name="optionBillingAddress" id="billing_address" value="{{ $address->id }}" "{{ ($address->id == $order->billing_id) ? 'checked' : '' }}">		
+					    <input type="radio" name="optionBillingAddress" id="billing_address" value="{{ $address->id }}" {{ ($address->id == $order->billing_id) ? 'checked' : '' }}>		
 					    <div>
 							<address class="col-md-12">
 								<strong>{!! $address->firstname !!} {!! $address->lastname !!}</strong><br>

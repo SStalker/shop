@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Order extends Model
 {
@@ -35,5 +36,10 @@ class Order extends Model
     public function basket()
     {
     	return $this->belongsTo('App\Basket');
+    }
+
+    public function getUpdatedAtAttribute($updated_at)
+    {
+        return \Carbon\Carbon::parse($updated_at)->format('d.m.Y, G:i');
     }
 }

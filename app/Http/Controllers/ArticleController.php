@@ -21,25 +21,26 @@ class ArticleController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of all articles for administration purposes.
      *
-     * @return Response
+     * @return View articles.list with all articles
      */
     public function index()
     {
         $articles = Article::all();
         if(Auth::check()) {
             if (Auth::user()->hasRole('admin'))
-                return view('articles.list')->with('articles', $articles);
+                return view('articles.list')
+                        ->with('articles', $articles);
         }
         else
-            return view('articles.index')->with('articles', $articles);
+            return redirect('auth/login');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new article.
      *
-     * @return Response
+     * @return View articles.create with an array of all categories or redirect to startpage
      */
     public function create()
     {
@@ -53,19 +54,19 @@ class ArticleController extends Controller
                 $categories[$category->id] = $category->name;
             }
 
-            return view('articles.create')->with('categories' ,$categories);
+            return view('articles.create')
+                    ->with('categories' ,$categories);
         }
         else
         {
-            return redirect('articles');
+            return redirect('/');
         }
-        return view('articles.create')->with('categories' ,$categories);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created article in storage.
      *
-     * @return Response
+     * @return Redirect to articles or view articles.create with errors an input
      */
     public function store()
     {
@@ -73,7 +74,14 @@ class ArticleController extends Controller
         $validator = Validator::make($request, Article::$rules);
 
         if ($validator->passes()) {
-            $article = Article::create($request);
+
+            //If no image path is set, set to default image
+            if(!$request->image_path->isset())
+            {
+                $request->image_path = 'no_img.png';
+            }
+
+            Article::create($request);
 
             return redirect('articles');
 
@@ -86,24 +94,26 @@ class ArticleController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified article.
      *
      * @param  int  $id
-     * @return Response
+     * @return return view articles.show with article object and its category object
      */
     public function show($id)
     {
         $article = Article::findOrFail($id);
-        $category = Category::find($article->category_id);
+        $category = Category::findOrFail($article->category_id);
 
-        return view('articles.show')->with('article', $article)->with('category', $category);
+        return view('articles.show')
+                ->with('article', $article)
+                ->with('category', $category);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing an article.
      *
      * @param  int  $id
-     * @return Response
+     * @return View articles.edit with article object and array of all categories or redirect to start page
      */
     public function edit($id)
     {   
@@ -124,15 +134,15 @@ class ArticleController extends Controller
         }
         else
         {
-            return redirect('articles');
+            return redirect('/');
         }
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an article in storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return Redirect to articles or view articles.edit with errors and input
      */
     public function update($id)
     {
@@ -155,10 +165,10 @@ class ArticleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove an article from storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return Redirect articles
      */
     public function destroy($id)
     {

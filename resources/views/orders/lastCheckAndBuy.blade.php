@@ -13,7 +13,7 @@
 			</div>			
 		</div>
 		
-		<div class="row">
+		<div class="row containerMargin">
 			<div class="col-md-4"> <!-- Delivery Address --> 
 				<fieldset>
 					<legend>Lieferadresse</legend>
@@ -50,7 +50,7 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row containerMargin">
 			<div class="col-md-4"></div>
 			<div class="col-md-8">
 				<div class="row" style="font-size: 20px;">
@@ -62,7 +62,7 @@
 					<div class="col-md-2"><b>{!! $order->basket->total_price !!}</b></div>
 				</div>
 
-				<div class="row">
+				<div class="row containerMargin">
 					<div class="col-md-6">
 						{!! Form::label('coupon', 'Coupon Code')!!}
 						{!! Form::text('coupon', null, ['class' => 'form-control']) !!}

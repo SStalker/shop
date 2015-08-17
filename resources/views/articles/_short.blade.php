@@ -10,27 +10,32 @@
         </div>
     </div>
     <div class="panel-body">
-        <div class="col-md-1">
-            <img src="{!! url( 'images/' .$article->image_path) !!}" alt="No image available">
-        </div>
-        <div class="col-md-9 ">
-            {!! $article->description !!}
-        </div>
-        <div class="col-md-2">
-            <div class="row text-center" >
-                <h4 class="withoutMargin">{!! money_format('%.2n', $article->price) !!} €</h4>
+        <div class="media" >
+
+            <div class="col-md-2">
+                <img class="media-object center-block" src="{!! url( 'images/' .$article->image_path) !!}" alt="No image available">
             </div>
-            <hr/>
-            <div class="row text-center">
-                @if(!$article->status)
-                    {!! Form::open(['method' => 'POST', 'url' => 'baskets/add-article/'. $article->id, 'class' => 'withoutMargin']) !!}
-                        {!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger disabled']) !!}
-                    {!! Form::close() !!}
-                @else
-                    {!! Form::open(['method' => 'POST', 'url' => 'baskets/add-article/'. $article->id, 'class' => 'withoutMargin']) !!}
-                        {!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger']) !!}
-                    {!! Form::close() !!}
-                @endif
+            <div class="media-body">
+                <div class="col-md-8">
+                    {!! $article->description !!}
+                </div>
+                <div class="col-md-2">
+                    <div class="row text-center" >
+                        <h4 class="withoutMargin">{!! money_format('%.2n', $article->price) !!} €</h4>
+                    </div>
+                    <hr/>
+                    <div class="row text-center">
+                        @if(!$article->status)
+                            {!! Form::open(['method' => 'POST', 'url' => 'baskets/add-article/'. $article->id, 'class' => 'withoutMargin']) !!}
+                                {!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger disabled']) !!}
+                            {!! Form::close() !!}
+                        @else
+                            {!! Form::open(['method' => 'POST', 'url' => 'baskets/add-article/'. $article->id, 'class' => 'withoutMargin']) !!}
+                                {!! Form::submit('In den Warenkorb', ['class' => 'btn btn-danger']) !!}
+                            {!! Form::close() !!}
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>

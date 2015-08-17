@@ -15,11 +15,9 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (  !$request->user() || !$request->user()->hasRole('admin')) {
-            //return response('Unauthorized.', 401);
-            //return redirect('errors/403');
+        if (  !$request->user() || !$request->user()->hasRole('admin')) 
             return abort(403);
-        }
+        
         return $next($request);
     }
 }

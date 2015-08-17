@@ -29,7 +29,7 @@ class CreateBasketAndItems extends Seeder
         */
         $basket = new Basket();
         $basket->user_id = 2;
-        $basket->active = 1;
+        $basket->active = 0;
         $basket->session_id = '91e4f6c857cfc2be394d4c4ad8c85d640dc7bebd';
 
         $basket->save();
@@ -46,7 +46,7 @@ class CreateBasketAndItems extends Seeder
 
         $basket = new Basket();
         $basket->user_id = 2;
-        $basket->active = 1;
+        $basket->active = 0;
         $basket->session_id = '50c35304992643c8944882c660a7fb460cd4cace';
 
         $basket->save();
@@ -63,7 +63,7 @@ class CreateBasketAndItems extends Seeder
 
         $basket = new Basket();
         $basket->user_id = 2;
-        $basket->active = 1;
+        $basket->active = 0;
         $basket->session_id = 'ed0985c416ca9ba91245738f39a0f43d10422d26';
 
         $basket->save();

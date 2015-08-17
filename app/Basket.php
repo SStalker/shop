@@ -41,10 +41,9 @@ class Basket extends Model
     ];*/
 
     /*  Todo: Change all $total_price appearance from money_format('%.2n', $basket->total_price) to $basket->total_price
-        Todo: and uncomment the following block
     */
-    /*public function getTotalPriceAttribute($total_price)
+    public function getTotalPriceAttribute($total_price)
     {
         return money_format('%.2n', $total_price);
-    }*/
+    }
 }

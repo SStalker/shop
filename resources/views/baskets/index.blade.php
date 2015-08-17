@@ -27,7 +27,12 @@
               <div class="media-body">
                 <h4 class="media-heading"><a href="{!! url('/articles/' . $article->id) !!}">{!! $article->name !!}</a></h4>
                 <h5 class="media-heading"> by <a href="#">{!! $article->manufacturers_id !!}</a></h5>
-                  <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
+                  <span>Status: </span>
+                  @if($article->status)
+                      <span class="text-success"><strong>Auf Lager</strong></span>
+                  @else
+                      <span class="text-danger"><strong>Nicht auf Lager</strong></span>
+                  @endif
               </div>
             </div>
 					</td>
@@ -52,10 +57,10 @@
 			@endforeach
 		</table>
 		<div class="row">
-			<div class="col-md-3 pull-left">
-				Summe: {!!  money_format('%.2n', $basket->total_price )!!} €
+			<div class="col-md-6 pull-left">
+				<h3 >Gesamtsumme: {!!  money_format('%.2n', $basket->total_price )!!} €</h3>
 			</div>
-			<div class="col-md-7"></div>
+			<div class="col-md-4"></div>
 			<div class="col-md-2">
 				{!! Form::open(['method' => 'GET', 'url' => 'orders/choose-address', 'class' => 'pull-right']) !!}
 					@if( isset($invalidArticle) && $invalidArticle == true ) 

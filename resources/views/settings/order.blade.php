@@ -8,7 +8,8 @@
                     <div class="panel-heading"  role="tab" id="heading_{!! $order->id !!}">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#orders" href="#order_{!! $order->id !!}" aria-expanded="false" aria-controls="order_{!! $order->id !!}" >Bestellung vom {!! $order->updated_at !!}</a>
-                            <span class="pull-right">{!! $order->basket->total_price !!} €</span>
+                            <!-- Todo: Add field for status -->
+                            <span class="pull-right"> {!! $order->basket->total_price !!} €</span>
                         </h4>
                     </div>
                     <div id="order_{!! $order->id !!}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{!! $order->id !!}">

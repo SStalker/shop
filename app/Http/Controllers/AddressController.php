@@ -12,7 +12,7 @@ use App\Address;
 class AddressController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Unused function.
      *
      * @return Response
      */
@@ -22,9 +22,9 @@ class AddressController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new adress.
      *
-     * @return Response
+     * @return view settings.addresses.create
      */
     public function create()
     {
@@ -32,30 +32,33 @@ class AddressController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created address in storage.
      *
-     * @return Response
+     * @return Redirect settings/account or redirect addresses/create with errors
      */
     public function store()
     {
+        //Get all delivered input into local variable
         $request = Request::all();
         $validator = Validator::make($request, Address::$rules);
 
         if($validator->passes())
         {
+            //Add the user id of the logged in user to
             $request['user_id'] = Auth::user()->id;
             Address::create($request);
 
             return redirect('settings/account');
         }
 
+        //Return
         return redirect('addresses/create')
             ->withErrors($validator)
             ->withInput();        
     }
 
     /**
-     * Display the specified resource.
+     * Unused function
      *
      * @param  int  $id
      * @return Response
@@ -66,10 +69,10 @@ class AddressController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing an address.
      *
      * @param  int  $id
-     * @return Response
+     * @return view settings.addresses.edit with address object
      */
     public function edit($id)
     {
@@ -80,33 +83,35 @@ class AddressController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an address in storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return Redirect settings/account or redirect addresses/edit with errors
      */
     public function update($id)
     {
+        //Get all delivered input into local variable
         $request = Request::all();
         $validator = Validator::make($request, Address::$rules);
 
         if($validator->passes())
         {
+            //Update address with new information
             Address::find($id)->update($request);
 
             return redirect('settings/account');
         }
 
-        return redirect('addresses/create')
+        return redirect('addresses/'.$id. '/edit')
             ->withErrors($validator)
             ->withInput();        
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove an address from storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return Redirect settings/account
      */
     public function destroy($id)
     {

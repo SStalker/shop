@@ -14,15 +14,15 @@ class PermissionController extends Controller
 {
     public function __construct()
     {
-        $user = Auth::user();
-
         $this->middleware('auth');
         $this->middleware('admin');
     }
+
+
     /**
-     * Display a listing of the resource.
+     * Display a listing of all permissions.
      *
-     * @return Response
+     * @return View backend.permission.list with all permissions
      */
     public function index()
     {
@@ -33,9 +33,9 @@ class PermissionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new permission.
      *
-     * @return Response
+     * @return View backend.permission.create
      */
     public function create()
     {
@@ -43,9 +43,9 @@ class PermissionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created permission in storage.
      *
-     * @return Response
+     * @return Redirect permissions/create with errors and old input or redirect to permissions
      */
     public function store()
     {
@@ -63,10 +63,10 @@ class PermissionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display a permission. Currently unused with redirect to index
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id as id of the permission
+     * @return Redirect  permissions
      */
     public function show($id)
     {
@@ -74,10 +74,10 @@ class PermissionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified permission.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id as id of the permission
+     * @return View backend.permission.edit with permission object
      */
     public function edit($id)
     {
@@ -88,10 +88,10 @@ class PermissionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the permission in storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id as permission id
+     * @return Redirect back with errors and old input or redirect to index
      */
     public function update($id)
     {
@@ -105,7 +105,7 @@ class PermissionController extends Controller
         if($validator->passes())
             $permission->save();
         else
-            return redirect('permissions/'.$id.'/edit')
+            return back()
                 ->withErrors($validator)
                 ->withInput(); 
 
@@ -114,10 +114,10 @@ class PermissionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the permission from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id as permission id
+     * @return Redirect to index
      */
     public function destroy($id)
     {

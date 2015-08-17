@@ -18,9 +18,9 @@ class RoleController extends Controller
         $this->middleware('admin');
     }
     /**
-     * Display a listing of the resource.
+     * Display a listing of all roles.
      *
-     * @return Response
+     * @return View backend.role.list with all roles
      */
     public function index()
     {
@@ -31,9 +31,9 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new role.
      *
-     * @return Response
+     * @return View backend.role.create
      */
     public function create()
     {
@@ -41,9 +41,9 @@ class RoleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created role in storage.
      *
-     * @return Response
+     * @return Redirect roles/create with errors and old input or redirect to index
      */
     public function store()
     {
@@ -61,10 +61,10 @@ class RoleController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified role. Currently unused function.
      *
      * @param  int  $id
-     * @return Response
+     * @return Redirect to index
      */
     public function show($id)
     {
@@ -72,10 +72,10 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing a role.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id as id of a role
+     * @return View backend.role.edit with a role object
      */
     public function edit($id)
     {
@@ -86,10 +86,10 @@ class RoleController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified role in storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id as id of a role
+     * @return Redirect back with errors and old input or redirect to index
      */
     public function update($id)
     {
@@ -103,7 +103,7 @@ class RoleController extends Controller
         if($validator->passes())
             $role->save();
         else
-            return redirect('roles/'.$id.'/edit')
+            return back()
                 ->withErrors($validator)
                 ->withInput(); 
 
@@ -112,10 +112,10 @@ class RoleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove a role from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  int  $id as id of a role
+     * @return Redirect to index
      */
     public function destroy($id)
     {

@@ -9,6 +9,13 @@ use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
 {
+    /**
+     * This function searches for an input search text in the articles table columns name and description
+     *
+     * @param
+     * @return View search.result with articles array of all found articles
+     *
+     * */
     public function getSearch()
     {
         $input = '%'.Request::input('searchtext').'%';

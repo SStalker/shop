@@ -59,7 +59,7 @@
 				</div>
 				<div class="row" style="font-size: 24px;">
 					<div class="col-md-10">Summe:</div>
-					<div class="col-md-2"><b>{!! $order->basket->total_price !!}</b></div>
+					<div class="col-md-2"><b>{!! $order->basket->total_price + 9.99 !!}</b></div>
 				</div>
 
 				<div class="row containerMargin">

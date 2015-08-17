@@ -30,8 +30,7 @@ class ArticleController extends Controller
         $articles = Article::all();
         if(Auth::check()) {
             if (Auth::user()->hasRole('admin'))
-                return view('articles.list')
-                        ->with('articles', $articles);
+                return view('articles.list')->with('articles', $articles);
         }
         else
             return redirect('auth/login');
@@ -54,8 +53,7 @@ class ArticleController extends Controller
                 $categories[$category->id] = $category->name;
             }
 
-            return view('articles.create')
-                    ->with('categories' ,$categories);
+            return view('articles.create')->with('categories' ,$categories);
         }
         else
         {
@@ -66,7 +64,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created article in storage.
      *
-     * @return Redirect to articles or view articles.create with errors an input
+     * @return Redirect to articles or view articles.create with errors
      */
     public function store()
     {
@@ -105,8 +103,7 @@ class ArticleController extends Controller
         $category = Category::findOrFail($article->category_id);
 
         return view('articles.show')
-                ->with('article', $article)
-                ->with('category', $category);
+            ->with('article', $article)->with('category', $category);
     }
 
     /**
@@ -139,10 +136,10 @@ class ArticleController extends Controller
     }
 
     /**
-     * Update an article in storage.
+     * Update the specified resource in storage.
      *
      * @param  int  $id
-     * @return Redirect to articles or view articles.edit with errors and input
+     * @return Response
      */
     public function update($id)
     {
@@ -165,16 +162,15 @@ class ArticleController extends Controller
     }
 
     /**
-     * Remove an article from storage.
+     * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Redirect articles
+     * @return Response
      */
     public function destroy($id)
     {
-        $article = Article::findOrFail($id);
-        $article->delete();
-        
+        Article::findOrFail($id)->delete();
+
         return redirect('articles');
     }
 }

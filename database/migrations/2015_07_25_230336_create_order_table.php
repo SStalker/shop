@@ -24,7 +24,7 @@ class CreateOrderTable extends Migration
           $table->string('coupon_code')->nullable();
           $table->integer('status')->nullable();
           //['Commissioned ','Paid','Shipped', 'Arrived']
-
+          //[       1       ,   2  ,     3   ,     4    ]
           $table->timestamps();
 
           $table->foreign('user_id')

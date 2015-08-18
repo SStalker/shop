@@ -20,13 +20,13 @@
                     <tr>
                         <td>{!! $item->name !!}</td>
                         <td>
-                            <span class="
+
                             @if($item->status)
-                                text-success
+                                <span class="text-success">Verfügbar</span>
                             @else
-                                text-danger
+                                <span class="text-danger">Nicht Verfügbar</span>
                             @endif
-                            ">Verfügbar</span>
+
                         </td>
                         <td>
                             {!! HTML::link('/categories/' .$item->id .'/edit', 'Ändern', array('class'=>'btn btn-primary')) !!}

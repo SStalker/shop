@@ -58,7 +58,7 @@
 		</table>
 		<div class="row">
 			<div class="col-md-6 pull-left">
-				<h3 >Gesamtsumme: {!! $basket->total_price !!} €</h3>
+				<h3 class="underline">Gesamtsumme: {!! $basket->total_price !!} €</h3>
 			</div>
 			<div class="col-md-4"></div>
 			<div class="col-md-2">

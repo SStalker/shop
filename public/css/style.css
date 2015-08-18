@@ -73,8 +73,12 @@ td.mealfield.mealfieldhovered
 }
 
 .frontpagePanel{
-    border-bottom-color: darkgrey;
-    box-shadow: #000000;
+    box-shadow: none;
+}
+
+.frontpagePanelBorder{
+    height: 150px;
+    border-bottom: solid 1px darkgrey;
 }
 
 .withoutMargin{
@@ -105,4 +109,8 @@ td.mealfield.mealfieldhovered
 
 .underline{
     text-decoration: underline;
+}
+
+.borderBottom{
+    border-bottom: solid 2px black;
 }

@@ -11,7 +11,7 @@
 					<h1>{!! $article->name !!} <small>aus {!! $category->name !!}</small> </h1>
 				</div>
 				<div class="row">
-					<h4>{!! money_format('%.2n', $article->price) !!} €</h4>
+					<h4>{!! $article->price !!} €</h4>
 				</div>
 			</div>
 			<div class="col-md-3">

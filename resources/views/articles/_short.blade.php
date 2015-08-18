@@ -18,7 +18,7 @@
         </div>
         <div class="col-md-2">
             <div class="row text-center" >
-                <h4 class="withoutMargin">{!! money_format('%.2n', $article->price) !!} €</h4>
+                <h4 class="withoutMargin">{!!$article->price !!} €</h4>
             </div>
             <hr/>
             <div class="row text-center">

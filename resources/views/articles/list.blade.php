@@ -20,7 +20,7 @@
                 <td>{!! $article->description !!}</td>
                 <td>{!! $article->quantity !!}</td>
                 <td>{!! $article->image_path !!}</td>
-                <td>{!! money_format('%.2n', $article->price) !!} €</td>
+                <td>{!! $article->price !!} €</td>
                 <td>
                     <span class="
                     @if($article->status)

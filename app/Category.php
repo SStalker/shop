@@ -37,4 +37,21 @@ class Category extends Baum\Node
     public function articles(){
         return $this->hasMany('App\Article');
     }
+
+    /**
+     * Overridden delete function cause softdeleting and cascade dont work togehter
+     *
+     */
+    public function delete()
+    {
+        $descendants = $this->getDescendantsAndSelf();
+
+        foreach ($descendants as $descendant)
+                if ($descendant->articles)
+                    foreach ($descendant->articles as $article)
+                        $article->delete();
+
+        // Now delete the category
+        return parent::delete();
+    }
 }

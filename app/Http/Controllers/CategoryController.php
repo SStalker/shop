@@ -177,6 +177,7 @@ class CategoryController extends Controller
     {
         //Get delivered input
         $request = Request::all();
+        $choosedCategory = Category::findOrFail( $request['parent_id'] );
 
         //validate input
         $validator = Validator::make($request, Category::$rules);
@@ -188,6 +189,24 @@ class CategoryController extends Controller
             $category->name = $request['name'];
             $category->status = $request['status'];
             $category->save();
+
+            if(isset($request['type'])) {
+                //Set position in hierachie, default is root
+                switch ($request['type']) {
+                    case 'root':
+                        $category->makeRoot();
+                        break;
+                    case 'child':
+                        $category->makeChildof($choosedCategory);
+                        break;
+                    case 'sibling':
+                        $category->makeSiblingof($choosedCategory);
+                        break;
+                    default:
+                        //                    $category->makeRoot();
+                        break;
+                }
+            }
             
             return redirect('categories');
         }

@@ -32,7 +32,7 @@ class StartController extends Controller
         //Get the 6 most ordered products
         $articlesAsc = Article::orderBy('times_ordered','asc')->get();
         $articles = array();
-        for($i = 0; $i < 6; $i++ ){
+        for($i = 0; $i < $articlesAsc->count(); $i++ ){
             $articles[] = $articlesAsc[$i];
         }
 

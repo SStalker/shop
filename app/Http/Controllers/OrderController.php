@@ -27,7 +27,8 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-
+        $this->middleware('basket');
+        
         if(Auth::check()){
             $this->addresses = Auth::user()->addresses;
             $this->postTransaction(Session::get('basket_id'));

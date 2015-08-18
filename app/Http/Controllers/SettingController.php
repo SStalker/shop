@@ -117,19 +117,23 @@ class SettingController extends Controller
 	    		$user->email = $request['email'];
 
 	    		$user->update();
+
+                return redirect('settings/account');
 	    	}
-	    	else {
-                return redirect('settings/account')
+	    	else
+            {
+                $validator->getMessageBag()->add('password', 'Old password wrong');
+                return back()
                     ->withErrors($validator)
                     ->withInput();
             }
         }
 	    else
 	    {
-	    	return redirect('settings/account')
+	    	return back()
 	    		->withErrors($validator)
 	    		->withInput();
 	    }
-        return redirect('settings/account');
+
     }
 }

@@ -21,6 +21,7 @@ class SearchController extends Controller
         $input = '%'.Request::input('searchtext').'%';
         $articles = Article::where('name', 'LIKE', $input)
             ->orWhere('description', 'LIKE', $input)
+            ->where('deleted_at', 'LIKE', '')
             ->get();
         return view('search.result')->with('articles', $articles);
     }

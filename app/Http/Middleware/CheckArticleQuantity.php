@@ -7,7 +7,7 @@ use App\Article;
 
 /**
  * Checks the quantity of every article 
- * If quantity is zero than disable the article
+ * If quantity is zero or article is soft deleted than disable the article
  */
 class checkArticleQuantity
 {
@@ -20,10 +20,10 @@ class checkArticleQuantity
      */
     public function handle($request, Closure $next)
     {
-        $articles = Article::all();
+        $articles = Article::withTrashed()->get();
 
         foreach ($articles as $article) {
-            if($article->quantity == 0){
+            if($article->quantity == 0 || $article->trashed()){
                 $article->status = false;
                 $article->save();
             }

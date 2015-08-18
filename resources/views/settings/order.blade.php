@@ -27,7 +27,7 @@
                     </div>
                     <div id="order_{!! $order->id !!}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{!! $order->id !!}">
                         <div  class="panel-body">
-                            @foreach($order->basket->articles as $article)
+                            @foreach($order->basket->articles()->withTrashed()->get() as $article)
                                 @include ('articles/_short')
                             @endforeach
                         </div>

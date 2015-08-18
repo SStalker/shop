@@ -1,7 +1,7 @@
 @extends('layouts.simple')
 
 @section('content')
-	<h1>Permissions</h1>
+	<h1>Rechte</h1>
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<th>ID</th>

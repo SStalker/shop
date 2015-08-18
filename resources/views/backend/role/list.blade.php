@@ -1,7 +1,7 @@
 @extends('layouts.simple')
 
 @section('content')
-	<h1>Roles</h1>
+	<h1>Rollen</h1>
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<th>ID</th>

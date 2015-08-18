@@ -34,7 +34,7 @@ class HasBasketID
            *         2.5)    Kein älterer vorhanden dann den neuen als aktiven weiternutzen
           */
             if(Auth::guest()){
-                echo 'Ich bin ein Gast';
+                //echo 'Ich bin ein Gast';
                 if (!Session::has('basket_id')){
 
                     $basket = new Basket();

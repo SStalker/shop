@@ -22,7 +22,7 @@
 					<div class="btn-group">
 					{!! HTML::link('/permissions/'.$permission->id.'/edit', 'Bearbeiten', array('class'=>'btn btn-default')) !!}
 					{!! Form::open(['method' => 'DELETE', 'route' => ['permissions.destroy', $permission->id]]) !!}
-					    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+					    {!! Form::submit('Löschen', ['class' => 'btn btn-danger']) !!}
 					{!! Form::close() !!}
 					</div>
 				</td>

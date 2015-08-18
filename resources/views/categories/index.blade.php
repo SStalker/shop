@@ -31,7 +31,7 @@
                         <td>
                             {!! HTML::link('/categories/' .$item->id .'/edit', 'Ändern', array('class'=>'btn btn-primary')) !!}
                             {!! Form::open(['method' => 'DELETE', 'route' => ['categories.destroy', $item->id], 'style' => 'display:inline;']) !!}
-                                {!! Form::submit('Delete', ['class' => 'btn btn-danger', 'onClick' => 
+                                {!! Form::submit('Löschen', ['class' => 'btn btn-danger', 'onClick' =>
                                     'return confirm(\'Wirklich löschen? ACHTUNG es werden alle Kinder mitgelöscht!!!\');' ]) !!}
                             {!! Form::close() !!}   
                         </td>

@@ -35,7 +35,7 @@
                     <div class="btn-group">
                         {!! HTML::link('/articles/'.$article->id.'/edit', 'Bearbeiten', array('class'=>'btn btn-default')) !!}
                         {!! Form::open(['method' => 'DELETE', 'route' => ['articles.destroy', $article->id]]) !!}
-                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                        {!! Form::submit('Löschen', ['class' => 'btn btn-danger']) !!}
                         {!! Form::close() !!}
                     </div>
                 </td>

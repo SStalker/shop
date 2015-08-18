@@ -22,7 +22,7 @@
 					<div class="btn-group">
 					{!! HTML::link('/roles/'.$role->id.'/edit', 'Bearbeiten', array('class'=>'btn btn-default')) !!}
 					{!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id]]) !!}
-					    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+					    {!! Form::submit('Löschen', ['class' => 'btn btn-danger']) !!}
 					{!! Form::close() !!}
 					</div>
 				</td>

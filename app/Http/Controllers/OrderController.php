@@ -199,6 +199,7 @@ class OrderController extends Controller
 
             foreach ($basket->articles as $article) {
                 $article->quantity -= $article->pivot->quantity;
+                $article->times_ordered += $article->pivot->quantity;
                 $article->save();
             }
 

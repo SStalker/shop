@@ -9,7 +9,11 @@
 	@endif
 
 	@if($articles->isEmpty())
-		Sie haben keine Produkte im Warenkorb
+        <div class="row well text-center">
+            <b>
+                Sie haben keine Produkte im Warenkorb
+            </b>
+        </div>
 	@else
 		<table class="table table-striped table-hover">
 			<thead>

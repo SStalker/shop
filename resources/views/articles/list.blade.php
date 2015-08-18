@@ -22,23 +22,21 @@
                 <td>{!! $article->image_path !!}</td>
                 <td>{!! $article->price !!} €</td>
                 <td>
-                    <span class="
                     @if($article->status)
-                        text-success
+                        <span class="text-success">Verfügbar</span>
                     @else
-                        text-danger
+                        <span class="text-danger">Nicht Verfügbar</span>
                     @endif
-                        ">Verfügbar</span>
                 </td>
                 <td>{!! $article->times_ordered !!}</td>
-                <td>{!! $article->category->name !!}</td>
                 {{--}<td>{!! $article->manufactur()->name !!}</td>--}}
+                <td>{!! $article->category->name !!}</td>
                 <td>
                     <div class="btn-group">
-                    {!! HTML::link('/articles/'.$article->id.'/edit', 'Bearbeiten', array('class'=>'btn btn-default')) !!}
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['articles.destroy', $article->id]]) !!}
+                        {!! HTML::link('/articles/'.$article->id.'/edit', 'Bearbeiten', array('class'=>'btn btn-default')) !!}
+                        {!! Form::open(['method' => 'DELETE', 'route' => ['articles.destroy', $article->id]]) !!}
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                    {!! Form::close() !!}
+                        {!! Form::close() !!}
                     </div>
                 </td>
             </tr>

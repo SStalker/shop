@@ -3,9 +3,13 @@
 namespace App;
 
 use Baum;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Baum\Node
 {
+
+    use SoftDeletes;
+
     protected $table = 'categories';
 
     // 'parent_id' column name

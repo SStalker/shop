@@ -23,6 +23,7 @@ class CreateArticlesTable extends Migration
             $table->boolean('status'); //The status of the article. Can be set to false (disabled) or true (enabled).
             $table->integer('times_ordered')->nullable();
             $table->integer('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->integer('manufacturers_id')->nullable();
             $table->timestamps();
             $table->softDeletes();

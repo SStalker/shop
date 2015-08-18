@@ -15,8 +15,8 @@ class ArticleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except'=> ['index', 'show']]);
-        $this->middleware('admin', ['except' => ['index','show']]);
+        $this->middleware('auth', ['except'=> [ 'show']]);
+        $this->middleware('admin', ['except' => ['show']]);
         $this->middleware('basket');
     }
 
@@ -28,12 +28,8 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::all();
-        if(Auth::check()) {
-            if (Auth::user()->hasRole('admin'))
-                return view('articles.list')->with('articles', $articles);
-        }
-        else
-            return redirect('auth/login');
+
+        return view('articles.list')->with('articles', $articles);
     }
 
     /**

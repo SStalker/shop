@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model
 {
+    use SoftDeletes;
     /*
      *  Columns
      *
@@ -42,7 +44,7 @@ class Article extends Model
 
     //Rules
     public static $rules = array(
-        'name' => 'required|min:2',
+        'name' => 'required|min:2|unique:articles,name',
         'quantity' => 'required|numeric',
         'price' => array('required','regex:/^([1-9][0-9]*|0)(\.[0-9]{2})?$/'),
         'status' => 'required|boolean',

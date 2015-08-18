@@ -74,9 +74,9 @@ class ArticleController extends Controller
         if ($validator->passes()) {
 
             //If no image path is set, set to default image
-            if(!$request->image_path->isset())
+            if(strlen($request['image_path']) == 0)
             {
-                $request->image_path = 'no_img.png';
+                $request['image_path'] = 'no_img.png';
             }
 
             Article::create($request);

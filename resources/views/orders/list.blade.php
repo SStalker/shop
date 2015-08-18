@@ -6,7 +6,7 @@
             <a role="button" data-toggle="collapse" data-parent="#articles" href="#article_{!! $article->id !!}" aria-expanded="false" aria-controls="article_{!! $article->id !!}">
                 <h3 class="panel-title">
                     <span class="caret"></span>  {!! $article->pivot->quantity !!} x  {!! $article->name !!}
-                    <span class="pull-right">{!! $article->price*$article->pivot->quantity !!} €</span>
+                    <span class="pull-right">{!! money_format('%.2n',$article->price*$article->pivot->quantity) !!} €</span>
                 </h3>
             </a>
         </div>

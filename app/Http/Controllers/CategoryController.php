@@ -71,20 +71,25 @@ class CategoryController extends Controller
             $category->status = $request['status'];
             $category->save();
 
-            //Set position in hierachie, default is root
-            switch ($request['type']) {
-                case 'root':
-                    $category->makeRoot();
-                    break;
-                case 'child':
-                    $category->makeChildof($choosedCategory);
-                    break;
-                case 'sibling':
-                    $category->makeSiblingof($choosedCategory);
-                    break;
-                default:
-                    $category->makeRoot();
-                    break;
+            if(isset($request['type'])) {
+                //Set position in hierachie, default is root
+                switch ($request['type']) {
+                    case 'root':
+                        $category->makeRoot();
+                        break;
+                    case 'child':
+                        $category->makeChildof($choosedCategory);
+                        break;
+                    case 'sibling':
+                        $category->makeSiblingof($choosedCategory);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                $category->makeRoot();
             }
 
             return redirect('categories');
@@ -203,7 +208,6 @@ class CategoryController extends Controller
                         $category->makeSiblingof($choosedCategory);
                         break;
                     default:
-                        //                    $category->makeRoot();
                         break;
                 }
             }

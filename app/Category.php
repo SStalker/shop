@@ -25,7 +25,7 @@ class Category extends Baum\Node
 
     //Rules 
     public static $rules = array(
-        'name' => 'required|min:2',
+        'name' => 'required|min:2|unique:categories,name',
         'parent_id' => 'required|numeric',
         'status' => 'required|boolean'
     );

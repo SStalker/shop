@@ -10,11 +10,11 @@
                             <h4 class="panel-title">
                                 <span class="caret"></span>  Bestellung vom {!! $order->updated_at !!}
                                 <small class="text-white">
-                                    @if($order->status === 4)
+                                    @if($order->status == 4)
                                         Abgeschlossen
-                                    @elseif($order->status === 3)
+                                    @elseif($order->status == 3)
                                         Versandt
-                                    @elseif($order->status === 2)
+                                    @elseif($order->status == 2)
                                         Bezahlt
                                     @else
                                         Wird Bearbeitet

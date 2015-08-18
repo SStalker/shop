@@ -30,15 +30,12 @@ class StartController extends Controller
     	$categories = Category::all();
 
         //Get the 6 most ordered products
-        $articlesAsc = Article::orderBy('times_ordered','asc')->get();
-        $articles = array();
-        for($i = 0; $i < $articlesAsc->count(); $i++ ){
-            $articles[] = $articlesAsc[$i];
-        }
+        $articles = Article::orderBy('times_ordered','asc')->take(6)->get();
 
         //return all categories for side menu and 6 most ordered articles
-    	return view('index')
-    		->with('categories', $categories)
+        return view('index')
+            ->with('categories', $categories)
             ->with('articles', $articles);
+
     }
 }

@@ -116,13 +116,20 @@ class BasketController extends Controller
         $basket = Basket::findOrFail($this->id);
         $articlesOfBasket = $basket->articles();
 
-        //check if the wanted amount of one article is available
-        if(Input::get('quantity') > $article->quantity) {
-            $articlesOfBasket->updateExistingPivot($article_id, ['quantity' => $article->quantity]);
-        }else {
-            $articlesOfBasket->updateExistingPivot($article_id, ['quantity' => Input::get('quantity')]);
-        }
+        //If article quantity is set to 0 remove it from the basket
+        if(Input::get('quantity') == 0){
+            $this->postDeleteArticle($article_id);
 
+        }
+        else
+        {
+            //check if the wanted amount of one article is available
+            if(Input::get('quantity') > $article->quantity) {
+                $articlesOfBasket->updateExistingPivot($article_id, ['quantity' => $article->quantity]);
+            }else {
+                $articlesOfBasket->updateExistingPivot($article_id, ['quantity' => Input::get('quantity')]);
+            }
+        }
         $this->recalcCart();
         return redirect('baskets/index');
     }

@@ -185,7 +185,10 @@ class CategoryController extends Controller
         $choosedCategory = Category::findOrFail( $request['parent_id'] );
 
         //validate input
-        $validator = Validator::make($request, Category::$rules);
+        $rules =  Category::$rules;
+        $rules['name'] .= ','.$id;
+
+        $validator = Validator::make($request, $rules);
 
         if($validator->passes())
         {

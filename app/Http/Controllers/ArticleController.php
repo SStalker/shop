@@ -139,8 +139,14 @@ class ArticleController extends Controller
      */
     public function update($id)
     {
+
         $request = Request::all();
-        $validator = Validator::make($request, Article::$rules);
+
+
+        $rules =  Article::$rules;
+        $rules['name'] .= ','.$id;
+
+        $validator = Validator::make($request, $rules);
 
         if($validator->passes())
         {

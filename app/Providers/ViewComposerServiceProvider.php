@@ -33,10 +33,8 @@ class ViewComposerServiceProvider extends ServiceProvider
 
                 $categories = $this->getCategories($id);
             }
-            else
-            {
-                $categories = $this->getCategories(Session::get('category_id'));
-            }
+            else            
+                $categories = $this->getCategories(Session::get('category_id'));            
 
             $view->with('categories', $categories);
 
@@ -47,26 +45,18 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         try {
             $category = Category::findOrFail($id);
-
-            $ancestors = $category->getAncestorsAndSelf();
-            
+            $ancestors = $category->getAncestorsAndSelf();            
             $categories = new \Baum\Extensions\Eloquent\Collection;
 
             // Collection as Model
             foreach ($ancestors as $key => $ancestor) {
-                //echo 'Node: ' . $ancestor->name . '<br>';
                 $categories[] = $ancestor;
-                foreach ($ancestor->getSiblings() as $sibling) {
-                    //echo 'Geschwister: ' . $sibling->name . '<br>';
-                    $categories[] = $sibling;
-                }
+                foreach ($ancestor->getSiblings() as $sibling) 
+                    $categories[] = $sibling;                
                     
-                if($ancestor->id == $category->id) {
-                    foreach ($ancestor->children as $child) {
-                        //echo 'Kind: ' . $child->name . '<br>';
-                        $categories[] = $child;
-                    }
-                }
+                if($ancestor->id == $category->id) 
+                    foreach ($ancestor->children as $child) 
+                        $categories[] = $child;                
             }
 
             $categories = $categories->toHierarchy()->toArray();
